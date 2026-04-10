@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>初序 · 身体节律管家</title>
+    <!-- SEO & PWA Meta -->
+    <meta name="description" content="初序 AI - 你的五行体质与日常节律管家">
+    <meta name="theme-color" content="#1a1a1a">
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Noto+Serif+SC:wght@400;600&display=swap" rel="stylesheet">
+    <!-- Styles -->
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div id="app" class="app-container">
+        <!-- Header -->
+        <header class="glass-header">
+            <div class="logo">
+                <span class="logo-icon">🌿</span>
+                <h1>初序</h1>
+            </div>
+            <div class="user-status">
+                <span class="status-dot healthy"></span>
+                <span>节律平稳</span>
+            </div>
+        </header>
+
+        <!-- Main Chat/Content Area -->
+        <main id="chat-container" class="chat-container">
+            <!-- Welcome Message -->
+            <div class="message ai-message fade-in">
+                <div class="avatar">序</div>
+                <div class="bubble">
+                    <p>你好，我是初序。根据昨日的睡眠与今日节气，你似乎处于“肝火偏旺”的状态。</p>
+                </div>
+            </div>
+            
+            <!-- Quick Action Cards (Hook System) -->
+            <div class="action-grid fade-in-up">
+                <div class="action-card primary-action" id="btn-eat-what">
+                    <div class="card-icon">🍱</div>
+                    <h3>今天吃什么</h3>
+                    <p>为你定制降火食谱</p>
+                </div>
+                <div class="action-card secondary-action">
+                    <div class="card-icon">🧘‍♀️</div>
+                    <h3>五行测评</h3>
+                    <p>更新你的体质数据</p>
+                </div>
+            </div>
+        </main>
+
+        <!-- Input Area -->
+        <footer class="input-area glass-footer">
+            <div class="input-wrapper">
+                <input type="text" id="user-input" placeholder="输入你想问的身体节律问题..." autocomplete="off">
+                <button id="send-btn" class="send-btn">
+                    <svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>
+                </button>
+            </div>
+        </footer>
+    </div>
+
+    <!-- Scripts -->
+    <script src="app.js"></script>
+</body>
+</html>
