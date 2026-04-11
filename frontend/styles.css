@@ -1,19 +1,19 @@
-/* CSS Variables & Design System */
+/* ─── CSS Variables & Design System ─── */
 :root {
-    /* Color Palette */
     --bg-color: #0f1115;
     --surface-color: #1a1d24;
     --primary-color: #00d2ad;
     --primary-hover: #00e8c0;
+    --primary-glow: rgba(0, 210, 173, 0.15);
     --text-main: #f0f0f0;
     --text-muted: #8a8d93;
     --glass-bg: rgba(26, 29, 36, 0.7);
     --glass-border: rgba(255, 255, 255, 0.08);
-    
-    /* Metrics */
+    --danger: #ff4e50;
+    --warning: #f9d423;
     --border-radius: 16px;
     --header-height: 60px;
-    --footer-height: 80px;
+    --footer-height: 100px;
 }
 
 * {
@@ -31,7 +31,7 @@ body {
     overflow: hidden;
 }
 
-/* App Container */
+/* ─── App Container ─── */
 .app-container {
     display: flex;
     flex-direction: column;
@@ -41,7 +41,7 @@ body {
     position: relative;
 }
 
-/* Glassmorphism Components */
+/* ─── Glassmorphism Header ─── */
 .glass-header {
     background: var(--glass-bg);
     backdrop-filter: blur(12px);
@@ -52,9 +52,10 @@ body {
     justify-content: space-between;
     align-items: center;
     padding: 0 20px;
-    position: absolute;
+    position: fixed;
     top: 0;
     width: 100%;
+    max-width: 600px;
     z-index: 10;
 }
 
@@ -62,6 +63,10 @@ body {
     display: flex;
     align-items: center;
     gap: 8px;
+}
+
+.logo-icon {
+    font-size: 1.4rem;
 }
 
 .logo h1 {
@@ -83,9 +88,13 @@ body {
     height: 8px;
     border-radius: 50%;
 }
-.status-dot.healthy { background-color: var(--primary-color); }
 
-/* Main Chat Area */
+.status-dot.healthy {
+    background-color: var(--primary-color);
+    box-shadow: 0 0 6px var(--primary-color);
+}
+
+/* ─── Chat Area ─── */
 .chat-container {
     flex: 1;
     overflow-y: auto;
@@ -93,6 +102,7 @@ body {
     display: flex;
     flex-direction: column;
     gap: 20px;
+    scroll-behavior: smooth;
 }
 
 .message {
@@ -114,13 +124,15 @@ body {
     width: 36px;
     height: 36px;
     border-radius: 50%;
-    background: linear-gradient(135deg, var(--bg-color), var(--surface-color));
+    background: linear-gradient(135deg, var(--primary-color), #007a63);
     border: 1px solid var(--glass-border);
     display: flex;
     justify-content: center;
     align-items: center;
     font-size: 14px;
     flex-shrink: 0;
+    color: #fff;
+    font-weight: 600;
 }
 
 .bubble {
@@ -137,7 +149,7 @@ body {
     border-radius: 12px 12px 2px 12px;
 }
 
-/* Action Cards */
+/* ─── Action Cards ─── */
 .action-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -157,7 +169,11 @@ body {
 .action-card:hover {
     transform: translateY(-2px);
     border-color: var(--primary-color);
-    box-shadow: 0 4px 12px rgba(0, 210, 173, 0.1);
+    box-shadow: 0 4px 16px var(--primary-glow);
+}
+
+.action-card:active {
+    transform: translateY(0);
 }
 
 .card-icon {
@@ -168,7 +184,6 @@ body {
 .action-card h3 {
     font-size: 0.95rem;
     margin-bottom: 4px;
-    color: var(--text-main);
 }
 
 .action-card p {
@@ -176,13 +191,139 @@ body {
     color: var(--text-muted);
 }
 
-/* Input Area */
+.primary-action {
+    border-color: rgba(0, 210, 173, 0.2);
+}
+
+/* ─── Loading Dots ─── */
+.typing-dots {
+    display: flex;
+    gap: 5px;
+    padding: 4px 0;
+}
+
+.typing-dots span {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--primary-color);
+    animation: dotPulse 1.4s infinite ease-in-out both;
+}
+
+.typing-dots span:nth-child(2) {
+    animation-delay: 0.16s;
+}
+
+.typing-dots span:nth-child(3) {
+    animation-delay: 0.32s;
+}
+
+@keyframes dotPulse {
+
+    0%,
+    80%,
+    100% {
+        opacity: 0.2;
+        transform: scale(0.8);
+    }
+
+    40% {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+/* ─── Recipe Card ─── */
+.recipe-card {
+    margin-top: 12px;
+    background: rgba(0, 0, 0, 0.25);
+    padding: 16px;
+    border-radius: 12px;
+    border: 1px solid var(--glass-border);
+}
+
+.recipe-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 8px;
+}
+
+.recipe-name {
+    color: var(--primary-color);
+    font-size: 1rem;
+}
+
+.recipe-tag {
+    font-size: 0.7rem;
+    background: var(--primary-glow);
+    color: var(--primary-color);
+    padding: 2px 8px;
+    border-radius: 10px;
+    border: 1px solid rgba(0, 210, 173, 0.3);
+}
+
+.recipe-effect {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    margin-bottom: 10px;
+}
+
+.recipe-ingredients {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    margin-bottom: 10px;
+}
+
+.recipe-ingredients .label {
+    color: var(--text-main);
+    font-weight: 500;
+}
+
+.recipe-steps {
+    list-style: none;
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    margin-bottom: 12px;
+}
+
+.recipe-steps li {
+    padding: 3px 0;
+}
+
+.cps-button {
+    display: block;
+    text-align: center;
+    background: linear-gradient(90deg, var(--danger), var(--warning));
+    color: #fff;
+    text-decoration: none;
+    padding: 10px;
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 0.9rem;
+    transition: opacity 0.3s;
+}
+
+.cps-button:hover {
+    opacity: 0.9;
+}
+
+.disclaimer {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    margin-top: 8px;
+}
+
+/* ─── Input Area ─── */
 .input-area {
-    position: absolute;
+    position: fixed;
     bottom: 0;
     width: 100%;
-    padding: 16px 20px;
+    max-width: 600px;
+    padding: 12px 20px;
+    padding-bottom: calc(12px + env(safe-area-inset-bottom, 0px));
     background: var(--bg-color);
+    border-top: 1px solid var(--glass-border);
 }
 
 .input-wrapper {
@@ -225,9 +366,157 @@ body {
     background: var(--primary-hover);
 }
 
-/* Animations */
-@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-@keyframes fadeInUp { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+.disclaimer-text {
+    font-size: 0.7rem;
+    color: var(--text-muted);
+    text-align: center;
+    margin-top: 6px;
+}
 
-.fade-in { animation: fadeIn 0.5s ease forwards; }
-.fade-in-up { animation: fadeInUp 0.5s ease forwards; animation-delay: 0.2s; opacity: 0; }
+/* ─── Constitution Modal ─── */
+.modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.7);
+    backdrop-filter: blur(6px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 100;
+    padding: 20px;
+}
+
+.modal-card {
+    background: var(--surface-color);
+    border: 1px solid var(--glass-border);
+    border-radius: 20px;
+    padding: 28px 24px;
+    max-width: 420px;
+    width: 100%;
+    max-height: 80vh;
+    overflow-y: auto;
+}
+
+.modal-header {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.modal-header h2 {
+    font-size: 1.2rem;
+    margin-bottom: 4px;
+}
+
+.modal-header p {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+}
+
+.cq-block {
+    margin-bottom: 20px;
+}
+
+.cq-question {
+    font-size: 0.95rem;
+    font-weight: 500;
+    margin-bottom: 10px;
+}
+
+.cq-options {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.cq-option {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid var(--glass-border);
+    border-radius: 12px;
+    padding: 10px 14px;
+    cursor: pointer;
+    transition: all 0.2s;
+    font-size: 0.9rem;
+}
+
+.cq-option:hover {
+    border-color: var(--primary-color);
+}
+
+.cq-option input[type="radio"] {
+    accent-color: var(--primary-color);
+}
+
+.cq-option:has(input:checked) {
+    border-color: var(--primary-color);
+    background: var(--primary-glow);
+}
+
+.modal-submit {
+    width: 100%;
+    padding: 12px;
+    background: var(--primary-color);
+    color: var(--bg-color);
+    border: none;
+    border-radius: 12px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: opacity 0.3s;
+    margin-top: 8px;
+}
+
+.modal-submit:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+}
+
+.modal-submit:not(:disabled):hover {
+    background: var(--primary-hover);
+}
+
+/* ─── Animations ─── */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.fade-in {
+    animation: fadeIn 0.5s ease forwards;
+}
+
+.fade-in-up {
+    animation: fadeInUp 0.5s ease forwards;
+    animation-delay: 0.2s;
+    opacity: 0;
+}
+
+/* ─── Mobile Responsive ─── */
+@media (max-width: 480px) {
+    .action-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .modal-card {
+        padding: 20px 16px;
+    }
+}

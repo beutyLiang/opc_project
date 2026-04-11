@@ -1,19 +1,27 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>初序 · 身体节律管家</title>
     <!-- SEO & PWA Meta -->
-    <meta name="description" content="初序 AI - 你的五行体质与日常节律管家">
+    <meta name="description" content="初序 AI - 基于五行体质与肠脑轴科学的智能健康管家">
     <meta name="theme-color" content="#1a1a1a">
+    <link rel="manifest" href="manifest.json">
+    <link rel="apple-touch-icon" href="icons/icon-180.png">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Noto+Serif+SC:wght@400;600&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Noto+Serif+SC:wght@400;600&display=swap"
+        rel="stylesheet">
     <!-- Styles -->
     <link rel="stylesheet" href="styles.css">
 </head>
+
 <body>
     <div id="app" class="app-container">
         <!-- Header -->
@@ -24,7 +32,7 @@
             </div>
             <div class="user-status">
                 <span class="status-dot healthy"></span>
-                <span>节律平稳</span>
+                <span id="user-element-label">节律平稳</span>
             </div>
         </header>
 
@@ -34,21 +42,22 @@
             <div class="message ai-message fade-in">
                 <div class="avatar">序</div>
                 <div class="bubble">
-                    <p>你好，我是初序。根据昨日的睡眠与今日节气，你似乎处于“肝火偏旺”的状态。</p>
+                    <p>你好，我是初序 🌿</p>
+                    <p>我能根据你的五行体质，为你推荐今天最该吃什么、怎么调养。</p>
                 </div>
             </div>
-            
-            <!-- Quick Action Cards (Hook System) -->
+
+            <!-- Quick Action Cards -->
             <div class="action-grid fade-in-up">
                 <div class="action-card primary-action" id="btn-eat-what">
                     <div class="card-icon">🍱</div>
                     <h3>今天吃什么</h3>
-                    <p>为你定制降火食谱</p>
+                    <p>为你定制调养食谱</p>
                 </div>
-                <div class="action-card secondary-action">
+                <div class="action-card secondary-action" id="btn-assessment">
                     <div class="card-icon">🧘‍♀️</div>
                     <h3>五行测评</h3>
-                    <p>更新你的体质数据</p>
+                    <p>深度体质分析</p>
                 </div>
             </div>
         </main>
@@ -57,14 +66,44 @@
         <footer class="input-area glass-footer">
             <div class="input-wrapper">
                 <input type="text" id="user-input" placeholder="输入你想问的身体节律问题..." autocomplete="off">
-                <button id="send-btn" class="send-btn">
-                    <svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>
+                <button id="send-btn" class="send-btn" aria-label="发送">
+                    <svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="2" fill="none"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="22" y1="2" x2="11" y2="13"></line>
+                        <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+                    </svg>
                 </button>
             </div>
+            <p class="disclaimer-text">⚠️ AI 生成内容仅供参考，不构成医疗诊断。如有不适请就医。</p>
         </footer>
+
+        <!-- 体质选择弹窗 -->
+        <div id="constitution-modal" class="modal-overlay" style="display:none;">
+            <div class="modal-card">
+                <div class="modal-header">
+                    <h2>🌿 快速了解你的体质</h2>
+                    <p>3 个问题，10 秒完成</p>
+                </div>
+                <div class="modal-body" id="constitution-questions">
+                    <!-- JS 动态填入 -->
+                </div>
+                <button id="constitution-submit" class="modal-submit" disabled>确认体质</button>
+            </div>
+        </div>
     </div>
 
     <!-- Scripts -->
+    <script src="chat-engine.js"></script>
+    <script src="recipe-api.js"></script>
     <script src="app.js"></script>
+    <script>
+        // Service Worker Registration
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('sw.js')
+                .then(() => console.log('[初序] Service Worker 注册成功'))
+                .catch((err) => console.warn('[初序] SW 注册失败:', err));
+        }
+    </script>
 </body>
+
 </html>
