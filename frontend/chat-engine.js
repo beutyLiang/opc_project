@@ -9,7 +9,7 @@ const ChatEngine = (() => {
     const CONFIG = {
         // A路径：凯撒的 OpenClaw Daemon（Spike 已验证通过）
         // 部署后替换为 Lighthouse 地址，如 https://your-server.com
-        OPENCLAW_BASE: 'http://localhost:8000',
+        OPENCLAW_BASE: 'http://8.215.67.201:8000',
         OPENCLAW_ENDPOINT: '/v1/chat/completions',
 
         // B路径：Coze 直连 Fallback（Spike 失败时启用）
@@ -21,7 +21,7 @@ const ChatEngine = (() => {
         MODE: 'openclaw',
 
         // 模型名（OpenClaw Daemon 里配置的）
-        MODEL: 'chuxu-agent',
+        MODEL: 'chuxu',
 
         // 超时（毫秒）
         TIMEOUT: 30000,
