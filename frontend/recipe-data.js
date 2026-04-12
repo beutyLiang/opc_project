@@ -15,7 +15,7 @@ const RECIPE_DATABASE = {
             ingredients: ['大白菜 半棵', '陈醋 2勺', '干辣椒 3个', '花椒少许'],
             steps: ['白菜洗净切块', '热锅爆花椒干辣椒', '下白菜大火翻炒', '加醋调味出锅'],
             season: '四季',
-            cps_link: '#'
+            cps_link: 'http://dpurl.cn/DBpDSK1z'
         },
         {
             name: '菠菜猪肝汤',
@@ -23,7 +23,7 @@ const RECIPE_DATABASE = {
             ingredients: ['新鲜菠菜 200g', '猪肝 150g', '姜丝适量', '枸杞 10粒'],
             steps: ['猪肝切片用料酒腌制去腥', '水开后下姜丝和猪肝煮2分钟', '加入菠菜煮30秒', '撒枸杞调盐出锅'],
             season: '春季',
-            cps_link: '#'
+            cps_link: 'http://dpurl.cn/DBpDSK1z'
         },
         {
             name: '凉拌芹菜花生',
@@ -31,7 +31,7 @@ const RECIPE_DATABASE = {
             ingredients: ['芹菜 300g', '花生米 100g', '蒜末适量', '香醋 2勺'],
             steps: ['花生米油炸至金黄捞出', '芹菜焯水过凉切段', '加蒜末香醋生抽拌匀', '撒上花生米即可'],
             season: '夏季',
-            cps_link: '#'
+            cps_link: 'http://dpurl.cn/DBpDSK1z'
         },
         {
             name: '猕猴桃酸奶杯',
@@ -39,7 +39,7 @@ const RECIPE_DATABASE = {
             ingredients: ['猕猴桃 2个', '原味酸奶 200ml', '燕麦片 30g', '蜂蜜适量'],
             steps: ['猕猴桃去皮切丁', '杯底铺一层燕麦', '倒入酸奶铺平', '摆上猕猴桃淋蜂蜜'],
             season: '四季',
-            cps_link: '#'
+            cps_link: 'http://dpurl.cn/DBpDSK1z'
         },
         {
             name: '西红柿炒鸡蛋',
@@ -47,7 +47,7 @@ const RECIPE_DATABASE = {
             ingredients: ['西红柿 2个', '鸡蛋 3个', '葱花适量', '白糖 1小勺'],
             steps: ['鸡蛋打散炒熟盛出', '番茄切块炒出汁', '倒回鸡蛋翻炒均匀', '加糖盐调味撒葱花'],
             season: '四季',
-            cps_link: '#'
+            cps_link: 'http://dpurl.cn/DBpDSK1z'
         },
         {
             name: '山楂雪梨茶',
@@ -55,7 +55,7 @@ const RECIPE_DATABASE = {
             ingredients: ['干山楂 10片', '雪梨 1个', '冰糖适量', '清水 800ml'],
             steps: ['雪梨去核切块', '山楂洗净与梨一起入锅', '加水大火烧开转小火煮15分钟', '加冰糖搅匀即可'],
             season: '秋季',
-            cps_link: '#'
+            cps_link: 'http://dpurl.cn/DBpDSK1z'
         },
         {
             name: '韭菜鸡蛋饺',
@@ -63,7 +63,7 @@ const RECIPE_DATABASE = {
             ingredients: ['韭菜 200g', '鸡蛋 2个', '饺子皮 30张', '虾皮 20g'],
             steps: ['鸡蛋炒碎放凉', '韭菜切碎加虾皮拌馅', '包成饺子', '水开下锅煮至浮起即熟'],
             season: '春季',
-            cps_link: '#'
+            cps_link: 'http://dpurl.cn/DBpDSK1z'
         },
         {
             name: '枸杞菊花茶',
@@ -71,7 +71,7 @@ const RECIPE_DATABASE = {
             ingredients: ['枸杞 15粒', '杭白菊 5朵', '冰糖适量', '热水 300ml'],
             steps: ['枸杞和菊花放入杯中', '注入90度热水', '加盖焖泡5分钟', '加冰糖调味饮用'],
             season: '四季',
-            cps_link: '#'
+            cps_link: 'http://dpurl.cn/DBpDSK1z'
         },
         {
             name: '香椿拌豆腐',
@@ -79,7 +79,7 @@ const RECIPE_DATABASE = {
             ingredients: ['香椿芽 100g', '北豆腐 1块', '香油 1勺', '盐适量'],
             steps: ['香椿焯水切碎', '豆腐切小丁焯水沥干', '香椿碎铺在豆腐上', '淋香油加盐拌匀'],
             season: '春季',
-            cps_link: '#'
+            cps_link: 'http://dpurl.cn/DBpDSK1z'
         },
         {
             name: '青梅汁',
@@ -87,7 +87,7 @@ const RECIPE_DATABASE = {
             ingredients: ['青梅 500g', '冰糖 300g', '清水 1000ml'],
             steps: ['青梅洗净去核', '与冰糖一起放入锅中', '加水煮沸转小火熬20分钟', '放凉过滤即可冷藏饮用'],
             season: '夏季',
-            cps_link: '#'
+            cps_link: 'http://dpurl.cn/DBpDSK1z'
         }
     ],
 
@@ -99,7 +99,7 @@ const RECIPE_DATABASE = {
             ingredients: ['苦瓜 2根', '猪肉馅 200g', '葱姜蒜适量', '生抽 1勺'],
             steps: ['苦瓜切段去瓤', '肉馅调味后填入', '上锅蒸15分钟', '淋上蒸鱼豉油即可'],
             season: '夏季',
-            cps_link: '#'
+            cps_link: 'http://dpurl.cn/DBpDSK1z'
         },
         {
             name: '莲子百合银耳羹',
@@ -107,7 +107,7 @@ const RECIPE_DATABASE = {
             ingredients: ['莲子 30g', '百合 20g', '银耳 半朵', '冰糖适量'],
             steps: ['银耳提前泡发撕小朵', '莲子去心与银耳同煮30分钟', '加入百合煮10分钟', '放冰糖搅匀即可'],
             season: '四季',
-            cps_link: '#'
+            cps_link: 'http://dpurl.cn/DBpDSK1z'
         },
         {
             name: '绿豆汤',
@@ -115,7 +115,7 @@ const RECIPE_DATABASE = {
             ingredients: ['绿豆 150g', '冰糖 50g', '清水 1200ml', '陈皮 1小片'],
             steps: ['绿豆提前浸泡2小时', '加水大火煮沸', '转小火煮至绿豆开花', '加冰糖搅匀放凉饮用'],
             season: '夏季',
-            cps_link: '#'
+            cps_link: 'http://dpurl.cn/DBpDSK1z'
         },
         {
             name: '苦菊沙拉',
@@ -123,7 +123,7 @@ const RECIPE_DATABASE = {
             ingredients: ['苦菊 200g', '圣女果 10颗', '核桃仁 30g', '油醋汁 2勺'],
             steps: ['苦菊洗净撕成小段', '圣女果对半切开', '核桃仁烤香掰碎', '淋油醋汁拌匀即可'],
             season: '夏季',
-            cps_link: '#'
+            cps_link: 'http://dpurl.cn/DBpDSK1z'
         },
         {
             name: '红枣桂圆茶',
@@ -131,7 +131,7 @@ const RECIPE_DATABASE = {
             ingredients: ['红枣 6颗', '桂圆干 10粒', '枸杞 10粒', '红糖适量'],
             steps: ['红枣去核切开', '与桂圆一起入壶', '加热水焖泡10分钟', '加红糖枸杞饮用'],
             season: '冬季',
-            cps_link: '#'
+            cps_link: 'http://dpurl.cn/DBpDSK1z'
         },
         {
             name: '凉拌苦瓜',
@@ -139,7 +139,7 @@ const RECIPE_DATABASE = {
             ingredients: ['苦瓜 1根', '蒜末适量', '辣椒油 1勺', '白醋 1勺'],
             steps: ['苦瓜去瓤切薄片', '焯水30秒捞出过冰水', '沥干加蒜末辣椒油', '淋白醋拌匀腌制10分钟'],
             season: '夏季',
-            cps_link: '#'
+            cps_link: 'http://dpurl.cn/DBpDSK1z'
         },
         {
             name: '小米南瓜粥',
@@ -147,7 +147,7 @@ const RECIPE_DATABASE = {
             ingredients: ['小米 80g', '南瓜 200g', '红枣 4颗', '清水适量'],
             steps: ['南瓜去皮切小块', '小米淘洗干净', '一起入锅加水大火烧开', '转小火熬30分钟至浓稠'],
             season: '秋季',
-            cps_link: '#'
+            cps_link: 'http://dpurl.cn/DBpDSK1z'
         },
         {
             name: '西芹百合',
@@ -155,7 +155,7 @@ const RECIPE_DATABASE = {
             ingredients: ['西芹 200g', '鲜百合 100g', '枸杞 10粒', '盐适量'],
             steps: ['西芹斜切段焯水', '百合掰开洗净', '热锅快炒西芹1分钟', '加百合枸杞翻炒30秒调味'],
             season: '秋季',
-            cps_link: '#'
+            cps_link: 'http://dpurl.cn/DBpDSK1z'
         },
         {
             name: '冬瓜薏米排骨汤',
@@ -163,7 +163,7 @@ const RECIPE_DATABASE = {
             ingredients: ['冬瓜 300g', '薏米 50g', '排骨 300g', '姜片 3片'],
             steps: ['排骨焯水去血沫', '薏米提前浸泡1小时', '所有材料入锅加水炖1小时', '加盐调味即可'],
             season: '夏季',
-            cps_link: '#'
+            cps_link: 'http://dpurl.cn/DBpDSK1z'
         },
         {
             name: '酸枣仁安神饮',
@@ -171,7 +171,7 @@ const RECIPE_DATABASE = {
             ingredients: ['酸枣仁 15g', '茯苓 10g', '甘草 3g', '清水 500ml'],
             steps: ['酸枣仁捣碎', '与茯苓甘草一起入锅', '加水煮沸转小火煮20分钟', '过滤取汁睡前温饮'],
             season: '四季',
-            cps_link: '#'
+            cps_link: 'http://dpurl.cn/DBpDSK1z'
         }
     ],
 
@@ -183,7 +183,7 @@ const RECIPE_DATABASE = {
             ingredients: ['小米 100g', '铁棍山药 1根', '红枣 5颗', '枸杞少许'],
             steps: ['小米淘洗浸泡', '山药去皮切丁', '大火煮开转小火熬30分钟', '出锅前加枸杞'],
             season: '四季',
-            cps_link: '#'
+            cps_link: 'http://dpurl.cn/DBpDSK1z'
         },
         {
             name: '南瓜蒸糕',
@@ -191,7 +191,7 @@ const RECIPE_DATABASE = {
             ingredients: ['南瓜 300g', '糯米粉 150g', '红糖 30g', '红枣 5颗'],
             steps: ['南瓜蒸熟压泥', '加糯米粉红糖揉成团', '放入模具摆上红枣', '上锅蒸20分钟'],
             season: '秋季',
-            cps_link: '#'
+            cps_link: 'http://dpurl.cn/DBpDSK1z'
         },
         {
             name: '红薯银耳羹',
@@ -199,7 +199,7 @@ const RECIPE_DATABASE = {
             ingredients: ['红薯 1个', '银耳 半朵', '冰糖适量', '枸杞少许'],
             steps: ['银耳泡发撕碎煮30分钟', '红薯去皮切块加入', '继续煮15分钟至软烂', '加冰糖枸杞即可'],
             season: '冬季',
-            cps_link: '#'
+            cps_link: 'http://dpurl.cn/DBpDSK1z'
         },
         {
             name: '四神汤',
@@ -207,7 +207,7 @@ const RECIPE_DATABASE = {
             ingredients: ['山药 30g', '莲子 20g', '茯苓 15g', '芡实 15g'],
             steps: ['所有药材洗净浸泡30分钟', '加猪肚或排骨同炖', '大火烧开转小火煮1.5小时', '加盐调味即可'],
             season: '四季',
-            cps_link: '#'
+            cps_link: 'http://dpurl.cn/DBpDSK1z'
         },
         {
             name: '板栗烧鸡',
@@ -215,7 +215,7 @@ const RECIPE_DATABASE = {
             ingredients: ['鸡腿 4个', '板栗 200g', '姜片 5片', '酱油 2勺'],
             steps: ['鸡腿切块焯水', '板栗去壳备用', '热锅炒糖色下鸡块翻炒', '加板栗姜片酱油焖煮25分钟'],
             season: '秋冬',
-            cps_link: '#'
+            cps_link: 'http://dpurl.cn/DBpDSK1z'
         },
         {
             name: '莲藕排骨汤',
@@ -223,7 +223,7 @@ const RECIPE_DATABASE = {
             ingredients: ['莲藕 1节', '排骨 400g', '姜片 3片', '盐适量'],
             steps: ['排骨焯水洗净', '莲藕去皮切厚片', '所有材料入砂锅加水', '大火烧开转小火炖1.5小时'],
             season: '秋季',
-            cps_link: '#'
+            cps_link: 'http://dpurl.cn/DBpDSK1z'
         },
         {
             name: '糯米红豆饭',
@@ -231,7 +231,7 @@ const RECIPE_DATABASE = {
             ingredients: ['糯米 200g', '红豆 50g', '红枣 6颗', '桂花适量'],
             steps: ['红豆提前浸泡一晚', '糯米泡2小时沥干', '红豆煮至半熟与糯米同蒸', '蒸40分钟撒桂花即可'],
             season: '冬季',
-            cps_link: '#'
+            cps_link: 'http://dpurl.cn/DBpDSK1z'
         },
         {
             name: '胡萝卜玉米排骨汤',
@@ -239,7 +239,7 @@ const RECIPE_DATABASE = {
             ingredients: ['胡萝卜 1根', '甜玉米 1根', '排骨 300g', '姜片 3片'],
             steps: ['排骨焯水去沫', '胡萝卜玉米切段', '所有材料入汤锅加水', '大火烧开转小火煮1小时加盐'],
             season: '四季',
-            cps_link: '#'
+            cps_link: 'http://dpurl.cn/DBpDSK1z'
         },
         {
             name: '白扁豆薏米粥',
@@ -247,7 +247,7 @@ const RECIPE_DATABASE = {
             ingredients: ['白扁豆 30g', '薏米 30g', '大米 80g', '冰糖适量'],
             steps: ['白扁豆薏米提前浸泡3小时', '与大米一起入锅加水', '大火烧开转小火熬40分钟', '加冰糖搅匀即可'],
             season: '夏季',
-            cps_link: '#'
+            cps_link: 'http://dpurl.cn/DBpDSK1z'
         },
         {
             name: '蜜汁蒸山药',
@@ -255,7 +255,7 @@ const RECIPE_DATABASE = {
             ingredients: ['铁棍山药 2根', '蜂蜜 2勺', '蓝莓 10粒', '桂花适量'],
             steps: ['山药去皮切段', '上锅蒸15分钟至熟透', '摆盘淋上蜂蜜', '点缀蓝莓桂花即可'],
             season: '四季',
-            cps_link: '#'
+            cps_link: 'http://dpurl.cn/DBpDSK1z'
         }
     ],
 
@@ -267,7 +267,7 @@ const RECIPE_DATABASE = {
             ingredients: ['雪梨 2个', '银耳 半朵', '冰糖适量', '枸杞少许'],
             steps: ['银耳提前泡发撕小朵', '雪梨去核切块', '加水炖煮40分钟', '加冰糖枸杞收汁'],
             season: '秋季',
-            cps_link: '#'
+            cps_link: 'http://dpurl.cn/DBpDSK1z'
         },
         {
             name: '白萝卜牛腩煲',
@@ -275,7 +275,7 @@ const RECIPE_DATABASE = {
             ingredients: ['白萝卜 1根', '牛腩 500g', '八角 2个', '姜片 5片'],
             steps: ['牛腩切块焯水', '白萝卜去皮切滚刀块', '热锅炒牛腩加酱油上色', '加萝卜水没过食材焖煮1.5小时'],
             season: '冬季',
-            cps_link: '#'
+            cps_link: 'http://dpurl.cn/DBpDSK1z'
         },
         {
             name: '川贝枇杷炖梨',
@@ -283,7 +283,7 @@ const RECIPE_DATABASE = {
             ingredients: ['雪梨 1个', '川贝母 5g', '枇杷 3个', '冰糖 15g'],
             steps: ['雪梨挖去核做容器', '川贝磨粉填入梨心', '加冰糖盖上梨盖', '隔水蒸40分钟即可'],
             season: '秋季',
-            cps_link: '#'
+            cps_link: 'http://dpurl.cn/DBpDSK1z'
         },
         {
             name: '百合莲子粥',
@@ -291,7 +291,7 @@ const RECIPE_DATABASE = {
             ingredients: ['百合 30g', '莲子 20g', '大米 80g', '冰糖适量'],
             steps: ['莲子去心泡软', '大米百合洗净', '一同入锅加水煮沸', '转小火熬至浓稠加冰糖'],
             season: '秋季',
-            cps_link: '#'
+            cps_link: 'http://dpurl.cn/DBpDSK1z'
         },
         {
             name: '杏仁豆腐',
@@ -299,7 +299,7 @@ const RECIPE_DATABASE = {
             ingredients: ['甜杏仁 50g', '牛奶 300ml', '琼脂 5g', '糖桂花适量'],
             steps: ['杏仁泡水去皮打浆过滤', '琼脂泡软加热融化', '杏仁浆加牛奶和琼脂液搅匀', '冷藏凝固切块淋糖桂花'],
             season: '夏季',
-            cps_link: '#'
+            cps_link: 'http://dpurl.cn/DBpDSK1z'
         },
         {
             name: '蜂蜜柚子茶',
@@ -307,7 +307,7 @@ const RECIPE_DATABASE = {
             ingredients: ['柚子 1个', '蜂蜜 200g', '冰糖 100g', '盐适量'],
             steps: ['柚子皮切丝用盐搓洗', '果肉掰碎与冰糖同煮', '煮至黏稠放凉加蜂蜜', '装瓶冷藏每次取2勺冲饮'],
             season: '秋冬',
-            cps_link: '#'
+            cps_link: 'http://dpurl.cn/DBpDSK1z'
         },
         {
             name: '清炒山药片',
@@ -315,7 +315,7 @@ const RECIPE_DATABASE = {
             ingredients: ['山药 1根', '木耳 50g', '胡萝卜 半根', '蒜片适量'],
             steps: ['山药去皮切片入醋水防变色', '木耳泡发胡萝卜切片', '热锅快炒蒜片爆香', '下山药木耳胡萝卜大火翻炒2分钟'],
             season: '四季',
-            cps_link: '#'
+            cps_link: 'http://dpurl.cn/DBpDSK1z'
         },
         {
             name: '罗汉果菊花茶',
@@ -323,7 +323,7 @@ const RECIPE_DATABASE = {
             ingredients: ['罗汉果 1/4个', '杭白菊 5朵', '枸杞 10粒', '热水 500ml'],
             steps: ['罗汉果掰碎与菊花同放杯中', '注入沸水', '加盖焖泡8分钟', '加枸杞饮用'],
             season: '四季',
-            cps_link: '#'
+            cps_link: 'http://dpurl.cn/DBpDSK1z'
         },
         {
             name: '秋藕炖猪蹄',
@@ -331,7 +331,7 @@ const RECIPE_DATABASE = {
             ingredients: ['莲藕 1节', '猪蹄 1只', '红枣 5颗', '姜片 5片'],
             steps: ['猪蹄剁块焯水去腥', '莲藕切厚片', '所有材料入砂锅加水', '大火烧开转小火炖2小时加盐'],
             season: '秋季',
-            cps_link: '#'
+            cps_link: 'http://dpurl.cn/DBpDSK1z'
         },
         {
             name: '银耳雪梨露',
@@ -339,7 +339,7 @@ const RECIPE_DATABASE = {
             ingredients: ['银耳 1朵', '雪梨 1个', '枸杞 15粒', '冰糖 30g'],
             steps: ['银耳泡发煮至软糯', '雪梨切丁加入', '加冰糖煮10分钟', '放凉后用料理机打成露状'],
             season: '秋季',
-            cps_link: '#'
+            cps_link: 'http://dpurl.cn/DBpDSK1z'
         }
     ],
 
