@@ -510,13 +510,233 @@ body {
     opacity: 0;
 }
 
+/* ─── New Recipe Elements ─── */
+.recipe-season {
+    font-size: 0.65rem;
+    background: rgba(249, 212, 35, 0.15);
+    color: var(--warning);
+    padding: 2px 6px;
+    border-radius: 8px;
+    border: 1px solid rgba(249, 212, 35, 0.3);
+    margin-left: 6px;
+}
+
+.recipe-avoid {
+    font-size: 0.8rem;
+    color: var(--warning);
+    margin: 8px 0;
+    padding: 6px 10px;
+    background: rgba(249, 212, 35, 0.08);
+    border-radius: 8px;
+    border-left: 3px solid var(--warning);
+}
+
 /* ─── Mobile Responsive ─── */
+
+/* Tablet & Small Desktop */
+@media (max-width: 768px) {
+    .app-container {
+        max-width: 100%;
+    }
+
+    .glass-header {
+        max-width: 100%;
+    }
+
+    .input-area {
+        max-width: 100%;
+    }
+}
+
+/* Phone Landscape / Large Phone */
 @media (max-width: 480px) {
+    :root {
+        --header-height: 52px;
+        --footer-height: 90px;
+    }
+
+    .logo h1 {
+        font-size: 1.05rem;
+    }
+
+    .user-status {
+        font-size: 0.78rem;
+    }
+
     .action-grid {
         grid-template-columns: 1fr;
+        gap: 10px;
+    }
+
+    .action-card {
+        padding: 14px;
+    }
+
+    .action-card h3 {
+        font-size: 0.9rem;
+    }
+
+    .bubble {
+        padding: 10px 13px;
+        font-size: 0.9rem;
+    }
+
+    .message {
+        max-width: 90%;
+        gap: 8px;
+    }
+
+    .avatar {
+        width: 32px;
+        height: 32px;
+        font-size: 12px;
     }
 
     .modal-card {
         padding: 20px 16px;
+        border-radius: 16px;
+        max-height: 85vh;
+    }
+
+    .modal-header h2 {
+        font-size: 1.05rem;
+    }
+
+    .cq-option {
+        padding: 10px 12px;
+        font-size: 0.85rem;
+    }
+
+    .recipe-card {
+        padding: 12px;
+    }
+
+    .recipe-header {
+        flex-wrap: wrap;
+        gap: 6px;
+    }
+
+    .recipe-name {
+        font-size: 0.95rem;
+    }
+
+    .cps-button {
+        padding: 12px;
+        font-size: 0.85rem;
+    }
+
+    .input-wrapper {
+        border-radius: 20px;
+        padding: 3px 3px 3px 14px;
+    }
+
+    .input-wrapper input {
+        font-size: 0.9rem;
+    }
+
+    .send-btn {
+        width: 36px;
+        height: 36px;
+    }
+
+    .disclaimer-text {
+        font-size: 0.65rem;
+    }
+}
+
+/* Small Phone (iPhone SE, etc.) */
+@media (max-width: 375px) {
+    :root {
+        --header-height: 48px;
+        --footer-height: 84px;
+    }
+
+    .glass-header {
+        padding: 0 12px;
+    }
+
+    .logo h1 {
+        font-size: 0.95rem;
+    }
+
+    .chat-container {
+        padding-left: 12px;
+        padding-right: 12px;
+        gap: 14px;
+    }
+
+    .bubble {
+        font-size: 0.85rem;
+        padding: 8px 12px;
+    }
+
+    .message {
+        max-width: 92%;
+    }
+
+    .action-card {
+        padding: 12px;
+    }
+
+    .card-icon {
+        font-size: 20px;
+    }
+
+    .input-area {
+        padding: 8px 12px;
+    }
+
+    .recipe-steps {
+        font-size: 0.8rem;
+    }
+
+    .recipe-ingredients {
+        font-size: 0.8rem;
+    }
+}
+
+/* Safe Area for notched phones (iPhone X+) */
+@supports (padding: env(safe-area-inset-bottom)) {
+    .input-area {
+        padding-bottom: calc(12px + env(safe-area-inset-bottom));
+    }
+
+    .chat-container {
+        padding-bottom: calc(var(--footer-height) + 20px + env(safe-area-inset-bottom));
+    }
+}
+
+/* Touch optimization: bigger tap targets */
+@media (hover: none) and (pointer: coarse) {
+    .action-card {
+        min-height: 72px;
+    }
+
+    .cq-option {
+        min-height: 44px;
+    }
+
+    .send-btn {
+        min-width: 44px;
+        min-height: 44px;
+    }
+
+    .cps-button {
+        min-height: 48px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+}
+
+/* Landscape phone */
+@media (max-height: 500px) and (orientation: landscape) {
+    .modal-card {
+        max-height: 90vh;
+        padding: 16px;
+    }
+
+    .chat-container {
+        gap: 12px;
     }
 }
