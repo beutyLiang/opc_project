@@ -1,0 +1,463 @@
+/* ─── Dashboard Layout ─── */
+.dashboard-container {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 0 20px 40px;
+    min-height: 100vh;
+    overflow-y: auto;
+}
+
+body {
+    overflow: auto;
+}
+
+/* ─── Header ─── */
+.dash-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px 0;
+    border-bottom: 1px solid var(--glass-border);
+    margin-bottom: 24px;
+    position: sticky;
+    top: 0;
+    background: var(--bg-color);
+    z-index: 10;
+}
+
+.dash-header h1 {
+    font-size: 1.1rem;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+}
+
+.back-btn {
+    color: var(--text-muted);
+    text-decoration: none;
+    font-size: 0.9rem;
+    transition: color 0.3s;
+}
+
+.back-btn:hover {
+    color: var(--primary-color);
+}
+
+.live-badge {
+    color: var(--primary-color);
+    font-size: 0.8rem;
+    font-weight: 600;
+    animation: livePulse 2s ease-in-out infinite;
+}
+
+@keyframes livePulse {
+    0%, 100% { opacity: 0.6; }
+    50% { opacity: 1; }
+}
+
+/* ─── Section ─── */
+.dash-section {
+    margin-bottom: 32px;
+}
+
+.section-title {
+    font-size: 1rem;
+    font-weight: 600;
+    margin-bottom: 16px;
+    color: var(--text-main);
+}
+
+/* ─── Module A: Org Chart ─── */
+.org-chart {
+    position: relative;
+    height: 360px;
+    background: rgba(26, 29, 36, 0.3);
+    border-radius: 16px;
+    border: 1px solid var(--glass-border);
+    overflow: hidden;
+}
+
+.org-node {
+    position: absolute;
+    border-radius: 50%;
+    background: var(--surface-color);
+    border: 2px solid;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    z-index: 2;
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.org-node:hover {
+    transform: scale(1.08);
+}
+
+.org-center {
+    z-index: 3;
+}
+
+.org-emoji {
+    font-size: 1.2rem;
+    line-height: 1.2;
+}
+
+.org-name {
+    font-size: 0.65rem;
+    font-weight: 600;
+    color: var(--text-main);
+    line-height: 1.2;
+    margin-top: 1px;
+}
+
+.org-role-label {
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    margin-top: 4px;
+    font-size: 0.55rem;
+    color: var(--text-muted);
+    white-space: nowrap;
+    text-align: center;
+    pointer-events: none;
+}
+
+.org-center .org-emoji {
+    font-size: 1.6rem;
+}
+
+.org-center .org-name {
+    font-size: 0.75rem;
+}
+
+.org-center .org-role-label {
+    font-size: 0.6rem;
+    color: var(--primary-color);
+    font-weight: 500;
+}
+
+.breathing-line {
+    animation: breathe 3s ease-in-out infinite;
+}
+
+@keyframes breathe {
+    0%, 100% { opacity: 0.3; }
+    50% { opacity: 1; }
+}
+
+/* ─── Module B: Metrics ─── */
+.metrics-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+}
+
+.metric-card {
+    background: var(--surface-color);
+    border: 1px solid var(--glass-border);
+    border-radius: 16px;
+    padding: 20px;
+    transition: all 0.3s ease;
+}
+
+.metric-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 16px var(--metric-glow);
+}
+
+.metric-icon {
+    font-size: 1.5rem;
+    margin-bottom: 6px;
+}
+
+.metric-label {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    margin-bottom: 4px;
+}
+
+.metric-value {
+    font-size: 2rem;
+    font-weight: 600;
+    line-height: 1.2;
+}
+
+.metric-desc {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    margin-top: 4px;
+}
+
+/* ─── Module C: Timeline ─── */
+.timeline {
+    position: relative;
+    padding-left: 24px;
+}
+
+.timeline::before {
+    content: '';
+    position: absolute;
+    left: 7px;
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    background: var(--glass-border);
+}
+
+.timeline-item {
+    display: flex;
+    gap: 16px;
+    margin-bottom: 20px;
+    position: relative;
+    opacity: 0;
+    animation: fadeInUp 0.5s ease forwards;
+}
+
+.timeline-dot {
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    flex-shrink: 0;
+    margin-top: 2px;
+}
+
+.timeline-content {
+    flex: 1;
+}
+
+.timeline-meta {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+}
+
+.timeline-text {
+    font-size: 0.85rem;
+    color: var(--text-main);
+    margin-top: 4px;
+    line-height: 1.5;
+}
+
+.log-footnote {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    text-align: center;
+    margin-top: 12px;
+    font-style: italic;
+}
+
+/* ─── Module D: Funnel ─── */
+.funnel-flow {
+    display: flex;
+    align-items: center;
+    gap: 0;
+    justify-content: center;
+}
+
+.funnel-node {
+    background: var(--surface-color);
+    border: 1px solid var(--glass-border);
+    border-radius: 16px;
+    padding: 20px;
+    flex: 1;
+    max-width: 220px;
+    text-align: center;
+    transition: all 0.3s ease;
+}
+
+.funnel-node:hover {
+    transform: translateY(-2px);
+    border-color: var(--primary-color);
+}
+
+.funnel-node-icon {
+    font-size: 1.5rem;
+    margin-bottom: 6px;
+}
+
+.funnel-node-title {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--text-main);
+    margin-bottom: 8px;
+}
+
+.funnel-node-items {
+    list-style: none;
+    font-size: 0.8rem;
+    color: var(--text-muted);
+}
+
+.funnel-node-items li {
+    padding: 2px 0;
+}
+
+.funnel-arrow {
+    font-size: 1.5rem;
+    color: var(--primary-color);
+    padding: 0 8px;
+    flex-shrink: 0;
+}
+
+/* ─── Module E: Revenue Pipes ─── */
+.revenue-pipes {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.pipe-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    background: var(--surface-color);
+    border: 1px solid var(--glass-border);
+    border-radius: 12px;
+    padding: 12px 16px;
+    transition: all 0.3s ease;
+}
+
+.pipe-item:hover {
+    border-color: rgba(255, 255, 255, 0.15);
+}
+
+.pipe-status {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    flex-shrink: 0;
+}
+
+.pipe-status.active {
+    background: #00d2ad;
+    box-shadow: 0 0 8px rgba(0, 210, 173, 0.5);
+    animation: breathe 3s ease-in-out infinite;
+}
+
+.pipe-status.building {
+    background: #f9d423;
+    box-shadow: 0 0 8px rgba(249, 212, 35, 0.4);
+    animation: blink 1.5s ease-in-out infinite;
+}
+
+.pipe-status.planned {
+    background: #8a8d93;
+}
+
+.pipe-status.future {
+    background: transparent;
+    border: 2px dashed #8a8d93;
+}
+
+@keyframes blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.3; }
+}
+
+.pipe-name {
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: var(--text-main);
+    flex: 1;
+}
+
+.pipe-price {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--primary-color);
+    min-width: 80px;
+    text-align: right;
+}
+
+.pipe-note {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    min-width: 90px;
+    text-align: right;
+}
+
+/* ─── Footer ─── */
+.dash-footer {
+    text-align: center;
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    padding: 20px 0;
+    border-top: 1px solid var(--glass-border);
+    margin-top: 20px;
+}
+
+/* ─── Animations ─── */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* ─── Responsive ─── */
+@media (max-width: 600px) {
+    .dashboard-container {
+        padding: 0 12px 30px;
+    }
+
+    .dash-header h1 {
+        font-size: 0.9rem;
+    }
+
+    .org-chart {
+        height: 320px;
+    }
+}
+
+@media (max-width: 480px) {
+    .metrics-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .funnel-flow {
+        flex-direction: column;
+    }
+
+    .funnel-arrow {
+        transform: rotate(90deg);
+        padding: 4px 0;
+    }
+
+    .funnel-node {
+        max-width: 100%;
+    }
+
+    .org-chart {
+        height: 280px;
+    }
+
+    .pipe-item {
+        flex-wrap: wrap;
+        gap: 6px;
+    }
+
+    .pipe-price,
+    .pipe-note {
+        min-width: auto;
+        text-align: left;
+    }
+}
+
+@media (max-width: 375px) {
+    .dash-header h1 {
+        font-size: 0.8rem;
+    }
+
+    .metric-value {
+        font-size: 1.6rem;
+    }
+
+    .section-title {
+        font-size: 0.9rem;
+    }
+}

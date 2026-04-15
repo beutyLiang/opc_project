@@ -33,6 +33,7 @@
             <div class="user-status">
                 <span class="status-dot healthy"></span>
                 <span id="user-element-label">节律平稳</span>
+                <a href="dashboard.html" class="dashboard-link" id="nav-dashboard" title="OPC 驾驶舱">📊</a>
             </div>
         </header>
 
@@ -104,6 +105,55 @@
                 .then(() => console.log('[初序] Service Worker 注册成功'))
                 .catch((err) => console.warn('[初序] SW 注册失败:', err));
         }
+    </script>
+
+    <!-- Coze Web SDK (五行测评) -->
+    <script src="coze-config.js"></script>
+    <script src="https://lf-cdn.coze.cn/obj/unpkg/flow-platform/chat-app-sdk/1.2.0-beta.19/libs/cn/index.js"></script>
+    <script>
+        (function() {
+            // 从 coze-config.js 读取凭证（Plan B：构建时注入）
+            var cfg = window.COZE_CONFIG || {};
+            var botId = cfg.bot_id || '__COZE_BOT_ID__';
+            var pat = cfg.token || '__COZE_PAT__';
+
+            // 检查是否为占位符
+            if (botId.indexOf('__') === 0) {
+                console.warn('[Coze SDK] 凭证未配置，请编辑 coze-config.js 填入真实值');
+                return;
+            }
+
+            // 初始化 SDK
+            try {
+                var cozeClient = new CozeWebSDK.WebChatClient({
+                    config: { bot_id: botId },
+                    componentProps: { title: '初序 · 五行体质测评' },
+                    auth: {
+                        type: 'token',
+                        token: pat,
+                        onRefreshToken: function() { return pat; }
+                    }
+                });
+                console.log('[Coze SDK] 初始化成功');
+
+                // 拦截"五行测评"卡片点击 → 打开 SDK 聊天窗口
+                var assessBtn = document.getElementById('btn-assessment');
+                if (assessBtn) {
+                    assessBtn.addEventListener('click', function(e) {
+                        e.stopPropagation();
+                        // SDK 会在页面注入聊天气泡，触发打开
+                        var bubble = document.querySelector('.coze-chat-bubble, [class*="coze"][class*="bubble"]');
+                        if (bubble) {
+                            bubble.click();
+                        } else {
+                            console.log('[Coze SDK] 聊天气泡未找到，SDK 可能仍在加载');
+                        }
+                    });
+                }
+            } catch(err) {
+                console.error('[Coze SDK] 初始化失败:', err);
+            }
+        })();
     </script>
 </body>
 

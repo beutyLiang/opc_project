@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>初序 OPC · 经营驾驶舱</title>
+    <meta name="description" content="初序一人公司经营数据驾驶舱 - AI Agent 团队实时协作概况">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Noto+Serif+SC:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="dashboard.css">
+</head>
+<body>
+    <div class="dashboard-container">
+        <!-- 顶部导航 -->
+        <header class="dash-header">
+            <a href="index.html" class="back-btn" id="nav-back">← 返回</a>
+            <h1>🏢 初序 OPC · 经营驾驶舱</h1>
+            <span class="live-badge" id="live-badge">● LIVE</span>
+        </header>
+
+        <!-- 模块 A：组织架构图 -->
+        <section class="dash-section" id="section-org">
+            <h2 class="section-title">🧠 组织架构 · 一人公司</h2>
+            <div class="org-chart" id="org-chart">
+                <!-- JS 动态渲染 SVG 连线 + CSS 节点 -->
+            </div>
+        </section>
+
+        <!-- 模块 B：经营指标 -->
+        <section class="dash-section" id="section-metrics">
+            <h2 class="section-title">📊 经营指标</h2>
+            <div class="metrics-grid" id="metrics-grid">
+                <!-- JS 从 dashboard-data.js 读取渲染 -->
+            </div>
+        </section>
+
+        <!-- 模块 C：协作日志 -->
+        <section class="dash-section" id="section-logs">
+            <h2 class="section-title">🤝 真实协作记录 — Agent Bridge</h2>
+            <div class="timeline" id="timeline">
+                <!-- JS 渲染 -->
+            </div>
+            <p class="log-footnote">以上为 AI Agent 间的真实通信记录，共 50+ 条</p>
+        </section>
+
+        <!-- 模块 D：商业闭环 -->
+        <section class="dash-section" id="section-funnel">
+            <h2 class="section-title">💰 商业闭环</h2>
+            <div class="funnel-flow" id="funnel-flow">
+                <!-- JS 渲染 -->
+            </div>
+        </section>
+
+        <!-- 模块 E：变现管道状态 -->
+        <section class="dash-section" id="section-revenue">
+            <h2 class="section-title">📡 变现管道</h2>
+            <div class="revenue-pipes" id="revenue-pipes">
+                <!-- JS 渲染 -->
+            </div>
+        </section>
+
+        <!-- 底部合规 -->
+        <footer class="dash-footer">
+            ⚠️ AI 生成内容仅供参考，不构成医疗诊断。如有健康问题请咨询专业医生。
+        </footer>
+    </div>
+
+    <script src="dashboard-data.js"></script>
+    <script src="dashboard.js"></script>
+</body>
+</html>

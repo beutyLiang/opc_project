@@ -1,0 +1,833 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>初序 · 功能测试指南</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Sans+SC:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-primary: #0f1117;
+            --bg-card: #1a1d27;
+            --bg-card-hover: #22263a;
+            --border: rgba(255,255,255,0.06);
+            --text-primary: #f0f0f5;
+            --text-secondary: #8b8fa3;
+            --accent-green: #34d399;
+            --accent-green-dim: rgba(52,211,153,0.12);
+            --accent-blue: #60a5fa;
+            --accent-amber: #fbbf24;
+            --accent-red: #f87171;
+            --accent-purple: #a78bfa;
+            --radius: 16px;
+            --radius-sm: 10px;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: 'Noto Sans SC', 'Inter', -apple-system, sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.7;
+            min-height: 100vh;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* ── Hero ── */
+        .hero {
+            padding: 60px 24px 40px;
+            text-align: center;
+            background: linear-gradient(180deg, rgba(52,211,153,0.08) 0%, transparent 100%);
+            position: relative;
+        }
+        .hero::after {
+            content: '';
+            position: absolute;
+            bottom: 0; left: 10%; right: 10%;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(52,211,153,0.3), transparent);
+        }
+        .hero-icon { font-size: 48px; margin-bottom: 12px; }
+        .hero h1 {
+            font-size: 26px;
+            font-weight: 700;
+            background: linear-gradient(135deg, var(--accent-green), var(--accent-blue));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 8px;
+        }
+        .hero p {
+            color: var(--text-secondary);
+            font-size: 14px;
+            max-width: 320px;
+            margin: 0 auto;
+        }
+
+        /* ── Progress Bar ── */
+        .progress-bar-container {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            background: rgba(15,17,23,0.92);
+            backdrop-filter: blur(12px);
+            padding: 12px 24px;
+            border-bottom: 1px solid var(--border);
+        }
+        .progress-info {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 8px;
+        }
+        .progress-label {
+            font-size: 13px;
+            color: var(--text-secondary);
+        }
+        .progress-count {
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--accent-green);
+        }
+        .progress-track {
+            height: 4px;
+            background: rgba(255,255,255,0.06);
+            border-radius: 4px;
+            overflow: hidden;
+        }
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--accent-green), var(--accent-blue));
+            border-radius: 4px;
+            transition: width 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            width: 0%;
+        }
+
+        /* ── Sections ── */
+        .content { padding: 0 16px 100px; max-width: 480px; margin: 0 auto; }
+
+        .section {
+            margin-top: 32px;
+        }
+        .section-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 16px;
+            padding-bottom: 12px;
+            border-bottom: 1px solid var(--border);
+        }
+        .section-icon {
+            width: 36px; height: 36px;
+            border-radius: var(--radius-sm);
+            display: flex; align-items: center; justify-content: center;
+            font-size: 18px;
+            flex-shrink: 0;
+        }
+        .section-title {
+            font-size: 17px;
+            font-weight: 600;
+        }
+        .section-subtitle {
+            font-size: 12px;
+            color: var(--text-secondary);
+        }
+
+        /* icon bg colors */
+        .icon-green  { background: var(--accent-green-dim); }
+        .icon-blue   { background: rgba(96,165,250,0.12); }
+        .icon-amber  { background: rgba(251,191,36,0.12); }
+        .icon-red    { background: rgba(248,113,113,0.12); }
+        .icon-purple { background: rgba(167,139,250,0.12); }
+
+        /* ── Step Cards ── */
+        .step-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 16px;
+            margin-bottom: 12px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            -webkit-tap-highlight-color: transparent;
+        }
+        .step-card:active { transform: scale(0.98); }
+        .step-card.done {
+            border-color: rgba(52,211,153,0.2);
+            background: rgba(52,211,153,0.04);
+        }
+        .step-card.fail {
+            border-color: rgba(248,113,113,0.2);
+            background: rgba(248,113,113,0.04);
+        }
+
+        .step-top {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+        }
+        .step-checkbox {
+            width: 22px; height: 22px;
+            border-radius: 6px;
+            border: 2px solid rgba(255,255,255,0.15);
+            flex-shrink: 0;
+            margin-top: 2px;
+            display: flex; align-items: center; justify-content: center;
+            transition: all 0.3s ease;
+            font-size: 12px;
+        }
+        .step-card.done .step-checkbox {
+            background: var(--accent-green);
+            border-color: var(--accent-green);
+            color: #000;
+        }
+        .step-card.fail .step-checkbox {
+            background: var(--accent-red);
+            border-color: var(--accent-red);
+            color: #fff;
+        }
+
+        .step-body { flex: 1; }
+        .step-num {
+            font-size: 11px;
+            color: var(--text-secondary);
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            margin-bottom: 2px;
+        }
+        .step-action {
+            font-size: 15px;
+            font-weight: 500;
+            margin-bottom: 6px;
+            line-height: 1.5;
+        }
+        .step-expect {
+            font-size: 13px;
+            color: var(--text-secondary);
+            line-height: 1.6;
+            padding: 8px 10px;
+            background: rgba(255,255,255,0.02);
+            border-radius: 8px;
+            border-left: 3px solid rgba(52,211,153,0.3);
+        }
+
+        .step-hint {
+            display: inline-block;
+            font-size: 11px;
+            padding: 3px 8px;
+            border-radius: 6px;
+            margin-top: 8px;
+            font-weight: 500;
+        }
+        .hint-important {
+            background: rgba(251,191,36,0.12);
+            color: var(--accent-amber);
+        }
+        .hint-tip {
+            background: rgba(96,165,250,0.12);
+            color: var(--accent-blue);
+        }
+
+        /* ── Intro Card ── */
+        .intro-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 20px;
+            margin-top: 24px;
+        }
+        .intro-card h3 {
+            font-size: 15px;
+            margin-bottom: 12px;
+        }
+        .intro-steps {
+            list-style: none;
+        }
+        .intro-steps li {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 8px 0;
+            font-size: 14px;
+            color: var(--text-secondary);
+            border-bottom: 1px solid var(--border);
+        }
+        .intro-steps li:last-child { border-bottom: none; }
+        .intro-steps .intro-num {
+            width: 24px; height: 24px;
+            border-radius: 50%;
+            background: var(--accent-green-dim);
+            color: var(--accent-green);
+            font-size: 12px;
+            font-weight: 700;
+            display: flex; align-items: center; justify-content: center;
+            flex-shrink: 0;
+        }
+
+        /* URL Box */
+        .url-box {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background: rgba(255,255,255,0.04);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-sm);
+            padding: 12px 14px;
+            margin-top: 16px;
+        }
+        .url-box code {
+            font-size: 14px;
+            color: var(--accent-green);
+            word-break: break-all;
+            flex: 1;
+        }
+        .url-box button {
+            background: var(--accent-green);
+            color: #000;
+            border: none;
+            padding: 6px 14px;
+            border-radius: 8px;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            flex-shrink: 0;
+            transition: opacity 0.2s;
+        }
+        .url-box button:active { opacity: 0.7; }
+
+        /* ── Toast ── */
+        .toast {
+            position: fixed;
+            bottom: 80px;
+            left: 50%;
+            transform: translateX(-50%) translateY(20px);
+            background: var(--accent-green);
+            color: #000;
+            padding: 10px 20px;
+            border-radius: 12px;
+            font-size: 14px;
+            font-weight: 600;
+            opacity: 0;
+            transition: all 0.3s ease;
+            pointer-events: none;
+            z-index: 200;
+        }
+        .toast.show {
+            opacity: 1;
+            transform: translateX(-50%) translateY(0);
+        }
+
+        /* ── Bottom Bar ── */
+        .bottom-bar {
+            position: fixed;
+            bottom: 0; left: 0; right: 0;
+            background: rgba(15,17,23,0.95);
+            backdrop-filter: blur(12px);
+            border-top: 1px solid var(--border);
+            padding: 12px 24px;
+            padding-bottom: max(12px, env(safe-area-inset-bottom));
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 100;
+        }
+        .bottom-bar button {
+            padding: 10px 20px;
+            border-radius: 10px;
+            font-size: 14px;
+            font-weight: 600;
+            border: none;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .btn-reset {
+            background: rgba(255,255,255,0.06);
+            color: var(--text-secondary);
+        }
+        .btn-submit {
+            background: linear-gradient(135deg, var(--accent-green), #2dd4bf);
+            color: #000;
+        }
+        .btn-submit:active { transform: scale(0.95); }
+
+        /* Animation */
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(12px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .section { animation: fadeInUp 0.5s ease both; }
+        .section:nth-child(2) { animation-delay: 0.05s; }
+        .section:nth-child(3) { animation-delay: 0.1s; }
+        .section:nth-child(4) { animation-delay: 0.15s; }
+        .section:nth-child(5) { animation-delay: 0.2s; }
+    </style>
+</head>
+<body>
+
+<div class="hero">
+    <div class="hero-icon">🌿</div>
+    <h1>初序 · 产品测试指南</h1>
+    <p>Hi Zoey！按下面的步骤一个个试就行，试完点一下打勾 ✅</p>
+</div>
+
+<div class="progress-bar-container">
+    <div class="progress-info">
+        <span class="progress-label">测试进度</span>
+        <span class="progress-count" id="progress-count">0 / 20</span>
+    </div>
+    <div class="progress-track">
+        <div class="progress-fill" id="progress-fill"></div>
+    </div>
+</div>
+
+<div class="content">
+
+    <!-- INTRO -->
+    <div class="intro-card">
+        <h3>📋 开始之前</h3>
+        <ul class="intro-steps">
+            <li><span class="intro-num">1</span> 用手机打开下面的链接</li>
+            <li><span class="intro-num">2</span> 建议用<strong>微信扫码</strong>或<strong>手机浏览器</strong>打开</li>
+            <li><span class="intro-num">3</span> 每个步骤试完以后，回到这里<strong>点一下对应的卡片</strong>打勾</li>
+        </ul>
+        <div class="url-box">
+            <code id="app-url">http://8.215.67.201:8000</code>
+            <button onclick="copyURL()">复制链接</button>
+        </div>
+    </div>
+
+    <!-- ── SECTION 1: 首次打开 ── -->
+    <div class="section">
+        <div class="section-header">
+            <div class="section-icon icon-green">🚀</div>
+            <div>
+                <div class="section-title">第一关：打开应用</div>
+                <div class="section-subtitle">看看页面长什么样</div>
+            </div>
+        </div>
+
+        <div class="step-card" data-id="1" onclick="toggleStep(this)">
+            <div class="step-top">
+                <div class="step-checkbox"></div>
+                <div class="step-body">
+                    <div class="step-num">步骤 1</div>
+                    <div class="step-action">用手机浏览器打开链接</div>
+                    <div class="step-expect">✅ 页面正常打开，能看到「🌿 初序」的标题和两个大按钮</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="step-card" data-id="2" onclick="toggleStep(this)">
+            <div class="step-top">
+                <div class="step-checkbox"></div>
+                <div class="step-body">
+                    <div class="step-num">步骤 2</div>
+                    <div class="step-action">弹窗出来了吗？选3个问题后点「确认体质」</div>
+                    <div class="step-expect">✅ 弹窗关闭后，右上角会变成你的体质类型（比如「金行·肺」）</div>
+                    <span class="step-hint hint-important">⚠️ 3个问题都需要选才能点确认</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="step-card" data-id="3" onclick="toggleStep(this)">
+            <div class="step-top">
+                <div class="step-checkbox"></div>
+                <div class="step-body">
+                    <div class="step-num">步骤 3</div>
+                    <div class="step-action">刷新一下页面</div>
+                    <div class="step-expect">✅ 弹窗不会再出来，右上角还是你刚才选的体质</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ── SECTION 2: 今天吃什么 ── -->
+    <div class="section">
+        <div class="section-header">
+            <div class="section-icon icon-amber">🍱</div>
+            <div>
+                <div class="section-title">第二关：今天吃什么</div>
+                <div class="section-subtitle">本地菜谱推荐功能</div>
+            </div>
+        </div>
+
+        <div class="step-card" data-id="4" onclick="toggleStep(this)">
+            <div class="step-top">
+                <div class="step-checkbox"></div>
+                <div class="step-body">
+                    <div class="step-num">步骤 4</div>
+                    <div class="step-action">点最上面的「🍱 今天吃什么」大按钮</div>
+                    <div class="step-expect">✅ 弹出一张菜谱卡片，有菜名、食材、做法步骤</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="step-card" data-id="5" onclick="toggleStep(this)">
+            <div class="step-top">
+                <div class="step-checkbox"></div>
+                <div class="step-body">
+                    <div class="step-num">步骤 5</div>
+                    <div class="step-action">看看卡片最下面有没有一个绿色的「🎁 领取美团红包」按钮</div>
+                    <div class="step-expect">✅ 有这个按钮，点一下会跳到美团页面</div>
+                    <span class="step-hint hint-tip">💡 这是咱们的 CPS 变现入口</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="step-card" data-id="6" onclick="toggleStep(this)">
+            <div class="step-top">
+                <div class="step-checkbox"></div>
+                <div class="step-body">
+                    <div class="step-num">步骤 6</div>
+                    <div class="step-action">再多点几次「今天吃什么」（至少点3次）</div>
+                    <div class="step-expect">✅ 每次推荐的菜不重复</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ── SECTION 3: AI 聊天 ── -->
+    <div class="section">
+        <div class="section-header">
+            <div class="section-icon icon-blue">💬</div>
+            <div>
+                <div class="section-title">第三关：AI 对话</div>
+                <div class="section-subtitle">核心 AI 功能</div>
+            </div>
+        </div>
+
+        <div class="step-card" data-id="7" onclick="toggleStep(this)">
+            <div class="step-top">
+                <div class="step-checkbox"></div>
+                <div class="step-body">
+                    <div class="step-num">步骤 7</div>
+                    <div class="step-action">在底部输入框打字「你好」然后点发送</div>
+                    <div class="step-expect">✅ AI 回复你，文字是一个字一个字打出来的（打字机效果）</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="step-card" data-id="8" onclick="toggleStep(this)">
+            <div class="step-top">
+                <div class="step-checkbox"></div>
+                <div class="step-body">
+                    <div class="step-num">步骤 8</div>
+                    <div class="step-action">发送「我最近老是失眠怎么办」</div>
+                    <div class="step-expect">✅ AI 给出和失眠相关的养生建议</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="step-card" data-id="9" onclick="toggleStep(this)">
+            <div class="step-top">
+                <div class="step-checkbox"></div>
+                <div class="step-body">
+                    <div class="step-num">步骤 9</div>
+                    <div class="step-action">什么都不输入，直接点发送按钮</div>
+                    <div class="step-expect">✅ 没有任何反应（空消息不发送）</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ── SECTION 4: 体质测评（核心！） ── -->
+    <div class="section">
+        <div class="section-header">
+            <div class="section-icon icon-purple">🔮</div>
+            <div>
+                <div class="section-title">第四关：五行体质测评</div>
+                <div class="section-subtitle">⭐ 最重要的功能！请仔细测试</div>
+            </div>
+        </div>
+
+        <div class="step-card" data-id="10" onclick="toggleStep(this)">
+            <div class="step-top">
+                <div class="step-checkbox"></div>
+                <div class="step-body">
+                    <div class="step-num">步骤 10</div>
+                    <div class="step-action">⚠️ 先刷新页面！然后在输入框发送「体质」两个字</div>
+                    <div class="step-expect">✅ AI 开始问你第1道题（关于体型/身材），有 A ~ E 五个选项</div>
+                    <span class="step-hint hint-important">⚠️ 一定要先刷新页面再测</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="step-card" data-id="11" onclick="toggleStep(this)">
+            <div class="step-top">
+                <div class="step-checkbox"></div>
+                <div class="step-body">
+                    <div class="step-num">步骤 11</div>
+                    <div class="step-action">回复一个选项字母，比如发「C」</div>
+                    <div class="step-expect">✅ AI 出第2道题（新的题目），不是重复第1题</div>
+                    <span class="step-hint hint-tip">💡 大写小写都可以，比如发「c」也行</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="step-card" data-id="12" onclick="toggleStep(this)">
+            <div class="step-top">
+                <div class="step-checkbox"></div>
+                <div class="step-body">
+                    <div class="step-num">步骤 12</div>
+                    <div class="step-action">继续回答第2题，发一个选项字母</div>
+                    <div class="step-expect">✅ AI 出第3道题</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="step-card" data-id="13" onclick="toggleStep(this)">
+            <div class="step-top">
+                <div class="step-checkbox"></div>
+                <div class="step-body">
+                    <div class="step-num">步骤 13</div>
+                    <div class="step-action">把所有题都答完（一共 6 道题）</div>
+                    <div class="step-expect">✅ 所有题答完后，AI 给出你的五行体质结果和调理建议</div>
+                    <span class="step-hint hint-important">⚠️ 如果中间某道题答完后又重复出了同一道题，这是 Bug，请记录下来！</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="step-card" data-id="14" onclick="toggleStep(this)">
+            <div class="step-top">
+                <div class="step-checkbox"></div>
+                <div class="step-body">
+                    <div class="step-num">步骤 14</div>
+                    <div class="step-action">刷新页面，这次发数字「2」</div>
+                    <div class="step-expect">✅ 跟发「体质」一样，进入测评第1题</div>
+                    <span class="step-hint hint-tip">💡 数字「2」是「测体质」的快捷方式</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ── SECTION 5: 手机体验 ── -->
+    <div class="section">
+        <div class="section-header">
+            <div class="section-icon icon-red">📱</div>
+            <div>
+                <div class="section-title">第五关：手机体验</div>
+                <div class="section-subtitle">看看手机上好不好用</div>
+            </div>
+        </div>
+
+        <div class="step-card" data-id="15" onclick="toggleStep(this)">
+            <div class="step-top">
+                <div class="step-checkbox"></div>
+                <div class="step-body">
+                    <div class="step-num">步骤 15</div>
+                    <div class="step-action">看看页面有没有「左右滑动」的情况</div>
+                    <div class="step-expect">✅ 页面只能上下滑，不能左右滑（没有多出来的内容）</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="step-card" data-id="16" onclick="toggleStep(this)">
+            <div class="step-top">
+                <div class="step-checkbox"></div>
+                <div class="step-body">
+                    <div class="step-num">步骤 16</div>
+                    <div class="step-action">点输入框开始打字，看键盘弹出后输入框还能不能看到</div>
+                    <div class="step-expect">✅ 键盘弹出后，输入框在键盘上方，没有被盖住</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="step-card" data-id="17" onclick="toggleStep(this)">
+            <div class="step-top">
+                <div class="step-checkbox"></div>
+                <div class="step-body">
+                    <div class="step-num">步骤 17</div>
+                    <div class="step-action">多聊几句话，让对话变长，然后看看滚动</div>
+                    <div class="step-expect">✅ 新消息出来后，自动滚到最下面</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="step-card" data-id="18" onclick="toggleStep(this)">
+            <div class="step-top">
+                <div class="step-checkbox"></div>
+                <div class="step-body">
+                    <div class="step-num">步骤 18</div>
+                    <div class="step-action">看看字体大小、按钮大小</div>
+                    <div class="step-expect">✅ 字看得清，按钮点得到，整体看着舒服</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ── SECTION 6: 整体感受 ── -->
+    <div class="section">
+        <div class="section-header">
+            <div class="section-icon icon-green">💚</div>
+            <div>
+                <div class="section-title">第六关：整体感受</div>
+                <div class="section-subtitle">给产品打个分吧</div>
+            </div>
+        </div>
+
+        <div class="step-card" data-id="19" onclick="toggleStep(this)">
+            <div class="step-top">
+                <div class="step-checkbox"></div>
+                <div class="step-body">
+                    <div class="step-num">步骤 19</div>
+                    <div class="step-action">整体视觉设计你觉得怎么样？</div>
+                    <div class="step-expect">✅ 好看 / ❌ 一般（有什么建议可以告诉智远）</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="step-card" data-id="20" onclick="toggleStep(this)">
+            <div class="step-top">
+                <div class="step-checkbox"></div>
+                <div class="step-body">
+                    <div class="step-num">步骤 20</div>
+                    <div class="step-action">AI 回复的速度你能接受吗？</div>
+                    <div class="step-expect">✅ 还行，等几秒没问题 / ❌ 太慢了受不了</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<!-- Toast -->
+<div class="toast" id="toast"></div>
+
+<!-- Bottom Bar -->
+<div class="bottom-bar">
+    <button class="btn-reset" onclick="resetAll()">🔄 重置</button>
+    <button class="btn-submit" onclick="generateReport()">📋 生成测试报告</button>
+</div>
+
+<script>
+    const TOTAL = 20;
+    const state = {};
+
+    // Load saved state
+    try {
+        const saved = JSON.parse(localStorage.getItem('chuxu_test_state') || '{}');
+        Object.assign(state, saved);
+        // Restore UI
+        document.querySelectorAll('.step-card').forEach(card => {
+            const id = card.dataset.id;
+            if (state[id] === 'done') {
+                card.classList.add('done');
+                card.querySelector('.step-checkbox').textContent = '✓';
+            } else if (state[id] === 'fail') {
+                card.classList.add('fail');
+                card.querySelector('.step-checkbox').textContent = '✕';
+            }
+        });
+        updateProgress();
+    } catch(e) {}
+
+    function toggleStep(card) {
+        const id = card.dataset.id;
+        if (!state[id]) {
+            // First click → pass
+            state[id] = 'done';
+            card.classList.remove('fail');
+            card.classList.add('done');
+            card.querySelector('.step-checkbox').textContent = '✓';
+            showToast('✅ 通过！');
+        } else if (state[id] === 'done') {
+            // Second click → fail
+            state[id] = 'fail';
+            card.classList.remove('done');
+            card.classList.add('fail');
+            card.querySelector('.step-checkbox').textContent = '✕';
+            showToast('❌ 标记为不通过');
+        } else {
+            // Third click → reset
+            delete state[id];
+            card.classList.remove('done', 'fail');
+            card.querySelector('.step-checkbox').textContent = '';
+            showToast('↩️ 已重置');
+        }
+        saveState();
+        updateProgress();
+    }
+
+    function updateProgress() {
+        const done = Object.values(state).filter(v => v === 'done').length;
+        const fail = Object.values(state).filter(v => v === 'fail').length;
+        const total_done = done + fail;
+        document.getElementById('progress-count').textContent = `${total_done} / ${TOTAL}`;
+        document.getElementById('progress-fill').style.width = `${(total_done / TOTAL) * 100}%`;
+    }
+
+    function saveState() {
+        localStorage.setItem('chuxu_test_state', JSON.stringify(state));
+    }
+
+    function showToast(msg) {
+        const t = document.getElementById('toast');
+        t.textContent = msg;
+        t.classList.add('show');
+        setTimeout(() => t.classList.remove('show'), 1500);
+    }
+
+    function copyURL() {
+        const url = document.getElementById('app-url').textContent;
+        if (navigator.clipboard) {
+            navigator.clipboard.writeText(url);
+        } else {
+            const ta = document.createElement('textarea');
+            ta.value = url;
+            document.body.appendChild(ta);
+            ta.select();
+            document.execCommand('copy');
+            document.body.removeChild(ta);
+        }
+        showToast('✅ 链接已复制');
+    }
+
+    function resetAll() {
+        if (!confirm('确定要清除所有测试记录吗？')) return;
+        Object.keys(state).forEach(k => delete state[k]);
+        saveState();
+        document.querySelectorAll('.step-card').forEach(card => {
+            card.classList.remove('done', 'fail');
+            card.querySelector('.step-checkbox').textContent = '';
+        });
+        updateProgress();
+        showToast('↩️ 已全部重置');
+    }
+
+    function generateReport() {
+        const done = Object.values(state).filter(v => v === 'done').length;
+        const fail = Object.values(state).filter(v => v === 'fail').length;
+        const untested = TOTAL - done - fail;
+
+        let report = `🌿 初序测试报告\n`;
+        report += `━━━━━━━━━━━━━━━\n`;
+        report += `✅ 通过: ${done} 项\n`;
+        report += `❌ 不通过: ${fail} 项\n`;
+        report += `⬜ 未测: ${untested} 项\n`;
+        report += `━━━━━━━━━━━━━━━\n\n`;
+
+        if (fail > 0) {
+            report += `❌ 不通过的步骤：\n`;
+            document.querySelectorAll('.step-card.fail').forEach(card => {
+                const num = card.querySelector('.step-num').textContent;
+                const action = card.querySelector('.step-action').textContent;
+                report += `  • ${num}: ${action}\n`;
+            });
+        }
+
+        report += `\n测试时间: ${new Date().toLocaleString('zh-CN')}`;
+
+        if (navigator.clipboard) {
+            navigator.clipboard.writeText(report);
+            showToast('📋 报告已复制，直接粘贴发给智远！');
+        } else {
+            alert(report);
+        }
+    }
+</script>
+
+</body>
+</html>

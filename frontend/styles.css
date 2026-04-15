@@ -14,6 +14,18 @@
     --border-radius: 16px;
     --header-height: 60px;
     --footer-height: 100px;
+
+    /* Agent 专属色 */
+    --agent-zoey: #00d2ad;
+    --agent-zimo: #7c5cbf;
+    --agent-caesar: #f39c12;
+    --agent-mingzhe: #e74c3c;
+    --agent-zhiyuan: #3498db;
+    --agent-bot: #4ecdc4;
+
+    /* 付费报告专用 */
+    --gold: #d4a853;
+    --gold-glow: rgba(212, 168, 83, 0.15);
 }
 
 * {
@@ -92,6 +104,18 @@ body {
 .status-dot.healthy {
     background-color: var(--primary-color);
     box-shadow: 0 0 6px var(--primary-color);
+}
+
+.dashboard-link {
+    font-size: 1.3rem;
+    text-decoration: none;
+    margin-left: 12px;
+    opacity: 0.7;
+    transition: opacity 0.3s;
+}
+
+.dashboard-link:hover {
+    opacity: 1;
 }
 
 /* ─── Chat Area ─── */

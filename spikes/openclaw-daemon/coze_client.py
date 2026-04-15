@@ -1,4 +1,8 @@
-"""Coze API client — handles async chat creation, polling, and message retrieval."""
+"""Coze API client — handles async chat creation, polling, and message retrieval.
+
+Restored to the original working version (2026-04-11).
+Each call sends only the last user message with auto_save_history=True.
+"""
 
 import asyncio
 import logging
@@ -40,39 +44,34 @@ class CozeClient:
             "Content-Type": "application/json",
         }
 
-    async def chat(self, user_message: str) -> str:
+    async def chat(self, user_message: str, conversation_id: str | None = None) -> tuple[str, str]:
         """Send a message and block until the bot replies.
-
-        Coze /v3/chat is async by design: it returns a chat_id,
-        then we poll /v3/chat/retrieve until status == 'completed',
-        then fetch the bot reply from /v3/chat/message/list.
+        
+        Returns (bot_reply, conversation_id)
         """
-        user_id = str(uuid.uuid4())[:8]
+        user_id = "openclaw-demo-user"
 
         async with httpx.AsyncClient(timeout=30.0) as client:
-            # Step 1 — create chat
-            chat_id, conversation_id = await self._create_chat(
-                client, user_message, user_id
+            chat_id, new_conversation_id = await self._create_chat(
+                client, user_message, user_id, conversation_id
             )
-
-            # Step 2 — poll until completed
-            await self._poll_until_completed(client, chat_id, conversation_id)
-
-            # Step 3 — fetch bot reply
-            return await self._fetch_bot_reply(client, chat_id, conversation_id)
+            await self._poll_until_completed(client, chat_id, new_conversation_id)
+            bot_reply = await self._fetch_bot_reply(client, chat_id, new_conversation_id)
+            return bot_reply, new_conversation_id
 
     async def _create_chat(
         self,
         client: httpx.AsyncClient,
         message: str,
         user_id: str,
+        conversation_id: str | None,
     ) -> tuple[str, str]:
         """POST /v3/chat — returns (chat_id, conversation_id)."""
         payload = {
             "bot_id": self._bot_id,
             "user_id": user_id,
             "stream": False,
-            "auto_save_history": False,
+            "auto_save_history": True,
             "additional_messages": [
                 {
                     "role": "user",
@@ -81,9 +80,15 @@ class CozeClient:
                 }
             ],
         }
+        
+        params = {}
+        if conversation_id:
+            params["conversation_id"] = conversation_id
+
         resp = await client.post(
             COZE_CHAT_ENDPOINT,
             headers=self._headers,
+            params=params,
             json=payload,
         )
         resp.raise_for_status()
@@ -131,7 +136,10 @@ class CozeClient:
                 return
 
             if status in ("failed", "requires_action"):
-                raise CozeClientError(f"Chat ended with status '{status}': {data}")
+                last_error = data.get("data", {}).get("last_error", {})
+                raise CozeClientError(
+                    f"Chat ended with status '{status}': {last_error}"
+                )
 
             await asyncio.sleep(POLL_INTERVAL_SECONDS)
 

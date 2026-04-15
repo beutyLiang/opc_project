@@ -1,0 +1,425 @@
+/* ─── Report Preview Styles ─── */
+
+/* Container */
+.report-container {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+    min-height: 100vh;
+}
+
+body {
+    overflow: auto;
+}
+
+/* ─── Header ─── */
+.report-header {
+    text-align: center;
+    margin-bottom: 28px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid var(--glass-border);
+}
+
+.report-back {
+    display: inline-block;
+    color: var(--text-muted);
+    text-decoration: none;
+    font-size: 0.85rem;
+    margin-bottom: 16px;
+    transition: color 0.3s;
+}
+
+.report-back:hover {
+    color: var(--primary-color);
+}
+
+.report-badge {
+    display: inline-block;
+    background: var(--primary-glow);
+    color: var(--primary-color);
+    padding: 4px 14px;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: 500;
+    border: 1px solid rgba(0, 210, 173, 0.2);
+    margin-bottom: 12px;
+}
+
+.report-header h1 {
+    font-family: 'Noto Serif SC', serif;
+    font-size: 1.8rem;
+    font-weight: 600;
+    margin-bottom: 6px;
+    background: linear-gradient(135deg, var(--primary-color), #4ecdc4);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.report-subtitle {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+}
+
+/* ─── Report Section ─── */
+.report-section {
+    margin-bottom: 24px;
+}
+
+.report-section h2 {
+    font-size: 1rem;
+    font-weight: 600;
+    margin-bottom: 10px;
+    margin-top: 20px;
+    color: var(--text-main);
+}
+
+.report-section p {
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    line-height: 1.7;
+}
+
+.report-section ul {
+    list-style: none;
+    padding: 0;
+}
+
+.report-section ul li {
+    font-size: 0.88rem;
+    color: var(--text-muted);
+    padding: 6px 0;
+    padding-left: 8px;
+    border-left: 2px solid var(--glass-border);
+    margin-bottom: 4px;
+    transition: border-color 0.3s;
+}
+
+.report-section ul li:hover {
+    border-left-color: var(--primary-color);
+}
+
+/* ─── Free Section Highlight ─── */
+.free-section {
+    background: var(--surface-color);
+    border: 1px solid var(--glass-border);
+    border-radius: 16px;
+    padding: 20px;
+}
+
+/* ─── Paywall Divider ─── */
+.paywall-divider {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin: 28px 0;
+}
+
+.divider-line {
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(90deg,
+        transparent,
+        var(--gold),
+        transparent
+    );
+}
+
+.divider-text {
+    font-size: 0.8rem;
+    color: var(--gold);
+    white-space: nowrap;
+    font-weight: 500;
+}
+
+/* ─── Premium Blur Overlay ─── */
+.premium-section.blurred {
+    position: relative;
+    background: var(--surface-color);
+    border: 1px solid var(--glass-border);
+    border-radius: 16px;
+    padding: 20px;
+}
+
+.premium-section.blurred::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    background: linear-gradient(to bottom,
+        rgba(15, 17, 21, 0) 0%,
+        rgba(15, 17, 21, 0.7) 30%,
+        rgba(15, 17, 21, 0.95) 100%
+    );
+    border-radius: 16px;
+    pointer-events: none;
+    z-index: 1;
+}
+
+.premium-section.unlocked::after {
+    display: none;
+}
+
+.blur-placeholder p {
+    font-size: 0.88rem;
+    color: var(--text-muted);
+    line-height: 1.8;
+    padding: 2px 0;
+}
+
+/* ─── CTA Cards ─── */
+.purchase-cta {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin: 24px 0;
+}
+
+.cta-card {
+    background: var(--surface-color);
+    border: 1px solid var(--glass-border);
+    border-radius: 16px;
+    padding: 24px 16px;
+    text-align: center;
+    transition: all 0.3s ease;
+}
+
+.cta-card:hover {
+    transform: translateY(-2px);
+}
+
+.cta-card h3 {
+    font-size: 0.95rem;
+    font-weight: 600;
+    margin-bottom: 4px;
+}
+
+.cta-card ul {
+    list-style: none;
+    padding: 0;
+    text-align: left;
+    margin: 12px 0;
+}
+
+.cta-card ul li {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    padding: 3px 0;
+}
+
+.premium-tier {
+    border-color: var(--gold);
+    position: relative;
+}
+
+.premium-tier:hover {
+    box-shadow: 0 4px 20px var(--gold-glow);
+}
+
+.tier-badge {
+    position: absolute;
+    top: -10px;
+    right: 16px;
+    background: var(--gold);
+    color: var(--bg-color);
+    font-size: 0.7rem;
+    font-weight: 600;
+    padding: 2px 10px;
+    border-radius: 10px;
+}
+
+.price {
+    font-size: 2.2rem;
+    font-weight: 600;
+    color: var(--primary-color);
+    margin: 8px 0;
+}
+
+.premium-tier .price {
+    color: var(--gold);
+}
+
+.cta-btn {
+    width: 100%;
+    padding: 12px;
+    border: none;
+    border-radius: 12px;
+    background: var(--primary-color);
+    color: var(--bg-color);
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.cta-btn.gold {
+    background: linear-gradient(135deg, var(--gold), #e8c06a);
+}
+
+.cta-btn:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 16px var(--primary-glow);
+}
+
+.cta-btn.gold:hover {
+    box-shadow: 0 4px 16px var(--gold-glow);
+}
+
+/* ─── Payment Modal ─── */
+.payment-modal {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+}
+
+.payment-card {
+    background: var(--surface-color);
+    border: 1px solid var(--glass-border);
+    border-radius: 20px;
+    padding: 28px 24px;
+    max-width: 400px;
+    width: 90%;
+    text-align: center;
+    animation: fadeInUp 0.3s ease;
+}
+
+.payment-card h3 {
+    font-size: 1.2rem;
+    margin-bottom: 8px;
+}
+
+.payment-card > p {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    margin-bottom: 16px;
+}
+
+.qr-codes {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    margin: 16px 0;
+}
+
+.qr-placeholder {
+    width: 140px;
+    height: 140px;
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.05);
+    border: 2px dashed var(--glass-border);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: var(--text-muted);
+    font-size: 0.8rem;
+}
+
+.qr-placeholder small {
+    font-size: 0.65rem;
+    margin-top: 4px;
+    opacity: 0.6;
+}
+
+.qr-item img {
+    width: 140px;
+    height: 140px;
+    border-radius: 8px;
+    background: #fff;
+}
+
+.qr-item span {
+    display: block;
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    margin-top: 6px;
+}
+
+.payment-note {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    margin-top: 12px;
+}
+
+.close-modal {
+    margin-top: 16px;
+    padding: 8px 24px;
+    background: transparent;
+    border: 1px solid var(--glass-border);
+    color: var(--text-muted);
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.close-modal:hover {
+    border-color: var(--text-main);
+    color: var(--text-main);
+}
+
+/* ─── Footer ─── */
+.report-footer {
+    text-align: center;
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    padding: 20px 0;
+    border-top: 1px solid var(--glass-border);
+    margin-top: 20px;
+}
+
+/* ─── Animations ─── */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* ─── Responsive ─── */
+@media (max-width: 480px) {
+    .report-container {
+        padding: 12px;
+    }
+
+    .report-header h1 {
+        font-size: 1.4rem;
+    }
+
+    .purchase-cta {
+        grid-template-columns: 1fr;
+    }
+
+    .price {
+        font-size: 1.8rem;
+    }
+
+    .qr-codes {
+        flex-direction: column;
+        align-items: center;
+    }
+}
+
+@media (max-width: 375px) {
+    .report-header h1 {
+        font-size: 1.2rem;
+    }
+
+    .cta-card {
+        padding: 16px 12px;
+    }
+
+    .price {
+        font-size: 1.5rem;
+    }
+}

@@ -1,0 +1,12 @@
+[
+    { "time": "04-09 22:01", "sender": "凯撒",  "color": "#f39c12", "text": "收到，评估 OpenClaw 可行性..." },
+    { "time": "04-10 02:00", "sender": "子默",  "color": "#7c5cbf", "text": "Zoey批准48小时Spike+硬止损" },
+    { "time": "04-10 11:04", "sender": "子默",  "color": "#7c5cbf", "text": "立刻停止V模型，回到Spike任务！" },
+    { "time": "04-10 11:18", "sender": "凯撒",  "color": "#f39c12", "text": "收到确认！全力执行48小时Spike" },
+    { "time": "04-12 10:10", "sender": "凯撒",  "color": "#f39c12", "text": "Spike 链路已全部跑通 ✅" },
+    { "time": "04-12 12:00", "sender": "子默",  "color": "#7c5cbf", "text": "Spike 审核通过，合并主线" },
+    { "time": "04-13 22:25", "sender": "子默",  "color": "#7c5cbf", "text": "OPC调研报告+改造方案发出" },
+    { "time": "04-13 22:58", "sender": "凯撒",  "color": "#f39c12", "text": "独立验证完成，子默判断正确" },
+    { "time": "04-14 14:58", "sender": "凯撒",  "color": "#f39c12", "text": "蓝图v0.2审核完成，7+5项意见" },
+    { "time": "04-14 15:23", "sender": "子默",  "color": "#7c5cbf", "text": "全部采纳，v0.3已出" }
+]
