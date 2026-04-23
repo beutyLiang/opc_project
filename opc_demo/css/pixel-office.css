@@ -1,0 +1,257 @@
+/* ===== Pixel Office — Isometric/Top-down Office View ===== */
+
+.pixel-office-wrapper {
+  position: relative;
+  background: linear-gradient(180deg, #0a0e1a 0%, #111827 100%);
+  border-radius: var(--border-radius-lg);
+  border: 1px solid var(--glass-border);
+  overflow: hidden;
+  min-height: 580px;
+}
+
+.pixel-office-header {
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 16px 24px; border-bottom: 1px solid var(--border-color);
+  background: rgba(0,0,0,0.2);
+}
+
+.pixel-office-header h3 { font-size: 16px; font-weight: 600; }
+
+.office-status-bar {
+  display: flex; gap: 16px; font-size: 12px; color: var(--text-muted);
+}
+
+.office-status-bar span { display: flex; align-items: center; gap: 4px; }
+
+/* Office Floor (Grid) */
+.office-floor {
+  position: relative;
+  width: 100%;
+  height: 520px;
+  background:
+    radial-gradient(ellipse at 50% 50%, rgba(99,102,241,0.03) 0%, transparent 60%),
+    linear-gradient(180deg, transparent 0%, rgba(99,102,241,0.01) 100%);
+}
+
+.office-floor::before {
+  content: '';
+  position: absolute; inset: 0;
+  background-image:
+    linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px);
+  background-size: 40px 40px;
+  transform: perspective(800px) rotateX(20deg);
+  transform-origin: center 0%;
+}
+
+/* Glass Rooms / Partitions */
+.room {
+  position: absolute;
+  background: rgba(255,255,255,0.015);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 8px;
+  box-shadow: inset 0 0 30px rgba(0,0,0,0.3);
+  backdrop-filter: blur(2px);
+  transition: all 0.3s ease;
+}
+
+.room:hover {
+  background: rgba(255,255,255,0.03);
+  border-color: rgba(255,255,255,0.15);
+}
+
+.room-label {
+  position: absolute; top: 10px; left: 14px;
+  font-size: 11px; font-weight: 600; color: var(--text-secondary);
+  display: flex; align-items: center; gap: 6px;
+}
+
+.room-glass-glare {
+  position: absolute; top: 0; left: 0; right: 0; height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+}
+
+/* Specific Rooms */
+.ceo-room {
+  top: 30px; left: 50%; transform: translateX(-50%);
+  width: 280px; height: 140px;
+  border-bottom: 2px solid rgba(6, 214, 160, 0.4);
+}
+
+.dept-room {
+  top: 190px; width: 22%; min-height: 150px; height: auto; padding-bottom: 20px;
+}
+
+.dept-room-0 { left: 4%; }
+.dept-room-1 { left: 28%; }
+.dept-room-2 { left: 52%; }
+.dept-room-3 { left: 76%; }
+
+.break-room {
+  bottom: 20px; left: 50%; transform: translateX(-50%);
+  width: 400px; height: 130px;
+  background: rgba(245, 158, 11, 0.03);
+  border-top: 2px solid rgba(245, 158, 11, 0.3);
+}
+
+/* Break Room Furniture */
+.sofa {
+  position: absolute; bottom: 30px; left: 50%; transform: translateX(-50%);
+  width: 140px; height: 36px;
+  background: linear-gradient(to bottom, #475569, #334155);
+  border-radius: 8px;
+  border: 1px solid #64748b;
+  box-shadow: 0 10px 20px rgba(0,0,0,0.5);
+}
+
+.coffee-table {
+  position: absolute; bottom: 15px; left: 50%; transform: translateX(-50%);
+  width: 60px; height: 20px;
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 4px;
+}
+
+/* Workstation (Desk inside room) */
+.workstation {
+  position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+  display: flex; flex-direction: column; align-items: center;
+  cursor: pointer;
+  z-index: 10;
+}
+
+.workstation:hover .ws-glow { opacity: 1; }
+
+.ws-glow {
+  position: absolute; bottom: -10px;
+  width: 80px; height: 20px;
+  border-radius: 50%;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  filter: blur(8px);
+}
+
+.ws-desk {
+  width: 80px; height: 32px;
+  background: linear-gradient(135deg, #2a3040, #1e2535);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 6px;
+  position: relative;
+  box-shadow: 0 8px 16px rgba(0,0,0,0.4);
+}
+
+.ws-monitor {
+  position: absolute; top: -16px; left: 50%; transform: translateX(-50%);
+  width: 28px; height: 20px;
+  background: #0d1117;
+  border: 1px solid #3a4050;
+  border-radius: 3px 3px 0 0;
+}
+
+.ws-monitor.active { border-color: rgba(99,102,241,0.5); }
+.ws-monitor.active::before {
+  content: ''; position: absolute; inset: 1px;
+  background: linear-gradient(135deg, rgba(99,102,241,0.3), rgba(6,214,160,0.2));
+  animation: screen-flicker 2s infinite;
+}
+
+@keyframes screen-flicker { 0%, 100% { opacity: 0.6; } 50% { opacity: 1; } }
+
+/* Agent Character */
+.agent-char {
+  position: absolute; z-index: 15;
+  display: flex; flex-direction: column; align-items: center;
+  transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.char-body { width: 22px; height: 28px; position: relative; }
+.char-head { width: 14px; height: 14px; border-radius: 4px; margin: 0 auto 1px; position: relative; }
+.char-torso { width: 18px; height: 10px; border-radius: 3px; margin: 0 auto; }
+
+.char-arms {
+  position: absolute; top: 16px; left: -1px; right: -1px;
+  display: flex; justify-content: space-between;
+}
+.char-arm { width: 4px; height: 7px; border-radius: 2px; }
+
+/* States */
+.agent-char.typing .char-arm { animation: arm-type 0.3s infinite alternate; }
+.agent-char.relaxing .char-body { transform: translateY(2px) scaleY(0.95); animation: breathe 3s infinite alternate; }
+
+/* Item holding (Coffee cup) */
+.coffee-cup {
+  position: absolute; right: -6px; top: 14px;
+  width: 6px; height: 8px; background: #fff; border-radius: 1px 1px 3px 3px;
+  display: none;
+}
+.agent-char.relaxing .coffee-cup { display: block; animation: sip 4s infinite; }
+
+@keyframes arm-type { 0% { transform: translateY(0); } 100% { transform: translateY(-3px); } }
+@keyframes breathe { 0% { transform: translateY(2px) scaleY(0.95); } 100% { transform: translateY(0px) scaleY(1); } }
+@keyframes sip { 0%, 80% { transform: translateY(0) rotate(0); } 90% { transform: translateY(-4px) rotate(-20deg); } 100% { transform: translateY(0) rotate(0); } }
+
+/* Status bubble */
+.char-bubble {
+  position: absolute; bottom: 100%; left: 50%; transform: translateX(-50%);
+  white-space: nowrap; padding: 4px 10px;
+  border-radius: 8px; font-size: 11px; font-weight: 600; margin-bottom: 8px;
+  background: var(--bg-secondary); border: 1px solid var(--glass-border);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+  animation: bubble-in 0.3s ease;
+  pointer-events: none;
+}
+.char-bubble::after {
+  content: ''; position: absolute; top: 100%; left: 50%; transform: translateX(-50%);
+  border-width: 4px; border-style: solid;
+  border-color: var(--glass-border) transparent transparent transparent;
+}
+
+@keyframes bubble-in { from { opacity: 0; transform: translateX(-50%) translateY(4px); } to { opacity: 1; transform: translateX(-50%) translateY(0); } }
+
+/* Name label */
+.ws-label { margin-top: 8px; text-align: center; }
+.ws-name { font-size: 11px; font-weight: 600; color: var(--text-primary); cursor: pointer; }
+.ws-name:hover { text-decoration: underline; color: var(--accent-primary); }
+.ws-role { font-size: 9px; color: var(--text-muted); }
+
+.ws-status-dot {
+  display: inline-block; width: 6px; height: 6px;
+  border-radius: 50%; margin-right: 4px; vertical-align: middle;
+}
+
+/* Agent detail popup */
+.agent-popup {
+  position: absolute; width: 260px;
+  background: var(--bg-secondary); border: 1px solid var(--border-active);
+  border-radius: var(--border-radius); padding: 16px;
+  box-shadow: var(--shadow-lg), var(--shadow-glow);
+  z-index: 50; animation: scaleIn 0.2s ease; pointer-events: auto;
+}
+.agent-popup-header { display: flex; align-items: center; gap: 10px; margin-bottom: 12px; }
+.agent-popup-avatar { width: 40px; height: 40px; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 20px; }
+.agent-popup-close { position: absolute; top: 8px; right: 8px; background: none; border: none; color: var(--text-muted); cursor: pointer; font-size: 16px; }
+
+/* ===== CRUD Modal Styles ===== */
+.modal-title { font-size: 20px; font-weight: 700; margin-bottom: 20px; }
+.modal-actions { display: flex; gap: 12px; justify-content: flex-end; margin-top: 24px; }
+.crud-list { display: flex; flex-direction: column; gap: 8px; }
+.crud-item { display: flex; align-items: center; justify-content: space-between; padding: 12px 16px; background: rgba(255,255,255,0.03); border: 1px solid var(--border-color); border-radius: var(--border-radius-sm); transition: all 0.2s; }
+.crud-item:hover { border-color: var(--border-active); background: rgba(255,255,255,0.05); }
+.crud-item-actions { display: flex; gap: 6px; }
+.icon-btn { width: 32px; height: 32px; display: flex; align-items: center; justify-content: center; border: 1px solid var(--border-color); border-radius: 6px; background: transparent; color: var(--text-secondary); cursor: pointer; transition: all 0.2s; }
+.icon-btn:hover { border-color: var(--border-active); color: var(--text-primary); background: rgba(255,255,255,0.05); }
+.icon-btn.danger:hover { border-color: var(--accent-danger); color: var(--accent-danger); }
+
+/* Agent Connect Wizard */
+.wizard-steps { display: flex; gap: 4px; margin-bottom: 24px; }
+.wizard-step { flex: 1; height: 4px; border-radius: 2px; background: rgba(255,255,255,0.08); }
+.wizard-step.active { background: var(--accent-primary); }
+.wizard-step.completed { background: var(--accent-secondary); }
+.platform-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+.platform-option { padding: 16px 12px; border: 1px solid var(--border-color); border-radius: var(--border-radius-sm); background: var(--bg-input); cursor: pointer; text-align: center; transition: all 0.2s; color: var(--text-secondary); }
+.platform-option:hover { border-color: var(--border-active); }
+.platform-option.selected { border-color: var(--accent-primary); background: rgba(99,102,241,0.1); color: var(--accent-primary); }
+.platform-icon { font-size: 28px; display: block; margin-bottom: 6px; }
+.platform-name { font-size: 12px; font-weight: 600; }
+.confirm-text { font-size: 14px; color: var(--text-secondary); line-height: 1.6; margin-bottom: 8px; }
+.confirm-name { font-weight: 700; color: var(--accent-danger); }

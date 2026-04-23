@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="OPC OS — 一人公司操作系统，AI Agent 驱动的企业管理平台">
+  <title>OPC OS · 一人公司操作系统</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/pages.css">
+  <link rel="stylesheet" href="css/pixel-office.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js"></script>
+  <script src="js/coze-config.js"></script>
+  <script src="https://lf-cdn.coze.cn/obj/unpkg/flow-platform/chat-app-sdk/1.2.0-beta.19/libs/cn/index.js"></script>
+</head>
+<body>
+
+<!-- ============ Onboarding Overlay ============ -->
+<div class="onboarding-overlay" id="onboardingOverlay">
+  <div class="onboarding-container">
+    <!-- Step 1: Welcome -->
+    <div class="onboarding-step active" id="step1">
+      <div class="onboarding-logo">
+        <div class="logo-glow"></div>
+        <span>OPC</span>
+      </div>
+      <h1 class="onboarding-title">欢迎使用 OPC OS</h1>
+      <p class="onboarding-subtitle">一个人 + N 个 AI Agent = 一家完整运转的公司</p>
+      <button class="btn btn-primary btn-lg" onclick="nextStep(2)">
+        🚀 开始搭建我的公司
+      </button>
+    </div>
+
+    <!-- Step 2: Company Info -->
+    <div class="onboarding-step" id="step2">
+      <div class="step-indicator">
+        <span class="step-dot active"></span>
+        <span class="step-dot"></span>
+        <span class="step-dot"></span>
+      </div>
+      <h2>创建你的公司</h2>
+      <p class="onboarding-hint">30秒完成，随时可以修改</p>
+      <div class="onboarding-form">
+        <div class="input-group">
+          <label class="input-label">公司名称</label>
+          <input type="text" class="input" id="companyName" placeholder="例如：初序健康" value="初序健康">
+        </div>
+        <div class="input-group">
+          <label class="input-label">所属行业</label>
+          <div class="industry-select">
+            <button class="industry-btn active" data-industry="大健康">🏥 大健康</button>
+            <button class="industry-btn" data-industry="电商">🛒 电商</button>
+            <button class="industry-btn" data-industry="教育">📚 教育</button>
+            <button class="industry-btn" data-industry="内容">🎬 内容</button>
+            <button class="industry-btn" data-industry="SaaS">💻 SaaS</button>
+            <button class="industry-btn" data-industry="其他">📋 其他</button>
+          </div>
+        </div>
+        <div class="input-group">
+          <label class="input-label">你的名字</label>
+          <input type="text" class="input" id="ceoName" placeholder="CEO 姓名" value="Zoey">
+        </div>
+        <button class="btn btn-primary btn-lg" onclick="nextStep(3)" style="width:100%">
+          下一步 →
+        </button>
+      </div>
+    </div>
+
+    <!-- Step 3: Template Select -->
+    <div class="onboarding-step" id="step3">
+      <div class="step-indicator">
+        <span class="step-dot completed"></span>
+        <span class="step-dot active"></span>
+        <span class="step-dot"></span>
+      </div>
+      <h2>选择业务模板</h2>
+      <p class="onboarding-hint">模板包含预设的部门、岗位和工作流</p>
+      <div class="template-grid">
+        <div class="template-card active" data-template="health">
+          <div class="template-icon">🏥</div>
+          <h3>初序健康</h3>
+          <p>AI 健康管家 + 养生商城 + 社群运营</p>
+          <span class="badge badge-success">推荐</span>
+        </div>
+        <div class="template-card" data-template="ecom">
+          <div class="template-icon">🛍️</div>
+          <h3>跨境电商</h3>
+          <p>选品 + 运营 + 物流 + 客服</p>
+          <span class="badge coming-soon-badge">即将上线</span>
+        </div>
+        <div class="template-card" data-template="content">
+          <div class="template-icon">📱</div>
+          <h3>内容创业</h3>
+          <p>内容创作 + 分发 + 变现</p>
+          <span class="badge coming-soon-badge">即将上线</span>
+        </div>
+      </div>
+      <button class="btn btn-primary btn-lg" onclick="nextStep(4)" style="width:100%;margin-top:24px">
+        下一步 →
+      </button>
+    </div>
+
+    <!-- Step 4: Agent Loading -->
+    <div class="onboarding-step" id="step4">
+      <div class="step-indicator">
+        <span class="step-dot completed"></span>
+        <span class="step-dot completed"></span>
+        <span class="step-dot active"></span>
+      </div>
+      <h2>正在初始化你的 AI 团队</h2>
+      <div class="agent-loading-list" id="agentLoadingList">
+        <!-- Dynamically populated -->
+      </div>
+      <div class="loading-progress">
+        <div class="progress-bar" style="height:8px;">
+          <div class="progress-fill" id="loadingProgress" style="width:0%"></div>
+        </div>
+        <p class="loading-text" id="loadingText">正在配置 Agent 环境...</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ============ Main App ============ -->
+<div class="app-container" id="appContainer" style="display:none;">
+
+  <!-- Sidebar -->
+  <nav class="sidebar" id="sidebar">
+    <div class="sidebar-header">
+      <div class="sidebar-logo">O</div>
+      <div>
+        <div class="sidebar-title">OPC OS</div>
+        <div class="sidebar-subtitle">一人公司操作系统</div>
+      </div>
+    </div>
+
+    <div class="sidebar-nav">
+      <div class="nav-section">
+        <div class="nav-section-title">总览</div>
+        <div class="nav-item active" data-page="dashboard" onclick="navigateTo('dashboard')">
+          <span class="nav-icon">📊</span>
+          <span>公司驾驶舱</span>
+        </div>
+      </div>
+
+      <div class="nav-section">
+        <div class="nav-section-title">管理</div>
+        <div class="nav-item" data-page="org" onclick="navigateTo('org')">
+          <span class="nav-icon">🏢</span>
+          <span>组织架构</span>
+        </div>
+        <div class="nav-item" data-page="tasks" onclick="navigateTo('tasks')">
+          <span class="nav-icon">📋</span>
+          <span>任务中心</span>
+          <span class="nav-badge" id="navTaskBadge" style="display:none">0</span>
+        </div>
+        <div class="nav-item" data-page="agents" onclick="navigateTo('agents')">
+          <span class="nav-icon">🤖</span>
+          <span>Agent 管理</span>
+        </div>
+      </div>
+
+      <div class="nav-section">
+        <div class="nav-section-title">业务</div>
+        <div class="nav-item" data-page="health" onclick="navigateTo('health')">
+          <span class="nav-icon">💚</span>
+          <span>AI 健康管家</span>
+        </div>
+        <div class="nav-item" data-page="mall" onclick="navigateTo('mall')">
+          <span class="nav-icon">🛒</span>
+          <span>健康商城</span>
+          <span class="nav-badge">6</span>
+        </div>
+        <div class="nav-item" data-page="community" onclick="navigateTo('community')">
+          <span class="nav-icon">👥</span>
+          <span>社群管理</span>
+        </div>
+      </div>
+
+      <div class="nav-section">
+        <div class="nav-section-title">财务</div>
+        <div class="nav-item" data-page="finance" onclick="navigateTo('finance')">
+          <span class="nav-icon">💰</span>
+          <span>财务中心</span>
+        </div>
+      </div>
+
+      <div class="nav-section">
+        <div class="nav-section-title">系统</div>
+        <div class="nav-item" data-page="approval" onclick="navigateTo('approval')">
+          <span class="nav-icon">✅</span>
+          <span>审批中心</span>
+          <span class="nav-badge coming-soon">即将上线</span>
+        </div>
+        <div class="nav-item" data-page="compliance" onclick="navigateTo('compliance')">
+          <span class="nav-icon">🛡️</span>
+          <span>合规模块</span>
+          <span class="nav-badge coming-soon">即将上线</span>
+        </div>
+        <div class="nav-item" data-page="settings" onclick="navigateTo('settings')">
+          <span class="nav-icon">⚙️</span>
+          <span>系统设置</span>
+          <span class="nav-badge coming-soon">即将上线</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="sidebar-footer">
+      <div class="user-card" style="display:flex; align-items:center; gap:10px;">
+        <div class="user-avatar">Z</div>
+        <div style="flex:1">
+          <div class="user-name" id="sidebarUserName">Zoey</div>
+          <div class="user-role">CEO · 创始人</div>
+        </div>
+        <button id="resetDataBtn" style="width:32px;height:32px;border:none;background:rgba(255,255,255,0.05);border-radius:6px;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;color:var(--text-muted);transition:all 0.2s" title="重置初始数据">🔄</button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Main Content -->
+  <main class="main-content">
+    <!-- ===== Dashboard Page ===== -->
+    <div class="page active" id="page-dashboard">
+      <div class="page-header">
+        <h1>📊 公司驾驶舱</h1>
+        <p>实时掌控公司运营全局 · <span id="dashboardDate"></span></p>
+      </div>
+      <div class="content-area" id="dashboardContent">
+        <!-- Populated by JS -->
+      </div>
+    </div>
+
+    <!-- ===== Org Chart Page ===== -->
+    <div class="page" id="page-org">
+      <div class="page-header">
+        <h1>🏢 组织架构</h1>
+        <p>CEO → 部门 → Agent 的扁平化管理架构</p>
+      </div>
+      <div class="content-area" id="orgContent">
+        <!-- Populated by JS -->
+      </div>
+    </div>
+
+    <!-- ===== Tasks Page ===== -->
+    <div class="page" id="page-tasks">
+      <div class="page-header">
+        <h1>📋 任务中心</h1>
+        <p>项目进度追踪与 Agent 任务管理</p>
+      </div>
+      <div class="content-area" id="tasksContent">
+        <!-- Populated by JS -->
+      </div>
+    </div>
+
+    <!-- ===== Agent Management Page ===== -->
+    <div class="page" id="page-agents">
+      <div class="page-header">
+        <h1>🤖 Agent 管理</h1>
+        <p>查看和管理你的 AI 团队成员</p>
+      </div>
+      <div class="content-area" id="agentsContent">
+        <!-- Populated by JS -->
+      </div>
+    </div>
+
+    <!-- ===== AI Health Page ===== -->
+    <div class="page" id="page-health">
+      <div class="page-header">
+        <h1>💚 AI 健康管家</h1>
+        <p>智能体质评估 · 个性化健康方案</p>
+      </div>
+      <div class="content-area" id="healthContent">
+        <!-- Populated by JS -->
+      </div>
+    </div>
+
+    <!-- ===== Mall Page ===== -->
+    <div class="page" id="page-mall">
+      <div class="page-header">
+        <h1>🛒 健康商城</h1>
+        <p>基于体质画像的个性化产品推荐</p>
+      </div>
+      <div class="content-area" id="mallContent">
+        <!-- Populated by JS -->
+      </div>
+    </div>
+
+    <!-- ===== Community Page ===== -->
+    <div class="page" id="page-community">
+      <div class="page-header">
+        <h1>👥 社群管理</h1>
+        <p>用户社群运营与增长追踪</p>
+      </div>
+      <div class="content-area" id="communityContent">
+        <!-- Populated by JS -->
+      </div>
+    </div>
+
+    <!-- ===== Finance Page ===== -->
+    <div class="page" id="page-finance">
+      <div class="page-header">
+        <h1>💰 财务中心</h1>
+        <p>Token 消耗 · 营收成本 · 盈亏分析</p>
+      </div>
+      <div class="content-area" id="financeContent">
+        <!-- Populated by JS -->
+      </div>
+    </div>
+
+    <!-- ===== Coming Soon Pages ===== -->
+    <div class="page" id="page-approval">
+      <div class="page-header"><h1>✅ 审批中心</h1></div>
+      <div class="content-area">
+        <div class="empty-state">
+          <div class="empty-icon">🚧</div>
+          <h3>审批中心即将上线</h3>
+          <p>Agent 产出的内容和方案将在这里等待 CEO 审批</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="page" id="page-compliance">
+      <div class="page-header"><h1>🛡️ 合规模块</h1></div>
+      <div class="content-area">
+        <div class="empty-state">
+          <div class="empty-icon">🚧</div>
+          <h3>合规模块即将上线</h3>
+          <p>敏感词过滤、免责声明管理、合规审计日志</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="page" id="page-settings">
+      <div class="page-header"><h1>⚙️ 系统设置</h1></div>
+      <div class="content-area">
+        <div class="empty-state">
+          <div class="empty-icon">🚧</div>
+          <h3>系统设置即将上线</h3>
+          <p>Agent 配置、通知偏好、数据导出</p>
+        </div>
+      </div>
+    </div>
+
+  </main>
+</div>
+
+<!-- Toast Container -->
+<div class="toast-container" id="toastContainer"></div>
+
+<!-- Scripts -->
+<script src="js/mock-data.js?v=4"></script>
+<script src="js/pages.js?v=4"></script>
+<script src="js/pages2.js?v=4"></script>
+<script src="js/pixel-office.js?v=7"></script>
+<script src="js/task-dispatch.js?v=7"></script>
+<script src="js/app.js?v=7"></script>
+
+<style>
+  @keyframes blink { 0%,50% { opacity:1; } 51%,100% { opacity:0; } }
+</style>
+
+</body>
+</html>
