@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>初序健康 · AI 健康管家</title>
+  <link rel="stylesheet" href="css/user-style.css">
+</head>
+<body>
+<div id="app">
+
+  <!-- ===== 首页 ===== -->
+  <div class="page active" id="page-home">
+    <div class="home-hero">
+      <div class="brand-logo">初序<span>健康</span></div>
+      <h1 class="hero-title">了解体质，吃对食物</h1>
+      <p class="hero-sub">AI 驱动的个性化健康管理方案</p>
+      <button class="btn-primary btn-lg" onclick="goTo('assess')">🔍 3 分钟测出你的体质</button>
+    </div>
+    <div class="home-features">
+      <div class="feature-card"><span class="feat-icon">🤖</span><strong>AI 精准分析</strong><p>五行体质智能评估</p></div>
+      <div class="feature-card"><span class="feat-icon">📋</span><strong>个性化方案</strong><p>饮食·作息·运动定制</p></div>
+      <div class="feature-card"><span class="feat-icon">🔄</span><strong>持续追踪</strong><p>节气养生每日提醒</p></div>
+    </div>
+    <div class="home-reviews">
+      <div class="review-title">💬 用户好评</div>
+      <div class="review-scroll">
+        <div class="review-card"><div class="review-user">🌸 小雨</div><div class="review-text">"测完才知道自己是木型体质，推荐的养肝茶真的有效！"</div></div>
+        <div class="review-card"><div class="review-user">☀️ 阿文</div><div class="review-text">"每天都看群里的养生提醒，很实用，坚持了一个月感觉好多了。"</div></div>
+        <div class="review-card"><div class="review-user">🌙 大伟</div><div class="review-text">"AI 顾问比我去药店问的人专业多了，关键还免费。"</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== 测评页 ===== -->
+  <div class="page" id="page-assess">
+    <div class="assess-header">
+      <button class="back-btn" onclick="goTo('home')">←</button>
+      <span>体质测评</span>
+      <span class="assess-progress" id="assessProgress">1/5</span>
+    </div>
+    <div class="progress-bar-wrap"><div class="progress-bar-fill" id="assessBar" style="width:20%"></div></div>
+    <div class="assess-body" id="assessBody">
+      <!-- JS 动态渲染题目 -->
+    </div>
+  </div>
+
+  <!-- ===== 分析中 ===== -->
+  <div class="page" id="page-analyzing">
+    <div class="analyzing-wrap">
+      <div class="analyzing-icon">🔬</div>
+      <h2>正在分析你的体质…</h2>
+      <p>AI 正在综合你的回答生成个性化报告</p>
+      <div class="analyzing-dots"><span></span><span></span><span></span></div>
+    </div>
+  </div>
+
+  <!-- ===== 报告页 ===== -->
+  <div class="page" id="page-report">
+    <div class="report-header">
+      <button class="back-btn" onclick="goTo('home')">←</button>
+      <span>体质报告</span>
+    </div>
+    <div class="report-body" id="reportBody">
+      <!-- JS 动态渲染 -->
+    </div>
+  </div>
+
+  <!-- ===== 商城页 ===== -->
+  <div class="page" id="page-mall">
+    <div class="mall-header">
+      <h2>🛒 健康商城</h2>
+      <div class="mall-filters" id="mallFilters">
+        <button class="filter-tag active" onclick="filterMall(this,'all')">全部</button>
+        <button class="filter-tag" onclick="filterMall(this,'适合我')">💚 适合我</button>
+        <button class="filter-tag" onclick="filterMall(this,'节气推荐')">🌿 节气推荐</button>
+      </div>
+    </div>
+    <div class="mall-grid" id="mallGrid">
+      <!-- JS 渲染 -->
+    </div>
+  </div>
+
+  <!-- ===== 个人中心 ===== -->
+  <div class="page" id="page-profile">
+    <div class="profile-header-bg">
+      <div class="profile-avatar" id="profileAvatar">👤</div>
+      <div class="profile-name" id="profileName">未登录</div>
+      <div class="profile-type" id="profileType">完成测评解锁体质标签</div>
+    </div>
+    <div class="profile-menu">
+      <div class="menu-item" onclick="goTo('report')"><span>📋 我的体质档案</span><span>›</span></div>
+      <div class="menu-item" onclick="showToast('暂无订单')"><span>📦 我的订单</span><span>›</span></div>
+      <div class="menu-item" onclick="goTo('share')"><span>🎁 邀请好友</span><span>›</span></div>
+      <div class="menu-item" onclick="showToast('已复制客服企微号')"><span>💬 联系客服</span><span>›</span></div>
+    </div>
+  </div>
+
+  <!-- ===== 裂变分享页 ===== -->
+  <div class="page" id="page-share">
+    <div class="share-wrap">
+      <div class="share-header">
+        <button class="back-btn" onclick="goTo('profile')">←</button>
+        <span>邀请好友</span>
+      </div>
+      <div class="share-card">
+        <div class="share-icon">🎁</div>
+        <h2>邀请好友测体质</h2>
+        <p>双方各得 <strong style="color:#f59e0b">¥5 优惠券</strong></p>
+        <div class="share-stats" id="shareStats">已邀请 0 人 · 获得 ¥0 优惠</div>
+        <button class="btn-primary btn-lg" onclick="doShare()">生成我的专属邀请链接</button>
+        <p class="share-rules">活动规则：好友通过你的链接完成体质测评后，双方各得¥5优惠券，每人最多邀请20人。</p>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- AI 客服悬浮气泡 -->
+<div class="chat-bubble" id="chatBubble" onclick="toggleChat()">💚</div>
+<div class="chat-panel" id="chatPanel">
+  <div class="chat-panel-header">
+    <span>💚 AI 健康顾问</span>
+    <button onclick="toggleChat()">✕</button>
+  </div>
+  <div class="chat-panel-body" id="chatMessages">
+    <div class="chat-msg bot">你好～我是初序健康的 AI 顾问，有什么健康问题都可以问我！</div>
+  </div>
+  <div class="chat-panel-input">
+    <input type="text" id="chatInput" placeholder="输入你的问题…" onkeypress="if(event.key==='Enter')sendChatMsg()">
+    <button onclick="sendChatMsg()">发送</button>
+  </div>
+</div>
+
+<!-- Toast -->
+<div class="toast-wrap" id="toastWrap"></div>
+
+<!-- 底部 Tab -->
+<nav class="tab-bar">
+  <div class="tab-item active" onclick="goTo('home')"><span class="tab-icon">🏠</span><span>首页</span></div>
+  <div class="tab-item" onclick="goTo('assess')"><span class="tab-icon">🔍</span><span>测评</span></div>
+  <div class="tab-item" onclick="goTo('mall')"><span class="tab-icon">🛒</span><span>商城</span></div>
+  <div class="tab-item" onclick="goTo('profile')"><span class="tab-icon">👤</span><span>我的</span></div>
+</nav>
+
+<script src="js/user-app.js"></script>
+</body>
+</html>

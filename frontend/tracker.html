@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>初序 · 数据追踪</title>
+    <meta name="description" content="初序产品核心数据追踪面板">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Noto+Serif+SC:wght@400;600&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        /* ─── Tracker Page Styles ─── */
+        .tracker-container {
+            max-width: 600px;
+            margin: 0 auto;
+            min-height: 100vh;
+            padding: 0 20px 40px;
+            background: var(--bg-color);
+        }
+
+        .tracker-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 16px 0;
+            border-bottom: 1px solid var(--glass-border);
+            margin-bottom: 24px;
+        }
+
+        .tracker-header a {
+            color: var(--primary-color);
+            text-decoration: none;
+            font-size: 0.9rem;
+        }
+
+        .tracker-header h1 {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--text-main);
+        }
+
+        .tracker-header .live-dot {
+            color: var(--primary-color);
+            font-size: 0.8rem;
+            animation: breathe 2s ease-in-out infinite;
+        }
+
+        @keyframes breathe {
+            0%, 100% { opacity: 0.4; }
+            50% { opacity: 1; }
+        }
+
+        /* ─── Summary Row ─── */
+        .summary-row {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 24px;
+        }
+
+        .summary-card {
+            flex: 1;
+            background: var(--surface-color);
+            border: 1px solid var(--glass-border);
+            border-radius: 16px;
+            padding: 16px;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .summary-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 16px var(--primary-glow);
+        }
+
+        .summary-icon {
+            font-size: 1.5rem;
+            margin-bottom: 6px;
+        }
+
+        .summary-value {
+            font-size: 1.8rem;
+            font-weight: 600;
+            line-height: 1.2;
+        }
+
+        .summary-label {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            margin-top: 4px;
+        }
+
+        /* ─── Section ─── */
+        .tracker-section {
+            margin-bottom: 28px;
+        }
+
+        .section-head {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 14px;
+        }
+
+        .section-head h2 {
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--text-main);
+        }
+
+        .section-head .badge {
+            font-size: 0.65rem;
+            background: var(--primary-glow);
+            color: var(--primary-color);
+            padding: 2px 8px;
+            border-radius: 10px;
+            border: 1px solid rgba(0, 210, 173, 0.3);
+        }
+
+        /* ─── Funnel (Simplified) ─── */
+        .funnel-simple {
+            display: flex;
+            align-items: center;
+            gap: 0;
+            overflow-x: auto;
+        }
+
+        .funnel-step {
+            flex: 1;
+            min-width: 100px;
+            background: var(--surface-color);
+            border: 1px solid var(--glass-border);
+            border-radius: 12px;
+            padding: 14px 10px;
+            text-align: center;
+        }
+
+        .funnel-step-icon {
+            font-size: 1.3rem;
+            margin-bottom: 4px;
+        }
+
+        .funnel-step-name {
+            font-size: 0.8rem;
+            font-weight: 500;
+            color: var(--text-main);
+            margin-bottom: 4px;
+        }
+
+        .funnel-step-count {
+            font-size: 1.4rem;
+            font-weight: 600;
+            color: var(--primary-color);
+        }
+
+        .funnel-arrow {
+            font-size: 1.2rem;
+            color: var(--primary-color);
+            padding: 0 4px;
+            flex-shrink: 0;
+        }
+
+        /* ─── Revenue Pipes ─── */
+        .pipe-list {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .pipe-row {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background: var(--surface-color);
+            border: 1px solid var(--glass-border);
+            border-radius: 12px;
+            padding: 12px 16px;
+        }
+
+        .pipe-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            flex-shrink: 0;
+        }
+
+        .pipe-dot.active {
+            background: var(--primary-color);
+            box-shadow: 0 0 6px var(--primary-color);
+            animation: breathe 2s ease-in-out infinite;
+        }
+
+        .pipe-dot.building {
+            background: var(--warning);
+            box-shadow: 0 0 6px var(--warning);
+        }
+
+        .pipe-dot.planned {
+            background: var(--text-muted);
+        }
+
+        .pipe-info {
+            flex: 1;
+        }
+
+        .pipe-name {
+            font-size: 0.85rem;
+            font-weight: 500;
+            color: var(--text-main);
+        }
+
+        .pipe-desc {
+            font-size: 0.7rem;
+            color: var(--text-muted);
+        }
+
+        .pipe-price {
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--primary-color);
+        }
+
+        /* ─── Team Row ─── */
+        .team-row {
+            display: flex;
+            gap: 10px;
+            overflow-x: auto;
+            padding-bottom: 8px;
+        }
+
+        .team-member {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-width: 72px;
+        }
+
+        .team-avatar {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            background: var(--surface-color);
+            border: 2px solid;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            margin-bottom: 4px;
+        }
+
+        .team-name {
+            font-size: 0.7rem;
+            font-weight: 600;
+            color: var(--text-main);
+        }
+
+        .team-role {
+            font-size: 0.6rem;
+            color: var(--text-muted);
+        }
+
+        /* ─── Footer ─── */
+        .tracker-footer {
+            text-align: center;
+            font-size: 0.7rem;
+            color: var(--text-muted);
+            padding: 20px 0;
+            border-top: 1px solid var(--glass-border);
+        }
+
+        /* ─── Responsive ─── */
+        @media (max-width: 480px) {
+            .summary-row {
+                flex-wrap: wrap;
+            }
+
+            .summary-card {
+                min-width: calc(50% - 6px);
+            }
+
+            .funnel-simple {
+                flex-direction: column;
+            }
+
+            .funnel-arrow {
+                transform: rotate(90deg);
+            }
+
+            .funnel-step {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="tracker-container">
+        <!-- Header -->
+        <header class="tracker-header">
+            <a href="index.html" id="nav-back">← 返回</a>
+            <h1>📊 初序 · 数据面板</h1>
+            <span class="live-dot">● LIVE</span>
+        </header>
+
+        <!-- Summary Cards -->
+        <div class="summary-row" id="summary-row">
+            <div class="summary-card">
+                <div class="summary-icon">🧘‍♀️</div>
+                <div class="summary-value" id="stat-assessments" style="color: var(--primary-color);">0</div>
+                <div class="summary-label">体质测评</div>
+            </div>
+            <div class="summary-card">
+                <div class="summary-icon">🍱</div>
+                <div class="summary-value" id="stat-recipes" style="color: #f9d423;">0</div>
+                <div class="summary-label">食谱推荐</div>
+            </div>
+            <div class="summary-card">
+                <div class="summary-icon">🛒</div>
+                <div class="summary-value" id="stat-cps" style="color: #4ecdc4;">0</div>
+                <div class="summary-label">外卖点击</div>
+            </div>
+        </div>
+
+        <!-- Conversion Funnel -->
+        <section class="tracker-section">
+            <div class="section-head">
+                <h2>🎯 用户漏斗</h2>
+                <span class="badge">实时</span>
+            </div>
+            <div class="funnel-simple" id="funnel">
+                <div class="funnel-step">
+                    <div class="funnel-step-icon">👁️</div>
+                    <div class="funnel-step-name">访问</div>
+                    <div class="funnel-step-count" id="funnel-visit">0</div>
+                </div>
+                <div class="funnel-arrow">→</div>
+                <div class="funnel-step">
+                    <div class="funnel-step-icon">🧘‍♀️</div>
+                    <div class="funnel-step-name">测评</div>
+                    <div class="funnel-step-count" id="funnel-assess">0</div>
+                </div>
+                <div class="funnel-arrow">→</div>
+                <div class="funnel-step">
+                    <div class="funnel-step-icon">🍱</div>
+                    <div class="funnel-step-name">推荐</div>
+                    <div class="funnel-step-count" id="funnel-recipe">0</div>
+                </div>
+                <div class="funnel-arrow">→</div>
+                <div class="funnel-step">
+                    <div class="funnel-step-icon">💰</div>
+                    <div class="funnel-step-name">转化</div>
+                    <div class="funnel-step-count" id="funnel-convert">0</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Revenue Pipes -->
+        <section class="tracker-section">
+            <div class="section-head">
+                <h2>📡 变现管道</h2>
+            </div>
+            <div class="pipe-list" id="pipe-list">
+                <div class="pipe-row">
+                    <span class="pipe-dot active"></span>
+                    <div class="pipe-info">
+                        <div class="pipe-name">CPS 外卖佣金</div>
+                        <div class="pipe-desc">美团/饿了么外链，已接入</div>
+                    </div>
+                    <span class="pipe-price">¥1-3/单</span>
+                </div>
+                <div class="pipe-row">
+                    <span class="pipe-dot building"></span>
+                    <div class="pipe-info">
+                        <div class="pipe-name">付费体质报告</div>
+                        <div class="pipe-desc">深度解析 + 食谱方案</div>
+                    </div>
+                    <span class="pipe-price">¥9.9</span>
+                </div>
+                <div class="pipe-row">
+                    <span class="pipe-dot planned"></span>
+                    <div class="pipe-info">
+                        <div class="pipe-name">中医诊所引流</div>
+                        <div class="pipe-desc">线下合作，Phase 2</div>
+                    </div>
+                    <span class="pipe-price">¥30-50</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- Team -->
+        <section class="tracker-section">
+            <div class="section-head">
+                <h2>🧠 AI 团队</h2>
+                <span class="badge">一人公司</span>
+            </div>
+            <div class="team-row" id="team-row">
+                <div class="team-member">
+                    <div class="team-avatar" style="border-color: #00d2ad;">🧠</div>
+                    <div class="team-name">Zoey</div>
+                    <div class="team-role">CEO</div>
+                </div>
+                <div class="team-member">
+                    <div class="team-avatar" style="border-color: #4ecdc4;">🌿</div>
+                    <div class="team-name">初序Bot</div>
+                    <div class="team-role">健康顾问</div>
+                </div>
+                <div class="team-member">
+                    <div class="team-avatar" style="border-color: #7c5cbf;">⚡</div>
+                    <div class="team-name">子默</div>
+                    <div class="team-role">COO/CTO</div>
+                </div>
+                <div class="team-member">
+                    <div class="team-avatar" style="border-color: #f39c12;">🔧</div>
+                    <div class="team-name">恺撒</div>
+                    <div class="team-role">全栈</div>
+                </div>
+                <div class="team-member">
+                    <div class="team-avatar" style="border-color: #e74c3c;">✍️</div>
+                    <div class="team-name">明哲</div>
+                    <div class="team-role">CMO</div>
+                </div>
+                <div class="team-member">
+                    <div class="team-avatar" style="border-color: #3498db;">🔍</div>
+                    <div class="team-name">知远</div>
+                    <div class="team-role">CRO</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="tracker-footer">
+            ⚠️ AI 生成内容仅供参考，不构成医疗诊断。<br>
+            初序 OPC · 一人公司操作系统 © 2026
+        </footer>
+    </div>
+
+    <script>
+        // ─── Tracker Data (from localStorage) ───
+        (function () {
+            'use strict';
+
+            // Read tracker counters from localStorage
+            function getCount(key) {
+                return parseInt(localStorage.getItem('tracker_' + key) || '0', 10);
+            }
+
+            // Increment and persist
+            function increment(key) {
+                var val = getCount(key) + 1;
+                localStorage.setItem('tracker_' + key, val);
+                return val;
+            }
+
+            // Track page visit
+            increment('visits');
+
+            // Render stats
+            function render() {
+                var el;
+                el = document.getElementById('stat-assessments');
+                if (el) el.textContent = getCount('assessments');
+
+                el = document.getElementById('stat-recipes');
+                if (el) el.textContent = getCount('recipes');
+
+                el = document.getElementById('stat-cps');
+                if (el) el.textContent = getCount('cps_clicks');
+
+                // Funnel
+                el = document.getElementById('funnel-visit');
+                if (el) el.textContent = getCount('visits');
+
+                el = document.getElementById('funnel-assess');
+                if (el) el.textContent = getCount('assessments');
+
+                el = document.getElementById('funnel-recipe');
+                if (el) el.textContent = getCount('recipes');
+
+                el = document.getElementById('funnel-convert');
+                if (el) el.textContent = getCount('cps_clicks');
+            }
+
+            render();
+
+            // Expose global tracker API for index.html to call
+            window.TrackerAPI = {
+                trackAssessment: function () { increment('assessments'); render(); },
+                trackRecipe: function () { increment('recipes'); render(); },
+                trackCPS: function () { increment('cps_clicks'); render(); },
+                getStats: function () {
+                    return {
+                        visits: getCount('visits'),
+                        assessments: getCount('assessments'),
+                        recipes: getCount('recipes'),
+                        cps_clicks: getCount('cps_clicks')
+                    };
+                }
+            };
+        })();
+    </script>
+</body>
+
+</html>

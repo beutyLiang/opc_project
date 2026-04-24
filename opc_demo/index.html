@@ -160,19 +160,22 @@
       </div>
 
       <div class="nav-section">
-        <div class="nav-section-title">业务</div>
-        <div class="nav-item" data-page="health" onclick="navigateTo('health')">
-          <span class="nav-icon">💚</span>
-          <span>AI 健康管家</span>
+        <div class="nav-section-title">业务运营</div>
+        <div class="nav-item" data-page="userops" onclick="navigateTo('userops')">
+          <span class="nav-icon">📡</span>
+          <span>用户运营</span>
         </div>
-        <div class="nav-item" data-page="mall" onclick="navigateTo('mall')">
-          <span class="nav-icon">🛒</span>
-          <span>健康商城</span>
-          <span class="nav-badge">6</span>
+        <div class="nav-item" data-page="marketing" onclick="navigateTo('marketing')">
+          <span class="nav-icon">📣</span>
+          <span>营销中心</span>
         </div>
         <div class="nav-item" data-page="community" onclick="navigateTo('community')">
           <span class="nav-icon">👥</span>
           <span>社群管理</span>
+        </div>
+        <div class="nav-item" data-page="cpreview" onclick="navigateTo('cpreview')">
+          <span class="nav-icon">📱</span>
+          <span>C 端预览</span>
         </div>
       </div>
 
@@ -262,24 +265,24 @@
       </div>
     </div>
 
-    <!-- ===== AI Health Page ===== -->
-    <div class="page" id="page-health">
+    <!-- ===== 用户运营 Page ===== -->
+    <div class="page" id="page-userops">
       <div class="page-header">
-        <h1>💚 AI 健康管家</h1>
-        <p>智能体质评估 · 个性化健康方案</p>
+        <h1>📡 用户运营</h1>
+        <p>用户画像 · 渠道分析 · 标签管理</p>
       </div>
-      <div class="content-area" id="healthContent">
+      <div class="content-area" id="useropsContent">
         <!-- Populated by JS -->
       </div>
     </div>
 
-    <!-- ===== Mall Page ===== -->
-    <div class="page" id="page-mall">
+    <!-- ===== 营销中心 Page ===== -->
+    <div class="page" id="page-marketing">
       <div class="page-header">
-        <h1>🛒 健康商城</h1>
-        <p>基于体质画像的个性化产品推荐</p>
+        <h1>📣 营销中心</h1>
+        <p>SOP 自动化 · 裂变活动 · 精准推送</p>
       </div>
-      <div class="content-area" id="mallContent">
+      <div class="content-area" id="marketingContent">
         <!-- Populated by JS -->
       </div>
     </div>
@@ -291,6 +294,17 @@
         <p>用户社群运营与增长追踪</p>
       </div>
       <div class="content-area" id="communityContent">
+        <!-- Populated by JS -->
+      </div>
+    </div>
+
+    <!-- ===== C端预览 Page ===== -->
+    <div class="page" id="page-cpreview">
+      <div class="page-header">
+        <h1>📱 C 端预览</h1>
+        <p>实时预览用户端体验 · 移动端视角</p>
+      </div>
+      <div class="content-area" id="cpreviewContent">
         <!-- Populated by JS -->
       </div>
     </div>
@@ -347,12 +361,12 @@
 <div class="toast-container" id="toastContainer"></div>
 
 <!-- Scripts -->
-<script src="js/mock-data.js?v=4"></script>
-<script src="js/pages.js?v=4"></script>
-<script src="js/pages2.js?v=4"></script>
-<script src="js/pixel-office.js?v=7"></script>
-<script src="js/task-dispatch.js?v=7"></script>
-<script src="js/app.js?v=7"></script>
+<script src="js/mock-data.js?v=8"></script>
+<script src="js/pages.js?v=8"></script>
+<script src="js/pages2.js?v=8"></script>
+<script src="js/pixel-office.js?v=8"></script>
+<script src="js/task-dispatch.js?v=8"></script>
+<script src="js/app.js?v=8"></script>
 
 <style>
   @keyframes blink { 0%,50% { opacity:1; } 51%,100% { opacity:0; } }

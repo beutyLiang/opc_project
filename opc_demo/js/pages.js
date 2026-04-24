@@ -78,8 +78,11 @@ function renderDashboard() {
         <span class="badge badge-success" style="font-size:11px">6 环节全链路</span>
       </div>
       <div class="card-body">
-        <div class="funnel-flow">${MOCK.funnel.map((f, i) => `
-          <div class="funnel-step ${f.status}">
+        <div class="funnel-flow">${MOCK.funnel.map((f, i) => {
+          const pageMap = {'流量获取':'tasks','AI 客服':'userops','人群筛选':'userops','社群运营':'community','精准营销':'marketing','复购裂变':'marketing'};
+          const target = pageMap[f.step] || 'dashboard';
+          return `
+          <div class="funnel-step ${f.status}" onclick="navigateTo('${target}')" style="cursor:pointer" title="点击查看详情">
             <div class="funnel-icon">${f.icon}</div>
             <div class="funnel-name">${f.step}</div>
             <div class="funnel-metric">${f.metric}</div>
@@ -88,7 +91,7 @@ function renderDashboard() {
             <div class="funnel-status-tag">${f.status === 'active' ? '✅ 已上线' : '🔨 建设中'}</div>
           </div>
           ${i < MOCK.funnel.length - 1 ? '<div class="funnel-arrow">→</div>' : ''}
-        `).join('')}
+        `}).join('')}
         </div>
       </div>
     </div>

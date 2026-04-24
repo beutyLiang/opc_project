@@ -164,14 +164,14 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 });
 
-// ===== Page Renderers Registry =====
 const pageRenderers = {
   dashboard: renderDashboard,
   org: renderOrg,
   tasks: renderTasks,
   agents: renderAgents,
-  health: renderHealth,
-  mall: renderMall,
+  userops: renderUserOps,
+  marketing: renderMarketing,
   community: renderCommunity,
-  finance: renderFinance
+  finance: renderFinance,
+  cpreview: renderCPreview
 };
