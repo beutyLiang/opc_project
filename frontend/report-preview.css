@@ -423,3 +423,79 @@ body {
         font-size: 1.5rem;
     }
 }
+
+/* ─── Radar Chart & Traffic Lights ─── */
+.radar-container {
+    width: 100%;
+    max-width: 320px;
+    margin: 20px auto;
+}
+
+.diet-traffic-lights {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-top: 10px;
+}
+
+.diet-row {
+    display: flex;
+    justify-content: space-between;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid var(--glass-border);
+    border-radius: 12px;
+    overflow: hidden;
+}
+
+.diet-col {
+    flex: 1;
+    padding: 12px;
+}
+
+.diet-col:first-child {
+    border-right: 1px solid var(--glass-border);
+    background: rgba(45, 106, 79, 0.1);
+}
+
+.diet-col:last-child {
+    background: rgba(201, 24, 74, 0.1);
+}
+
+.diet-col h4 {
+    font-size: 0.85rem;
+    margin-bottom: 8px;
+    font-weight: 600;
+}
+
+.diet-col.good h4 {
+    color: #4ade80;
+}
+
+.diet-col.bad h4 {
+    color: #f87171;
+}
+
+.diet-col p {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    line-height: 1.5;
+}
+
+/* ─── Shop Entry ─── */
+.shop-entry {
+    margin: 30px 0 10px;
+    text-align: center;
+}
+
+.shop-link {
+    display: inline-block;
+    background: linear-gradient(135deg, #10b981, #059669);
+    padding: 14px 20px;
+    font-size: 1.05rem;
+    box-shadow: 0 4px 15px rgba(16, 185, 129, 0.3);
+    text-decoration: none;
+}
+
+.shop-link:hover {
+    box-shadow: 0 6px 20px rgba(16, 185, 129, 0.4);
+}

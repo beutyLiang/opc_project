@@ -1,0 +1,232 @@
+/* shop.css - 个性化健康商城样式 */
+
+/* 页面容器基础样式 */
+.shop-container {
+    max-width: 375px;
+    margin: 0 auto;
+    background-color: var(--bg-primary, #121212);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    color: var(--text-primary, #ffffff);
+    font-family: 'Inter', 'Noto Serif SC', sans-serif;
+    position: relative;
+    overflow-x: hidden;
+}
+
+/* 顶部头部 */
+.shop-header {
+    padding: 20px;
+    padding-top: 30px;
+    border-bottom-left-radius: 20px;
+    border-bottom-right-radius: 20px;
+    transition: background 0.5s ease;
+    background: linear-gradient(135deg, rgba(255,255,255,0.05) 0%, rgba(255,255,255,0) 100%);
+}
+
+.header-nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.back-btn {
+    color: rgba(255,255,255,0.8);
+    text-decoration: none;
+    font-size: 14px;
+}
+
+.logo {
+    font-size: 14px;
+    font-weight: 500;
+    color: rgba(255,255,255,0.9);
+}
+
+.element-info h1 {
+    font-size: 24px;
+    font-weight: 600;
+    margin-bottom: 10px;
+    font-family: 'Noto Serif SC', serif;
+}
+
+.element-info p {
+    font-size: 13px;
+    line-height: 1.6;
+    color: rgba(255,255,255,0.8);
+}
+
+/* 主内容区 */
+.shop-main {
+    padding: 20px;
+    flex: 1;
+}
+
+.section-title {
+    font-size: 16px;
+    font-weight: 500;
+    margin-bottom: 15px;
+    color: var(--text-primary);
+}
+
+/* 商品网格 */
+.product-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin-bottom: 30px;
+}
+
+/* 商品卡片：玻璃态风格 */
+.product-card {
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    transition: transform 0.2s;
+}
+
+.product-card:active {
+    transform: scale(0.98);
+}
+
+.product-emoji {
+    font-size: 40px;
+    margin-bottom: 10px;
+}
+
+.product-name {
+    font-size: 14px;
+    font-weight: 600;
+    margin-bottom: 5px;
+    color: var(--text-primary);
+}
+
+.product-desc {
+    font-size: 11px;
+    color: var(--text-secondary, #9ca3af);
+    margin-bottom: 10px;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.product-price {
+    font-size: 16px;
+    font-weight: 600;
+    color: #f59e0b; /* 价格偏金黄色 */
+    margin-bottom: 10px;
+    margin-top: auto;
+}
+
+.buy-btn {
+    width: 100%;
+    padding: 8px 0;
+    background: rgba(255,255,255,0.1);
+    border: 1px solid rgba(255,255,255,0.2);
+    border-radius: 6px;
+    color: #fff;
+    font-size: 12px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.buy-btn:hover {
+    background: rgba(255,255,255,0.2);
+}
+
+/* 解释模块 */
+.ai-explanation {
+    background: rgba(255,255,255,0.03);
+    border-radius: 12px;
+    padding: 15px;
+    border: 1px solid rgba(255,255,255,0.05);
+}
+
+.ai-explanation h3 {
+    font-size: 14px;
+    font-weight: 500;
+    margin-bottom: 8px;
+    color: rgba(255,255,255,0.9);
+}
+
+.ai-explanation p {
+    font-size: 12px;
+    line-height: 1.6;
+    color: rgba(255,255,255,0.7);
+    margin-bottom: 10px;
+}
+
+.disclaimer {
+    font-size: 11px;
+    color: #9ca3af;
+    border-top: 1px dashed rgba(255,255,255,0.1);
+    padding-top: 10px;
+}
+
+/* 弹窗样式调整 */
+.modal-overlay {
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(0,0,0,0.6);
+    backdrop-filter: blur(4px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+}
+
+.modal-card {
+    background: #1f2937;
+    border-radius: 16px;
+    padding: 24px;
+    width: 80%;
+    max-width: 320px;
+    text-align: center;
+    border: 1px solid rgba(255,255,255,0.1);
+    color: white;
+}
+
+.modal-card h3 {
+    margin-bottom: 10px;
+}
+
+.modal-card p {
+    font-size: 14px;
+    color: #9ca3af;
+    margin-bottom: 20px;
+}
+
+.cta-btn {
+    width: 100%;
+    padding: 12px;
+    background: #3b82f6;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+/* 动画 */
+.fade-in { animation: fadeIn 0.5s ease; }
+.fade-in-up { animation: fadeInUp 0.5s ease; }
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}

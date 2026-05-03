@@ -10,6 +10,8 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Noto+Serif+SC:wght@400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="report-preview.css">
+    <!-- Chart.js CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js"></script>
 </head>
 <body>
     <div class="report-container">
@@ -24,6 +26,9 @@
         <!-- 免费预览区 -->
         <section class="report-section free-section">
             <h2>📋 体质概述</h2>
+            <div class="radar-container">
+                <canvas id="radarChart"></canvas>
+            </div>
             <p id="constitution-desc">土型体质的人脾胃功能较为突出，性格沉稳踏实，做事有条理。但容易受湿气影响，需要注意健脾祛湿。</p>
 
             <h2>🌟 核心特征</h2>
@@ -39,6 +44,11 @@
                 <li>保持规律作息，避免过度思虑</li>
                 <li>适量运动，推荐散步和太极</li>
             </ul>
+            
+            <h2>🚦 饮食宜忌</h2>
+            <div class="diet-traffic-lights" id="diet-lights">
+                <!-- 动态填充 -->
+            </div>
         </section>
 
         <!-- 付费分隔线 -->
@@ -72,6 +82,13 @@
                 <p>茶饮推荐：陈皮普洱茶、玫瑰花茶</p>
             </div>
         </section>
+
+        <!-- 商城闭环入口 -->
+        <div class="shop-entry">
+            <a href="shop.html?element=earth" id="dynamic-shop-link" class="cta-btn shop-link">
+                🛒 查看为你推荐的调养好物
+            </a>
+        </div>
 
         <!-- 购买 CTA -->
         <div class="purchase-cta" id="purchase-cta">

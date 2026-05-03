@@ -99,11 +99,11 @@ function renderUserOps() {
       <div class="card-body"><div class="table-container"><table class="data-table">
         <thead><tr><th>昵称</th><th>体质</th><th>渠道</th><th>标签</th><th>时间</th></tr></thead>
         <tbody>${(users.length > 0 ? users.slice(0,8) : [
-          {nickname:'小雨',bodyType:'木型体质',channel:'小红书',tags:['高意向','已购买'],assessmentDate:'2026-04-24'},
-          {nickname:'阿文',bodyType:'土型体质',channel:'抖音',tags:['已测评'],assessmentDate:'2026-04-24'},
-          {nickname:'大伟',bodyType:'火型体质',channel:'视频号',tags:['活跃用户'],assessmentDate:'2026-04-23'},
-          {nickname:'晓晓',bodyType:'水型体质',channel:'裂变',tags:['新用户'],assessmentDate:'2026-04-23'},
-          {nickname:'明月',bodyType:'金型体质',channel:'小红书',tags:['高意向'],assessmentDate:'2026-04-22'},
+          {nickname:'小雨',bodyType:'木型体质',channel:'小红书',tags:['木型体质(肝火偏旺)','高频咨询(3天连问)'],assessmentDate:'2026-04-24'},
+          {nickname:'阿文',bodyType:'水型体质',channel:'抖音',tags:['水型体质(肾气不足)','湿气重','待逼单'],assessmentDate:'2026-04-24'},
+          {nickname:'大伟',bodyType:'金型体质',channel:'视频号',tags:['金型体质','已完成初测'],assessmentDate:'2026-04-23'},
+          {nickname:'晓晓',bodyType:'木型体质',channel:'裂变',tags:['脾胃虚寒','待逼单'],assessmentDate:'2026-04-23'},
+          {nickname:'明月',bodyType:'金型体质',channel:'小红书',tags:['睡眠障碍','高频咨询(3天连问)'],assessmentDate:'2026-04-22'},
         ]).map(u => `<tr>
           <td style="font-weight:600">${u.nickname}</td>
           <td><span class="badge badge-primary">${u.bodyType}</span></td>
@@ -147,11 +147,11 @@ function renderMarketing() {
       <div class="card-body"><div class="table-container"><table class="data-table">
         <thead><tr><th>规则名称</th><th>触发条件</th><th>执行动作</th><th>状态</th></tr></thead>
         <tbody>
+          <tr><td style="font-weight:600">立夏节气自动关怀推送</td><td>节气到达立夏</td><td>推送立夏养心指南</td><td><span class="badge badge-success">✅ 执行中</span></td></tr>
+          <tr><td style="font-weight:600">湿气重人群-祛湿茶逼单</td><td>体质含"湿气"且咨询>2次</td><td>推送红豆薏米茶优惠</td><td><span class="badge badge-success">✅ 执行中</span></td></tr>
+          <tr><td style="font-weight:600">连续熬夜关怀 SOP</td><td>夜间23:00后活跃>3次</td><td>推送安神助眠套餐</td><td><span class="badge badge-success">✅ 执行中</span></td></tr>
           <tr><td style="font-weight:600">新用户欢迎</td><td>加好友后 1 小时</td><td>推送体质测评链接</td><td><span class="badge badge-success">✅ 执行中</span></td></tr>
-          <tr><td style="font-weight:600">沉默唤醒</td><td>7 天未互动</td><td>推送节气养生提醒</td><td><span class="badge badge-success">✅ 执行中</span></td></tr>
-          <tr><td style="font-weight:600">精准推品</td><td>T+3天 + 高意向标签</td><td>推送体质匹配产品</td><td><span class="badge badge-success">✅ 执行中</span></td></tr>
           <tr><td style="font-weight:600">复购提醒</td><td>购买 30 天后</td><td>推送复购优惠</td><td><span class="badge badge-success">✅ 执行中</span></td></tr>
-          <tr><td style="font-weight:600">节气推送</td><td>每个节气当天</td><td>群发节气养生内容</td><td><span class="badge badge-success">✅ 执行中</span></td></tr>
         </tbody>
       </table></div></div>
     </div>
