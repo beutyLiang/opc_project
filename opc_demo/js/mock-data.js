@@ -232,14 +232,14 @@ const MOCK = {
 
   // 活动日志
   activityLog: [
-    { time: '17:25', agent: '恺撒', action: '提交了健康商城首页UI迭代方案', type: 'task' },
-    { time: '17:12', agent: '子默', action: '审批通过了谷雨营销文案', type: 'approval' },
-    { time: '16:58', agent: '系统', action: '新增 3 名用户完成体质测评', type: 'user' },
-    { time: '16:45', agent: '明哲', action: '完成了小红书4月第4周内容排期', type: 'task' },
-    { time: '16:30', agent: '知远', action: '生成了春季养肝茶选品分析报告', type: 'report' },
-    { time: '16:15', agent: '系统', action: '商城新增订单 ¥68（五行养肝茶）', type: 'order' },
-    { time: '15:48', agent: '恺撒', action: '修复了AI客服在Safari上的兼容问题', type: 'bug' },
-    { time: '15:20', agent: '子默', action: '发布了社群运营SOP v2草稿', type: 'doc' }
+    { time: '17:25', agent: 'AI 健康管家', action: '已完成用户王女士(ID:8829)的五行体质测评，打标[木型]。', type: 'task' },
+    { time: '17:12', agent: 'AI 营养师', action: '已为用户张先生生成今日护肝食谱。', type: 'task' },
+    { time: '16:58', agent: 'AI 销售', action: '成功命中[失眠关怀SOP]，已向刘女士发送安神茶购买链接，等待支付。', type: 'order' },
+    { time: '16:45', agent: '系统', action: '监测到群活跃度下降，已自动生成一篇《初夏除烦饮》推文发送至社群。', type: 'doc' },
+    { time: '16:30', agent: 'AI 健康管家', action: '已完成用户李先生(ID:8901)的五行体质测评，打标[水型]。', type: 'task' },
+    { time: '16:15', agent: 'AI 营养师', action: '已为用户赵女士生成今日健脾食谱。', type: 'task' },
+    { time: '15:48', agent: 'AI 销售', action: '成功命中[祛湿茶逼单策略]，向用户(ID:8422)发送优惠。', type: 'order' },
+    { time: '15:20', agent: '系统', action: '更新了立夏节气自动关怀推送素材库', type: 'doc' }
   ],
 
   // 体质类型

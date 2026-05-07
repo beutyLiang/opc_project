@@ -10,6 +10,9 @@
         loadTimeline();
         renderFunnel();
         renderRevenuePipes();
+        renderAIInsights();
+        renderProductFinance();
+        renderUserFinance();
     });
 
     // ─── Module A: Org Chart (Hub-and-Spoke) ───
@@ -196,6 +199,110 @@
                 '<span class="pipe-note">' + pipe.note + '</span>';
 
             container.appendChild(item);
+        });
+    }
+
+    // ─── Module F: AI Insights ───
+    function renderAIInsights() {
+        const container = document.getElementById('ai-insights-container');
+        if (!container || typeof AI_FINANCE_INSIGHTS === 'undefined') return;
+
+        const card = document.createElement('div');
+        card.className = 'ai-insight-card';
+
+        let insightsHtml = '';
+        AI_FINANCE_INSIGHTS.insights.forEach(insight => {
+            insightsHtml += `
+                <div class="ai-insight-item">
+                    <span class="ai-insight-icon">${AI_FINANCE_INSIGHTS.icon}</span>
+                    <span>${insight}</span>
+                </div>
+            `;
+        });
+
+        card.innerHTML = insightsHtml;
+        container.appendChild(card);
+    }
+
+    // ─── Module G: Product Finance ───
+    function renderProductFinance() {
+        const container = document.getElementById('finance-product-grid');
+        if (!container || typeof PRODUCT_CATEGORY_DATA === 'undefined') return;
+
+        PRODUCT_CATEGORY_DATA.forEach((data, index) => {
+            const row = document.createElement('div');
+            row.className = 'finance-row';
+            row.style.animationDelay = (index * 0.1) + 's';
+
+            const momClass = data.mom.startsWith('+') ? 'trend-up' : 'trend-down';
+            const yoyClass = data.yoy.startsWith('+') ? 'trend-up' : 'trend-down';
+            const widthPct = (data.revenue / data.maxRev) * 100;
+
+            row.innerHTML = `
+                <div class="finance-header">
+                    <div class="finance-title">${data.category}</div>
+                    <div class="finance-metrics">
+                        <span class="trend-badge ${yoyClass}">YoY ${data.yoy}</span>
+                        <span class="trend-badge ${momClass}">MoM ${data.mom}</span>
+                        <span class="finance-rev" style="color: ${data.color}">¥${data.revenue.toLocaleString()}</span>
+                    </div>
+                </div>
+                <div class="bar-container">
+                    <div class="bar-fill" style="width: 0%; background: ${data.color}"></div>
+                </div>
+                <div class="finance-footer">
+                    <span>💡 ${data.crossSell}</span>
+                </div>
+            `;
+
+            container.appendChild(row);
+
+            // Animate bar
+            setTimeout(() => {
+                const fill = row.querySelector('.bar-fill');
+                if (fill) fill.style.width = widthPct + '%';
+            }, 100);
+        });
+    }
+
+    // ─── Module H: User Finance ───
+    function renderUserFinance() {
+        const container = document.getElementById('finance-user-grid');
+        if (!container || typeof USER_PROFILE_DATA === 'undefined') return;
+
+        USER_PROFILE_DATA.forEach((data, index) => {
+            const row = document.createElement('div');
+            row.className = 'finance-row';
+            row.style.animationDelay = (index * 0.1) + 's';
+
+            const momClass = data.mom.startsWith('+') ? 'trend-up' : 'trend-down';
+            const yoyClass = data.yoy.startsWith('+') ? 'trend-up' : 'trend-down';
+            const widthPct = (data.revenue / data.maxRev) * 100;
+
+            row.innerHTML = `
+                <div class="finance-header">
+                    <div class="finance-title">${data.profile}</div>
+                    <div class="finance-metrics">
+                        <span class="trend-badge ${yoyClass}">YoY ${data.yoy}</span>
+                        <span class="trend-badge ${momClass}">MoM ${data.mom}</span>
+                        <span class="finance-rev" style="color: ${data.color}">¥${data.revenue.toLocaleString()}</span>
+                    </div>
+                </div>
+                <div class="bar-container">
+                    <div class="bar-fill" style="width: 0%; background: ${data.color}"></div>
+                </div>
+                <div class="finance-footer">
+                    <span>🔄 核心复购率: <strong style="color: ${data.color}">${data.repurchase}</strong></span>
+                </div>
+            `;
+
+            container.appendChild(row);
+
+            // Animate bar
+            setTimeout(() => {
+                const fill = row.querySelector('.bar-fill');
+                if (fill) fill.style.width = widthPct + '%';
+            }, 100);
         });
     }
 

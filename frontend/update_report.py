@@ -1,4 +1,35 @@
-/* ─── Report Preview Logic ─── */
+import re
+import os
+
+html_path = r'C:\projects\openclaw\opc_project\frontend\report-preview.html'
+js_path = r'C:\projects\openclaw\opc_project\frontend\report-preview.js'
+css_path = r'C:\projects\openclaw\opc_project\frontend\report-preview.css'
+
+# Update HTML
+with open(html_path, 'r', encoding='utf-8') as f:
+    html = f.read()
+
+# Replace the specific hardcoded sections with dynamic containers
+html = re.sub(
+    r'<h2>🍽️ 专属饮食方案（7天）</h2>.*?<h2>🌿 季节调养重点</h2>.*?</div>',
+    '''<h2>🍽️ 专属饮食方案（7天）</h2>
+            <div class="diet-plan-container" id="diet-plan-container"></div>
+
+            <h2>🧘 运动调养建议</h2>
+            <div class="exercise-plan-container" id="exercise-plan-container"></div>
+
+            <h2>🌿 季节调养重点</h2>
+            <div class="seasonal-plan-container" id="seasonal-plan-container"></div>''',
+    html,
+    flags=re.DOTALL
+)
+
+with open(html_path, 'w', encoding='utf-8') as f:
+    f.write(html)
+
+
+# Update JS
+js_content = """/* ─── Report Preview Logic ─── */
 
 (function () {
     'use strict';
@@ -325,3 +356,92 @@
     }
 
 })();
+"""
+with open(js_path, 'w', encoding='utf-8') as f:
+    f.write(js_content)
+
+
+# Append CSS
+with open(css_path, 'a', encoding='utf-8') as f:
+    f.write('''
+/* --- Dynamic Diet & Exercise Cards --- */
+.diet-plan-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 16px;
+    margin-top: 16px;
+}
+
+.diet-day-card {
+    background: rgba(255,255,255,0.03);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 12px;
+    padding: 16px;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.diet-day-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 210, 173, 0.1);
+    border-color: rgba(0, 210, 173, 0.3);
+}
+
+.diet-day-title {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--accent-green, #00d2ad);
+    margin-bottom: 12px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+}
+
+.diet-meals {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.diet-meals li {
+    font-size: 0.9rem;
+    margin-bottom: 8px;
+    color: var(--text-primary);
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    line-height: 1.5;
+}
+
+.meal-label {
+    background: rgba(0, 210, 173, 0.15);
+    color: var(--accent-green, #00d2ad);
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-size: 0.75rem;
+    font-weight: 500;
+    flex-shrink: 0;
+}
+
+.info-card {
+    background: rgba(255,255,255,0.03);
+    border-left: 4px solid var(--accent-green, #00d2ad);
+    padding: 16px;
+    border-radius: 0 12px 12px 0;
+    margin-top: 16px;
+}
+
+.info-card p {
+    margin-bottom: 10px;
+    line-height: 1.6;
+    font-size: 0.95rem;
+}
+
+.info-card p:last-child {
+    margin-bottom: 0;
+}
+
+.info-card strong {
+    color: rgba(255,255,255,0.9);
+}
+''')
+
+print("Scripts and HTML updated successfully.")

@@ -66,3 +66,31 @@ const TIMELINE_FALLBACK = [
     { time: '04-14 14:58', sender: '凯撒',  color: '#f39c12', text: '蓝图v0.2审核完成，7+5项意见' },
     { time: '04-14 15:23', sender: '子默',  color: '#7c5cbf', text: '全部采纳，v0.3已出' },
 ];
+
+// ─── 新增：财务维度扩展数据 ───
+
+// AI 经营洞察 (Actionable Insights)
+const AI_FINANCE_INSIGHTS = {
+    title: "AI 经营参谋结论",
+    icon: "💡",
+    insights: [
+        "发现异常：【失眠焦虑类人群】本月销售额环比下降20%，但【安神理疗设备】退货率为0。建议本周让智能客服向该标签池定向推送【酸枣仁安神饮】的满减券以提升连带率。",
+        "机会洞察：买了【恒温腰带】的女性用户，有60%会顺手买【红枣黑糖】。建议明天在商城顶部上线【经期无忧组合套装】。"
+    ]
+};
+
+// 货维度：产品分类财务分析
+const PRODUCT_CATEGORY_DATA = [
+    { category: '茶饮冲泡类',   revenue: 12500, mom: '+15%', yoy: '+40%', maxRev: 20000, color: '#f9d423', crossSell: '保温杯 (关联购买45%)' },
+    { category: '理疗设备类',   revenue: 18000, mom: '-5%',  yoy: '+20%', maxRev: 20000, color: '#00d2ad', crossSell: '精油/艾草包 (关联购买60%)' },
+    { category: '滋补膏方类',   revenue: 8500,  mom: '+30%', yoy: '+50%', maxRev: 20000, color: '#7c5cbf', crossSell: '木勺/炖盅 (关联购买15%)' },
+    { category: '周边器皿类',   revenue: 3200,  mom: '+5%',  yoy: '-10%', maxRev: 20000, color: '#4ecdc4', crossSell: '茶饮冲泡类 (关联购买80%)' },
+];
+
+// 人维度：用户健康画像财务分析
+const USER_PROFILE_DATA = [
+    { profile: '肠胃不适/脾虚湿重', revenue: 15000, mom: '+40%', yoy: '+60%', repurchase: '72%', maxRev: 18000, color: '#f39c12' },
+    { profile: '女性经期/内分泌',   revenue: 11000, mom: '+10%', yoy: '+25%', repurchase: '85%', maxRev: 18000, color: '#e74c3c' },
+    { profile: '三高慢病类',        revenue: 9500,  mom: '+5%',  yoy: '+15%', repurchase: '90%', maxRev: 18000, color: '#3498db' },
+    { profile: '睡眠障碍/焦虑',     revenue: 6700,  mom: '-20%', yoy: '-5%',  repurchase: '45%', maxRev: 18000, color: '#9b59b6' },
+];
