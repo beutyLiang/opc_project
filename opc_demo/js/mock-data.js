@@ -160,25 +160,25 @@ const MOCK = {
       dept: '运营部', dueDate: '4/26', completedDate: null
     }
   ],
-
   // 财务数据
   finance: {
     monthly: [
-      { month: '1月', revenue: 0, cost: 320, profit: -320 },
-      { month: '2月', revenue: 0, cost: 450, profit: -450 },
-      { month: '3月', revenue: 520, cost: 580, profit: -60 },
-      { month: '4月', revenue: 1860, cost: 680, profit: 1180 }
+      { month: '1月', revenue: 5000, cost: 1200, profit: 3800 },
+      { month: '2月', revenue: 12000, cost: 1800, profit: 10200 },
+      { month: '3月', revenue: 18000, cost: 2200, profit: 15800 },
+      { month: '4月', revenue: 24200, cost: 2850, profit: 21350 },
+      { month: '5月', revenue: 28600, cost: 2680, profit: 25920 }
     ],
     tokenUsage: [
-      { agent: '子默', platform: 'Claude', used: 128500, budget: 200000, cost: 285 },
-      { agent: '恺撒', platform: 'Gemini', used: 89200, budget: 150000, cost: 125 },
-      { agent: '明哲', platform: 'ChatGPT', used: 62400, budget: 100000, cost: 168 },
-      { agent: '知远', platform: 'Gemini', used: 45800, budget: 80000, cost: 64 }
+      { agent: '子默', platform: 'Claude', used: 1285000, budget: 2000000, cost: 685 },
+      { agent: '恺撒', platform: 'Gemini', used: 892000, budget: 1500000, cost: 425 },
+      { agent: '明哲', platform: 'ChatGPT', used: 624000, budget: 1000000, cost: 568 },
+      { agent: '知远', platform: 'Gemini', used: 458000, budget: 800000, cost: 364 }
     ],
     infrastructure: [
-      { item: '云服务器', cost: 68, provider: '阿里云' },
-      { item: '域名', cost: 10, provider: '腾讯云' },
-      { item: 'CDN', cost: 15, provider: 'Cloudflare' }
+      { item: '云服务器集群', cost: 388, provider: '阿里云' },
+      { item: '数据库RDS', cost: 150, provider: '阿里云' },
+      { item: 'CDN/OSS', cost: 100, provider: 'Cloudflare/OSS' }
     ]
   },
 

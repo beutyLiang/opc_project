@@ -267,57 +267,149 @@ function renderCommunity() {
     </div>`;
 }
 
-// ===== 财务中心 (保留原有) =====
+// ===== 财务中心 (深度融合运营数据) =====
 function renderFinance() {
-  const totalCost = MOCK.finance.tokenUsage.reduce((s,t) => s+t.cost, 0) + MOCK.finance.infrastructure.reduce((s,i) => s+i.cost, 0);
+  const totalCost = MOCK.stats.monthlyCost || 2680;
+  const monthlyRev = MOCK.stats.monthlyRevenue || 28600;
+  const profit = MOCK.stats.netProfit || 25920;
+  const profitMargin = ((profit / monthlyRev) * 100).toFixed(0);
+
+  // 扩展财务数据 (同旧版 dashboard)
+  const AI_FINANCE_INSIGHTS = {
+      title: "AI 经营参谋结论",
+      icon: "💡",
+      insights: [
+          "发现异常：【失眠焦虑类人群】本月销售额环比下降20%，但【安神理疗设备】退货率为0。建议本周让智能客服向该标签池定向推送【酸枣仁安神饮】的满减券以提升连带率。",
+          "机会洞察：买了【恒温腰带】的女性用户，有60%会顺手买【红枣黑糖】。建议明天在商城顶部上线【经期无忧组合套装】。"
+      ]
+  };
+
+  const PRODUCT_CATEGORY_DATA = [
+      { category: '茶饮冲泡类',   revenue: 12500, mom: '+15%', yoy: '+40%', maxRev: 20000, color: '#f9d423', crossSell: '保温杯 (关联购买45%)' },
+      { category: '理疗设备类',   revenue: 18000, mom: '-5%',  yoy: '+20%', maxRev: 20000, color: '#00d2ad', crossSell: '精油/艾草包 (关联购买60%)' },
+      { category: '滋补膏方类',   revenue: 8500,  mom: '+30%', yoy: '+50%', maxRev: 20000, color: '#7c5cbf', crossSell: '木勺/炖盅 (关联购买15%)' },
+      { category: '周边器皿类',   revenue: 3200,  mom: '+5%',  yoy: '-10%', maxRev: 20000, color: '#4ecdc4', crossSell: '茶饮冲泡类 (关联购买80%)' },
+  ];
+
+  const USER_PROFILE_DATA = [
+      { profile: '肠胃不适/脾虚湿重', revenue: 15000, mom: '+40%', yoy: '+60%', repurchase: '72%', maxRev: 18000, color: '#f39c12' },
+      { profile: '女性经期/内分泌',   revenue: 11000, mom: '+10%', yoy: '+25%', repurchase: '85%', maxRev: 18000, color: '#e74c3c' },
+      { profile: '三高慢病类',        revenue: 9500,  mom: '+5%',  yoy: '+15%', repurchase: '90%', maxRev: 18000, color: '#3498db' },
+      { profile: '睡眠障碍/焦虑',     revenue: 6700,  mom: '-20%', yoy: '-5%',  repurchase: '45%', maxRev: 18000, color: '#9b59b6' },
+  ];
+
   document.getElementById('financeContent').innerHTML = `
-    <div class="stat-grid" style="grid-template-columns:repeat(4,1fr)">
+    <!-- Top KPI Cards -->
+    <div class="stat-grid" style="grid-template-columns:repeat(4,1fr); margin-bottom:24px;">
       <div class="stat-card animate-fadeInUp stagger-1">
         <div class="stat-icon" style="background:rgba(6,214,160,0.15);color:#06d6a0">💰</div>
-        <div class="stat-value">¥${MOCK.stats.monthlyRevenue.toLocaleString()}</div>
+        <div class="stat-value">¥${monthlyRev.toLocaleString()}</div>
         <div class="stat-label">本月营收</div>
+        <div class="stat-change up">↑ 18.2%</div>
       </div>
       <div class="stat-card animate-fadeInUp stagger-2">
         <div class="stat-icon" style="background:rgba(239,68,68,0.15);color:#ef4444">📉</div>
-        <div class="stat-value">¥${totalCost}</div>
-        <div class="stat-label">本月成本</div>
+        <div class="stat-value">¥${totalCost.toLocaleString()}</div>
+        <div class="stat-label">本月成本 (Token+服务器)</div>
+        <div class="stat-change down">↓ 5.4%</div>
       </div>
       <div class="stat-card animate-fadeInUp stagger-3">
         <div class="stat-icon" style="background:rgba(99,102,241,0.15);color:#6366f1">📊</div>
-        <div class="stat-value">¥${(MOCK.stats.monthlyRevenue - totalCost).toLocaleString()}</div>
+        <div class="stat-value">¥${profit.toLocaleString()}</div>
         <div class="stat-label">净利润</div>
       </div>
       <div class="stat-card animate-fadeInUp stagger-4">
         <div class="stat-icon" style="background:rgba(245,158,11,0.15);color:#f59e0b">📈</div>
-        <div class="stat-value">${((MOCK.stats.monthlyRevenue - totalCost)/MOCK.stats.monthlyRevenue*100).toFixed(0)}%</div>
+        <div class="stat-value">${profitMargin}%</div>
         <div class="stat-label">利润率</div>
       </div>
     </div>
-    <div class="grid-2" style="margin-bottom:24px">
+
+    <!-- AI Insights -->
+    <div class="card animate-fadeInUp stagger-2" style="margin-bottom:24px; border:1px solid rgba(16,185,129,0.3)">
+      <div class="card-header">
+        <span class="card-title">${AI_FINANCE_INSIGHTS.icon} ${AI_FINANCE_INSIGHTS.title}</span>
+        <span class="badge badge-success">自动生成</span>
+      </div>
+      <div class="card-body">
+        <div style="display:flex; flex-direction:column; gap:12px;">
+          ${AI_FINANCE_INSIGHTS.insights.map(i => `
+            <div style="background:rgba(255,255,255,0.03); padding:12px; border-radius:8px; border-left:3px solid #10b981;">
+              <span style="font-size:14px; color:var(--text-color); line-height:1.5;">${i}</span>
+            </div>
+          `).join('')}
+        </div>
+      </div>
+    </div>
+
+    <!-- Middle Charts: Category & Profile Data -->
+    <div class="grid-2" style="margin-bottom:24px;">
       <div class="card animate-fadeInUp stagger-3">
+        <div class="card-header"><span class="card-title">📦 营收拆解 (按产品类目)</span></div>
+        <div class="card-body">
+          <div style="display:flex; flex-direction:column; gap:16px;">
+            ${PRODUCT_CATEGORY_DATA.map(d => `
+              <div>
+                <div style="display:flex; justify-content:space-between; margin-bottom:6px; font-size:13px;">
+                  <span style="font-weight:600;">${d.category}</span>
+                  <span>¥${d.revenue.toLocaleString()} <span style="color:#10b981;margin-left:8px;">${d.mom}</span></span>
+                </div>
+                <div class="progress-bar" style="height:6px; margin-bottom:6px;">
+                  <div class="progress-fill" style="width:${(d.revenue/d.maxRev*100)}%; background:${d.color}"></div>
+                </div>
+                <div style="font-size:11px; color:var(--text-muted); text-align:right;">连带推荐：${d.crossSell}</div>
+              </div>
+            `).join('')}
+          </div>
+        </div>
+      </div>
+
+      <div class="card animate-fadeInUp stagger-4">
+        <div class="card-header"><span class="card-title">👥 营收拆解 (按用户健康画像)</span></div>
+        <div class="card-body">
+          <div style="display:flex; flex-direction:column; gap:16px;">
+            ${USER_PROFILE_DATA.map(d => `
+              <div>
+                <div style="display:flex; justify-content:space-between; margin-bottom:6px; font-size:13px;">
+                  <span style="font-weight:600;">${d.profile}</span>
+                  <span>¥${d.revenue.toLocaleString()}</span>
+                </div>
+                <div class="progress-bar" style="height:6px; margin-bottom:6px;">
+                  <div class="progress-fill" style="width:${(d.revenue/d.maxRev*100)}%; background:${d.color}"></div>
+                </div>
+                <div style="font-size:11px; color:var(--text-muted); display:flex; justify-content:space-between;">
+                  <span>复购率: ${d.repurchase}</span>
+                  <span style="color:#10b981;">环比 ${d.mom}</span>
+                </div>
+              </div>
+            `).join('')}
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bottom: Cost & Trend -->
+    <div class="grid-2" style="margin-bottom:24px;">
+      <div class="card animate-fadeInUp stagger-5">
         <div class="card-header"><span class="card-title">🤖 Token 消耗明细</span></div>
         <div class="card-body"><div class="table-container"><table class="data-table">
-          <thead><tr><th>Agent</th><th>平台</th><th>用量</th><th>预算</th><th>费用</th><th>使用率</th></tr></thead>
+          <thead><tr><th>Agent</th><th>平台</th><th>用量</th><th>费用</th><th>使用率</th></tr></thead>
           <tbody>${MOCK.finance.tokenUsage.map(t => `<tr>
             <td style="font-weight:600">${t.agent}</td><td>${t.platform}</td>
-            <td>${formatNumber(t.used)}</td><td>${formatNumber(t.budget)}</td>
+            <td>${formatNumber(t.used)}</td>
             <td>¥${t.cost}</td>
             <td><div class="progress-bar" style="width:80px;display:inline-block;vertical-align:middle"><div class="progress-fill" style="width:${(t.used/t.budget*100).toFixed(0)}%"></div></div> ${(t.used/t.budget*100).toFixed(0)}%</td>
           </tr>`).join('')}</tbody>
         </table></div></div>
       </div>
-      <div class="card animate-fadeInUp stagger-4">
-        <div class="card-header"><span class="card-title">📊 月度趋势</span></div>
-        <div class="card-body"><canvas id="financeChart" height="250"></canvas></div>
+      <div class="card animate-fadeInUp stagger-6">
+        <div class="card-header"><span class="card-title">📊 营收月度趋势</span></div>
+        <div class="card-body" style="height:250px;">
+          <canvas id="financeChart"></canvas>
+        </div>
       </div>
-    </div>
-    <div class="card animate-fadeInUp stagger-5">
-      <div class="card-header"><span class="card-title">🏗️ 基础设施成本</span></div>
-      <div class="card-body"><div class="table-container"><table class="data-table">
-        <thead><tr><th>项目</th><th>服务商</th><th>月费</th></tr></thead>
-        <tbody>${MOCK.finance.infrastructure.map(i => `<tr><td>${i.item}</td><td>${i.provider}</td><td>¥${i.cost}</td></tr>`).join('')}</tbody>
-      </table></div></div>
     </div>`;
+
   setTimeout(renderFinanceChart, 200);
 }
 
