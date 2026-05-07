@@ -51,16 +51,36 @@
             </div>
         </section>
 
-        <!-- 深度个性化内容 -->
-        <section class="report-section premium-section" id="premium-content">
+        <!-- 付费分隔线 -->
+        <div class="paywall-divider">
+            <div class="divider-line"></div>
+            <span class="divider-text">以下为深度个性化内容</span>
+        </div>
+
+        <!-- 付费模糊区 -->
+        <section class="report-section premium-section blurred" id="premium-content">
             <h2>🍽️ 专属饮食方案（7天）</h2>
-            <div class="diet-plan-container" id="diet-plan-container"></div>
+            <div class="blur-placeholder">
+                <p>周一早餐：山药小米粥 + 红枣桂圆茶</p>
+                <p>周一午餐：黄芪炖鸡 + 莲子薏仁汤</p>
+                <p>周一晚餐：清蒸鲈鱼 + 茯苓山药排骨汤</p>
+                <p>周二早餐：南瓜红枣羹 + 全麦吐司</p>
+                <p>周二午餐：党参炖排骨 + 白术陈皮粥</p>
+            </div>
 
             <h2>🧘 运动调养建议</h2>
-            <div class="exercise-plan-container" id="exercise-plan-container"></div>
+            <div class="blur-placeholder">
+                <p>推荐运动：太极、散步、瑜伽</p>
+                <p>每周频率：3-5 次，每次 30-45 分钟</p>
+                <p>注意事项：避免大汗淋漓的剧烈运动</p>
+            </div>
 
             <h2>🌿 季节调养重点</h2>
-            <div class="seasonal-plan-container" id="seasonal-plan-container"></div>
+            <div class="blur-placeholder">
+                <p>当前春季重点：疏肝健脾，适当食用芽菜</p>
+                <p>穴位推荐：足三里、三阴交、中脘穴</p>
+                <p>茶饮推荐：陈皮普洱茶、玫瑰花茶</p>
+            </div>
         </section>
 
         <!-- 商城闭环入口 -->
@@ -70,7 +90,57 @@
             </a>
         </div>
 
+        <!-- 购买 CTA -->
+        <div class="purchase-cta" id="purchase-cta">
+            <div class="cta-card basic-tier">
+                <h3>📋 基础深度报告</h3>
+                <p class="price">¥9.9</p>
+                <ul>
+                    <li>✅ 完整体质解析</li>
+                    <li>✅ 个性化饮食清单</li>
+                    <li>✅ 运动调养建议</li>
+                </ul>
+                <button class="cta-btn" id="btn-buy-basic" onclick="openPayment('basic')">立即解锁</button>
+            </div>
+            <div class="cta-card premium-tier">
+                <div class="tier-badge">推荐</div>
+                <h3>📅 七天行动单</h3>
+                <p class="price">¥29.9</p>
+                <ul>
+                    <li>✅ 包含基础报告全部内容</li>
+                    <li>✅ 7天早中晚食谱计划</li>
+                    <li>✅ 季节调养跟踪</li>
+                    <li>✅ 穴位按摩图解</li>
+                </ul>
+                <button class="cta-btn gold" id="btn-buy-premium" onclick="openPayment('premium')">立即解锁</button>
+            </div>
+        </div>
 
+        <!-- 支付弹窗 -->
+        <div class="payment-modal" id="payment-modal" style="display:none;">
+            <div class="payment-card">
+                <h3 id="payment-title">支付 ¥9.9</h3>
+                <p>请扫描下方二维码完成支付</p>
+                <div class="qr-codes">
+                    <div class="qr-item">
+                        <div class="qr-placeholder" id="wechat-qr">
+                            <span>微信支付</span>
+                            <small>收款码待上传</small>
+                        </div>
+                        <span>微信支付</span>
+                    </div>
+                    <div class="qr-item">
+                        <div class="qr-placeholder" id="alipay-qr">
+                            <span>支付宝</span>
+                            <small>收款码待上传</small>
+                        </div>
+                        <span>支付宝</span>
+                    </div>
+                </div>
+                <p class="payment-note">支付后截图发送给客服即可查看完整报告</p>
+                <button class="close-modal" id="btn-close-payment" onclick="closePayment()">关闭</button>
+            </div>
+        </div>
 
         <!-- 底部合规 -->
         <footer class="report-footer">

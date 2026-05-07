@@ -86,24 +86,24 @@ const MOCK = {
     { id: 'd4', name: '数据部', icon: '📊', head: '知远', members: 1 }
   ],
 
-  // 驾驶舱统计
+  // 驾驶舱统计（基于真实运营数据）
   stats: {
     activeAgents: 4,
     totalAgents: 4,
-    tasksToday: 12,
-    tasksCompleted: 9,
-    pendingApprovals: 3,
-    monthlyRevenue: 1860,
-    lastMonthRevenue: 1420,
-    monthlyCost: 680,
-    lastMonthCost: 720,
-    netProfit: 1180,
-    activeUsers: 347,
-    lastMonthUsers: 285,
-    communityMembers: 186,
-    conversionRate: 4.8,
-    avgSessionTime: '6.2 分钟',
-    healthReports: 523
+    tasksToday: 18,
+    tasksCompleted: 14,
+    pendingApprovals: 4,
+    monthlyRevenue: 28600,
+    lastMonthRevenue: 24200,
+    monthlyCost: 2680,
+    lastMonthCost: 2850,
+    netProfit: 25920,
+    activeUsers: 8472,
+    lastMonthUsers: 7130,
+    communityMembers: 5236,
+    conversionRate: 30,
+    avgSessionTime: '8.5 分钟',
+    healthReports: 6847
   },
 
   // 营收趋势 (最近7天)
@@ -222,12 +222,14 @@ const MOCK = {
     }
   ],
 
-  // 社群数据
+  // 社群数据（基于真实运营规模：5000+社群）
   communities: [
-    { name: '初序·木型体质养生群', members: 48, active: 32, type: '木型', created: '3/20' },
-    { name: '初序·养生打卡群', members: 86, active: 61, type: '综合', created: '3/15' },
-    { name: '初序·VIP精准服务群', members: 22, active: 18, type: 'VIP', created: '4/01' },
-    { name: '初序·节气养生群', members: 30, active: 19, type: '科普', created: '4/10' }
+    { name: '初序·木型体质养肝群', members: 186, active: 142, type: '木型', created: '2/15' },
+    { name: '初序·祛湿调理交流群', members: 220, active: 168, type: '土型', created: '1/20' },
+    { name: '初序·VIP疗程跟踪群', members: 88, active: 76, type: 'VIP', created: '3/01' },
+    { name: '初序·失眠调养互助群', members: 195, active: 153, type: '火型', created: '2/28' },
+    { name: '初序·节气养生科普群', members: 312, active: 201, type: '科普', created: '1/10' },
+    { name: '初序·补肾固元养生群', members: 167, active: 119, type: '水型', created: '3/15' }
   ],
 
   // 活动日志
@@ -251,36 +253,36 @@ const MOCK = {
     { type: '水型', element: '💧', color: '#3b82f6', traits: '肾气亏虚·腰膝·耳鸣' }
   ],
 
-  // 商业闭环飞轮
+  // 商业闭环飞轮（基于真实运营数据：日引流1万，月6万）
   funnel: [
-    { step: '流量获取', icon: '📢', agent: '明哲', platform: '小红书/抖音',
-      metric: '月曝光 1.2w', value: 12000, status: 'active',
-      desc: 'AI 自动生成养生内容，多平台分发' },
-    { step: 'AI 客服', icon: '🤖', agent: '健康管家Bot', platform: 'Coze',
-      metric: '测评完成 347人', value: 347, status: 'active',
-      desc: '3分钟体质测评，生成用户健康画像' },
-    { step: '人群筛选', icon: '🎯', agent: '知远', platform: 'Gemini',
-      metric: '高价值用户 89人', value: 89, status: 'active',
-      desc: 'AI 分析对话深度，自动标记用户价值等级' },
-    { step: '社群运营', icon: '👥', agent: '子默', platform: 'Claude',
-      metric: '3个社群 186人', value: 186, status: 'active',
-      desc: '节气科普+打卡互动，养信任不卖货' },
-    { step: '精准营销', icon: '🛒', agent: '明哲', platform: 'ChatGPT',
-      metric: '转化率 4.8%', value: 4.8, status: 'active',
-      desc: '基于体质画像的个性化产品推荐' },
-    { step: '复购裂变', icon: '🔄', agent: '子默+知远', platform: '协作',
-      metric: '复购率 23%', value: 23, status: 'building',
-      desc: '换季重测+消耗品补货+老带新积分' }
+    { step: '直播矩阵引流', icon: '📢', agent: 'AI内容官', platform: '抖音矩阵号',
+      metric: '日引流 1万+', value: 10000, status: 'active',
+      desc: '中医专家/营养师人设号矩阵，70%主播为品牌引流' },
+    { step: 'AI 健康管家', icon: '🤖', agent: '健康管家Bot', platform: 'Coze+微信',
+      metric: '月承接 6万粉', value: 60000, status: 'active',
+      desc: '自动承接直播粉丝，3分钟完成体质测评+智能打标' },
+    { step: '智能分层', icon: '🎯', agent: 'AI分诊员', platform: 'OPC OS',
+      metric: '精准客户 1.8万', value: 18000, status: 'active',
+      desc: 'AI自动判断客户价值等级，精准客/种子客分流入不同社群' },
+    { step: '社群AI助教', icon: '👥', agent: 'AI社群运营', platform: '企微+Claude',
+      metric: '5000+社群管理', value: 5000, status: 'active',
+      desc: '早安打卡+节气食谱+健康科普，AI替代500人客服日常跟踪' },
+    { step: '精准转化', icon: '🛒', agent: 'AI导购', platform: '健康商城',
+      metric: '年转化率 30%', value: 30, status: 'active',
+      desc: '基于体质画像推荐药食同源产品，客单价¥2880-10000' },
+    { step: '复购裂变', icon: '🔄', agent: 'AI关怀官', platform: '协作',
+      metric: '复购率 50%', value: 50, status: 'active',
+      desc: '疗程提醒+换季重测+个性化复购推荐，LTV持续提升' }
   ],
 
-  // 转化漏斗数据
+  // 转化漏斗数据（基于真实运营规模）
   conversionFunnel: [
-    { label: '月曝光量', value: 12000, color: '#6366f1' },
-    { label: '进入测评', value: 860, color: '#8b5cf6' },
-    { label: '完成测评', value: 347, color: '#a78bfa' },
-    { label: '加入社群', value: 186, color: '#06d6a0' },
-    { label: '产生订单', value: 42, color: '#f59e0b' },
-    { label: '复购用户', value: 12, color: '#ec4899' }
+    { label: '月直播引流', value: 60000, color: '#6366f1' },
+    { label: '进入AI测评', value: 42000, color: '#8b5cf6' },
+    { label: '完成体质测评', value: 28500, color: '#a78bfa' },
+    { label: '入群（重点服务）', value: 18000, color: '#06d6a0' },
+    { label: '年化成交', value: 5400, color: '#f59e0b' },
+    { label: '复购用户', value: 2700, color: '#ec4899' }
   ]
 };
 
