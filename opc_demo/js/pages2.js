@@ -348,18 +348,27 @@ function renderFinance() {
         <div class="card-header"><span class="card-title">📦 营收拆解 (按产品类目)</span></div>
         <div class="card-body">
           <div style="display:flex; flex-direction:column; gap:16px;">
-            ${PRODUCT_CATEGORY_DATA.map(d => `
+            ${PRODUCT_CATEGORY_DATA.map(d => {
+              const momClass = d.mom.startsWith('+') ? 'up' : 'down';
+              const yoyClass = d.yoy.startsWith('+') ? 'up' : 'down';
+              const momColor = d.mom.startsWith('+') ? '#10b981' : '#ef4444';
+              const yoyColor = d.yoy.startsWith('+') ? '#10b981' : '#ef4444';
+              return `
               <div>
-                <div style="display:flex; justify-content:space-between; margin-bottom:6px; font-size:13px;">
+                <div style="display:flex; justify-content:space-between; margin-bottom:6px; font-size:13px; align-items:center;">
                   <span style="font-weight:600;">${d.category}</span>
-                  <span>¥${d.revenue.toLocaleString()} <span style="color:#10b981;margin-left:8px;">${d.mom}</span></span>
+                  <div style="display:flex; gap:12px; align-items:center;">
+                    <span style="font-size:11px; background:rgba(255,255,255,0.05); padding:2px 6px; border-radius:4px;">同比 <span style="color:${yoyColor}">${d.yoy}</span></span>
+                    <span style="font-size:11px; background:rgba(255,255,255,0.05); padding:2px 6px; border-radius:4px;">环比 <span style="color:${momColor}">${d.mom}</span></span>
+                    <span style="color:${d.color}; font-weight:bold; font-size:14px;">¥${d.revenue.toLocaleString()}</span>
+                  </div>
                 </div>
                 <div class="progress-bar" style="height:6px; margin-bottom:6px;">
                   <div class="progress-fill" style="width:${(d.revenue/d.maxRev*100)}%; background:${d.color}"></div>
                 </div>
                 <div style="font-size:11px; color:var(--text-muted); text-align:right;">连带推荐：${d.crossSell}</div>
               </div>
-            `).join('')}
+            `}).join('')}
           </div>
         </div>
       </div>
@@ -368,21 +377,27 @@ function renderFinance() {
         <div class="card-header"><span class="card-title">👥 营收拆解 (按用户健康画像)</span></div>
         <div class="card-body">
           <div style="display:flex; flex-direction:column; gap:16px;">
-            ${USER_PROFILE_DATA.map(d => `
+            ${USER_PROFILE_DATA.map(d => {
+              const momColor = d.mom.startsWith('+') ? '#10b981' : '#ef4444';
+              const yoyColor = d.yoy.startsWith('+') ? '#10b981' : '#ef4444';
+              return `
               <div>
-                <div style="display:flex; justify-content:space-between; margin-bottom:6px; font-size:13px;">
+                <div style="display:flex; justify-content:space-between; margin-bottom:6px; font-size:13px; align-items:center;">
                   <span style="font-weight:600;">${d.profile}</span>
-                  <span>¥${d.revenue.toLocaleString()}</span>
+                  <div style="display:flex; gap:12px; align-items:center;">
+                    <span style="font-size:11px; background:rgba(255,255,255,0.05); padding:2px 6px; border-radius:4px;">同比 <span style="color:${yoyColor}">${d.yoy}</span></span>
+                    <span style="font-size:11px; background:rgba(255,255,255,0.05); padding:2px 6px; border-radius:4px;">环比 <span style="color:${momColor}">${d.mom}</span></span>
+                    <span style="color:${d.color}; font-weight:bold; font-size:14px;">¥${d.revenue.toLocaleString()}</span>
+                  </div>
                 </div>
                 <div class="progress-bar" style="height:6px; margin-bottom:6px;">
                   <div class="progress-fill" style="width:${(d.revenue/d.maxRev*100)}%; background:${d.color}"></div>
                 </div>
                 <div style="font-size:11px; color:var(--text-muted); display:flex; justify-content:space-between;">
                   <span>复购率: ${d.repurchase}</span>
-                  <span style="color:#10b981;">环比 ${d.mom}</span>
                 </div>
               </div>
-            `).join('')}
+            `}).join('')}
           </div>
         </div>
       </div>
