@@ -349,8 +349,8 @@
         <div class="generator-box">
             <div class="title">自动推演生成器（基于：当月MAU = 上月留存 + 本月新增）</div>
             <div style="display:flex; gap:10px; align-items:flex-end; flex-wrap:wrap;">
-                <div class="input-group" style="width: 120px;">
-                    <label>首月/每月新增</label>
+                <div class="input-group" style="width: 130px;">
+                    <label>首月/每月新增 (万人)</label>
                     <input type="number" id="gen_add" value="6.0" step="0.1">
                 </div>
                 <div class="input-group" style="width: 120px;">
@@ -361,7 +361,7 @@
             </div>
         </div>
 
-        <div style="font-size: 13px; color: var(--text-second); margin-bottom: 10px;">你也可以直接在下方表格里手动修改每个月的 MAU 数据：</div>
+        <div style="font-size: 13px; color: var(--text-second); margin-bottom: 10px;">你也可以直接在下方表格里手动修改每个月的 MAU 数据 (万人)：</div>
         <div class="mau-grid" id="mau_inputs">
             <!-- JS 生成 1-12 月输入框 -->
         </div>
@@ -415,7 +415,10 @@
             html += `
                 <div class="mau-item">
                     <label>第 ${i} 月</label>
-                    <input type="number" id="mau_m${i}" value="${defaultMau[i-1]}" step="0.1" onchange="calculate()">
+                    <div style="display:flex; align-items:center;">
+                        <input type="number" id="mau_m${i}" value="${defaultMau[i-1]}" step="0.1" onchange="calculate()" style="width:100%; min-width:0;">
+                        <span style="font-size:12px; color:var(--text-second); margin-left:4px;">万</span>
+                    </div>
                 </div>
             `;
         }
