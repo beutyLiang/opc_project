@@ -1,0 +1,544 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>初序健康 - 高级 Token 成本核算器</title>
+    <style>
+        :root {
+            --primary: #007AFF;
+            --primary-hover: #0056b3;
+            --bg-color: #f5f5f7;
+            --card-bg: #ffffff;
+            --text-main: #1d1d1f;
+            --text-second: #86868b;
+            --border-color: #e5e5ea;
+            --success: #34c759;
+            --warning: #ff9500;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            margin: 0;
+            padding: 16px;
+            font-size: 14px;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding-bottom: 60px;
+        }
+
+        h1 {
+            font-size: 22px;
+            text-align: center;
+            margin-bottom: 24px;
+            color: #1d1d1f;
+        }
+
+        .card {
+            background: var(--card-bg);
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+        }
+
+        .card-title {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 16px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid var(--border-color);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .grid-2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+        }
+
+        .grid-3 {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 16px;
+        }
+
+        .input-group {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .input-group label {
+            color: var(--text-second);
+            font-size: 13px;
+        }
+
+        .input-group input {
+            padding: 8px 12px;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            font-size: 14px;
+            transition: border-color 0.2s;
+            box-sizing: border-box;
+            width: 100%;
+        }
+
+        .input-group input:focus {
+            outline: none;
+            border-color: var(--primary);
+        }
+
+        /* 增长模型生成器 */
+        .generator-box {
+            background: #f8f8f8;
+            border-radius: 8px;
+            padding: 16px;
+            margin-bottom: 20px;
+            border: 1px dashed #ccc;
+        }
+
+        .generator-box .title {
+            font-size: 13px;
+            font-weight: bold;
+            margin-bottom: 12px;
+            color: var(--primary);
+        }
+
+        button {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 500;
+            transition: background 0.2s;
+        }
+
+        button:hover {
+            background: var(--primary-hover);
+        }
+
+        .btn-outline {
+            background: transparent;
+            color: var(--primary);
+            border: 1px solid var(--primary);
+        }
+
+        .btn-outline:hover {
+            background: #eef6ff;
+        }
+
+        /* MAU 网格 */
+        .mau-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+            gap: 12px;
+        }
+
+        .mau-item {
+            display: flex;
+            flex-direction: column;
+            background: #fff;
+            padding: 8px;
+            border-radius: 6px;
+            border: 1px solid var(--border-color);
+        }
+        .mau-item label {
+            font-size: 12px;
+            color: var(--text-second);
+            margin-bottom: 4px;
+        }
+        .mau-item input {
+            border: none;
+            border-bottom: 1px solid #ddd;
+            border-radius: 0;
+            padding: 4px;
+            text-align: center;
+            font-weight: bold;
+            color: var(--primary);
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        /* 计费参数折叠面板 */
+        .collapsible {
+            cursor: pointer;
+            color: var(--primary);
+            font-size: 13px;
+            user-select: none;
+        }
+        .pricing-content {
+            display: none;
+            margin-top: 16px;
+            padding-top: 16px;
+            border-top: 1px dashed var(--border-color);
+        }
+        .pricing-content.active {
+            display: block;
+        }
+
+        /* 结果区域 */
+        .result-box {
+            background: linear-gradient(135deg, #eef6ff 0%, #dcecff 100%);
+            border-radius: 12px;
+            padding: 24px;
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .result-value {
+            font-size: 40px;
+            font-weight: 700;
+            color: var(--primary);
+            margin: 12px 0;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 13px;
+            margin-top: 16px;
+        }
+
+        th, td {
+            padding: 12px 8px;
+            text-align: right;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        th:first-child, td:first-child {
+            text-align: left;
+        }
+
+        th {
+            color: var(--text-second);
+            font-weight: 500;
+            background: #f8f8fa;
+        }
+
+        .pro-normal {
+            background: #fffcf5;
+        }
+
+        .badge {
+            background: var(--warning);
+            color: #fff;
+            font-size: 10px;
+            padding: 2px 6px;
+            border-radius: 4px;
+            margin-left: 4px;
+        }
+        
+        .footer {
+            text-align: center;
+            color: var(--text-second);
+            font-size: 12px;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>初序健康 · 高级 Token 成本核算器</h1>
+
+    <!-- 模块 1：用户行为与调用架构 -->
+    <div class="card">
+        <div class="card-title">1. 业务与技术参数</div>
+        <div class="grid-2">
+            <div class="input-group">
+                <label>单日活用户对话轮数 (次/日)</label>
+                <input type="number" id="dau_rounds" value="20" onchange="calculate()">
+            </div>
+            <div class="input-group">
+                <label>月平均活跃天数 (天/月)</label>
+                <input type="number" id="active_days" value="5" onchange="calculate()">
+            </div>
+            <div class="input-group">
+                <label>平均输入 Token / 轮</label>
+                <input type="number" id="input_token" value="4000" onchange="calculate()">
+            </div>
+            <div class="input-group">
+                <label>平均输出 Token / 轮</label>
+                <input type="number" id="output_token" value="600" onchange="calculate()">
+            </div>
+            <div class="input-group">
+                <label>缓存命中率 (%)</label>
+                <input type="number" id="hit_rate" value="55" onchange="calculate()">
+            </div>
+            <div class="input-group">
+                <label>V4 Flash 流量占比 (%)</label>
+                <input type="number" id="flash_ratio" value="70" oninput="syncProRatio()" onchange="calculate()">
+            </div>
+            <div class="input-group" style="opacity: 0.7">
+                <label>V4 Pro 流量占比 (%) - 自动</label>
+                <input type="number" id="pro_ratio" value="30" readonly style="background: #eee;">
+            </div>
+        </div>
+    </div>
+
+    <!-- 模块 2：API 定价参数 (可折叠) -->
+    <div class="card">
+        <div class="card-title">
+            <span>2. 计费模型 (元/百万 Token)</span>
+            <span class="collapsible" onclick="togglePricing()">[点击展开/折叠修改]</span>
+        </div>
+        <div class="pricing-content" id="pricing_content">
+            <div class="grid-3">
+                <div class="input-group">
+                    <label>Flash 命中单价</label>
+                    <input type="number" id="flash_hit" value="0.02" step="0.01" onchange="calculate()">
+                </div>
+                <div class="input-group">
+                    <label>Flash 未命中单价</label>
+                    <input type="number" id="flash_miss" value="1.0" step="0.1" onchange="calculate()">
+                </div>
+                <div class="input-group">
+                    <label>Flash 输出单价</label>
+                    <input type="number" id="flash_out" value="2.0" step="0.1" onchange="calculate()">
+                </div>
+
+                <div class="input-group" style="margin-top:10px">
+                    <label>Pro优惠 命中单价</label>
+                    <input type="number" id="pro_disc_hit" value="0.025" step="0.005" onchange="calculate()">
+                </div>
+                <div class="input-group" style="margin-top:10px">
+                    <label>Pro优惠 未命中单价</label>
+                    <input type="number" id="pro_disc_miss" value="3.0" step="0.1" onchange="calculate()">
+                </div>
+                <div class="input-group" style="margin-top:10px">
+                    <label>Pro优惠 输出单价</label>
+                    <input type="number" id="pro_disc_out" value="6.0" step="0.1" onchange="calculate()">
+                </div>
+
+                <div class="input-group" style="margin-top:10px">
+                    <label>Pro原价 命中单价</label>
+                    <input type="number" id="pro_norm_hit" value="0.1" step="0.05" onchange="calculate()">
+                </div>
+                <div class="input-group" style="margin-top:10px">
+                    <label>Pro原价 未命中单价</label>
+                    <input type="number" id="pro_norm_miss" value="12.0" step="0.5" onchange="calculate()">
+                </div>
+                <div class="input-group" style="margin-top:10px">
+                    <label>Pro原价 输出单价</label>
+                    <input type="number" id="pro_norm_out" value="24.0" step="1.0" onchange="calculate()">
+                </div>
+                
+                <div class="input-group" style="margin-top:10px">
+                    <label style="color:var(--primary);font-weight:bold;">前 N 个月享受 Pro 优惠</label>
+                    <input type="number" id="discount_months" value="5" onchange="calculate()">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 模块 3：增长模型与 MAU -->
+    <div class="card">
+        <div class="card-title">3. MAU 增长模型设置 (万人)</div>
+        
+        <div class="generator-box">
+            <div class="title">自动推演生成器（基于：当月MAU = 上月留存 + 本月新增）</div>
+            <div style="display:flex; gap:10px; align-items:flex-end; flex-wrap:wrap;">
+                <div class="input-group" style="width: 130px;">
+                    <label>首月/每月新增 (万人)</label>
+                    <input type="number" id="gen_add" value="6.0" step="0.1">
+                </div>
+                <div class="input-group" style="width: 120px;">
+                    <label>月留存率 (%)</label>
+                    <input type="number" id="gen_retention" value="70">
+                </div>
+                <button onclick="autoGenerateMAU()">计算并填充下方网格</button>
+            </div>
+        </div>
+
+        <div style="font-size: 13px; color: var(--text-second); margin-bottom: 10px;">你也可以直接在下方表格里手动修改每个月的 MAU 数据 (万人)：</div>
+        <div class="mau-grid" id="mau_inputs">
+            <!-- JS 生成 1-12 月输入框 -->
+        </div>
+    </div>
+
+    <!-- 结果核算 -->
+    <div class="card">
+        <div class="card-title">4. 成本核算结果</div>
+        <div class="result-box">
+            <div style="color:var(--text-second); font-size: 16px;">年度总运营成本预估 (万元)</div>
+            <div class="result-value" id="annual_cost">0.00</div>
+            <div style="font-size: 13px; color:var(--text-second)" id="cost_summary_text">
+                算法：月成本 = MAU × 每月轮数 × 综合单轮成本
+            </div>
+        </div>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>月份</th>
+                    <th>MAU (万)</th>
+                    <th>总消耗 (万轮)</th>
+                    <th>当月成本 (万)</th>
+                    <th>累计成本 (万)</th>
+                </tr>
+            </thead>
+            <tbody id="detail_table">
+                <!-- JS 生成 -->
+            </tbody>
+        </table>
+    </div>
+
+    <div class="footer">
+        * 计算基于公开大模型 API 价格，采用严格的四舍五入与浮点算法。<br>
+        支持完全自定义参数以适应各种极端场景。
+    </div>
+
+</div>
+
+<script>
+    // 工具函数
+    function getVal(id) {
+        return parseFloat(document.getElementById(id).value) || 0;
+    }
+
+    // 1. 初始化 1-12 月输入框
+    function initMAUInputs() {
+        const defaultMau = [6.0, 10.2, 13.1, 15.2, 16.6, 17.6, 18.3, 18.8, 19.2, 19.4, 19.6, 19.7];
+        let html = '';
+        for(let i = 1; i <= 12; i++) {
+            html += `
+                <div class="mau-item">
+                    <label>第 ${i} 月</label>
+                    <div style="display:flex; align-items:center;">
+                        <input type="number" id="mau_m${i}" value="${defaultMau[i-1]}" step="0.1" onchange="calculate()" style="width:100%; min-width:0;">
+                        <span style="font-size:12px; color:var(--text-second); margin-left:4px;">万</span>
+                    </div>
+                </div>
+            `;
+        }
+        document.getElementById('mau_inputs').innerHTML = html;
+    }
+
+    // 2. 自动推演 MAU 并填充
+    function autoGenerateMAU() {
+        const add = parseFloat(document.getElementById('gen_add').value) || 0;
+        const retention = (parseFloat(document.getElementById('gen_retention').value) || 0) / 100;
+        
+        let currentMau = 0;
+        for(let i = 1; i <= 12; i++) {
+            if (i === 1) {
+                currentMau = add;
+            } else {
+                currentMau = currentMau * retention + add;
+            }
+            // 保留一位小数
+            document.getElementById(`mau_m${i}`).value = currentMau.toFixed(1);
+        }
+        calculate();
+    }
+
+    // 3. 同步 Pro 比例
+    function syncProRatio() {
+        let flash = parseFloat(document.getElementById('flash_ratio').value);
+        if(flash > 100) flash = 100;
+        if(flash < 0) flash = 0;
+        document.getElementById('pro_ratio').value = (100 - flash).toFixed(1);
+    }
+
+    // 4. 折叠/展开计费面板
+    function togglePricing() {
+        const el = document.getElementById('pricing_content');
+        if(el.style.display === 'block') {
+            el.style.display = 'none';
+        } else {
+            el.style.display = 'block';
+        }
+    }
+
+    // 5. 核心计算逻辑
+    function calculate() {
+        // 取业务参数
+        const dauRounds = getVal('dau_rounds');
+        const activeDays = getVal('active_days');
+        const inputToken = getVal('input_token');
+        const outputToken = getVal('output_token');
+        const hitRate = getVal('hit_rate') / 100;
+        const flashRatio = getVal('flash_ratio') / 100;
+        const proRatio = 1 - flashRatio;
+
+        // 月人均对话轮数
+        const monthlyRounds = dauRounds * activeDays;
+
+        // 取计费参数
+        const fHit = getVal('flash_hit'), fMiss = getVal('flash_miss'), fOut = getVal('flash_out');
+        const pdHit = getVal('pro_disc_hit'), pdMiss = getVal('pro_disc_miss'), pdOut = getVal('pro_disc_out');
+        const pnHit = getVal('pro_norm_hit'), pnMiss = getVal('pro_norm_miss'), pnOut = getVal('pro_norm_out');
+        const discountMonths = parseInt(document.getElementById('discount_months').value) || 0;
+
+        // 步骤A: 计算各类单轮成本 (元/轮)
+        // Flash 
+        const flashInputCostPerM = hitRate * fHit + (1 - hitRate) * fMiss;
+        const flashCostPerRound = (flashInputCostPerM * inputToken + fOut * outputToken) / 1000000;
+
+        // Pro 优惠
+        const proDiscInputCostPerM = hitRate * pdHit + (1 - hitRate) * pdMiss;
+        const proDiscCostPerRound = (proDiscInputCostPerM * inputToken + pdOut * outputToken) / 1000000;
+
+        // Pro 原价
+        const proNormInputCostPerM = hitRate * pnHit + (1 - hitRate) * pnMiss;
+        const proNormCostPerRound = (proNormInputCostPerM * inputToken + pnOut * outputToken) / 1000000;
+
+        // 步骤B: 综合单轮成本 (元/轮)
+        const mixedCostDiscount = flashRatio * flashCostPerRound + proRatio * proDiscCostPerRound;
+        const mixedCostNormal = flashRatio * flashCostPerRound + proRatio * proNormCostPerRound;
+
+        // 步骤C: 逐月循环
+        let html = '';
+        let cumulative = 0;
+
+        for (let i = 1; i <= 12; i++) {
+            // 获取当月 MAU
+            const mau = parseFloat(document.getElementById(`mau_m${i}`).value) || 0;
+            // 判断当月是否在优惠期内
+            const isDiscount = i <= discountMonths;
+            const currentMixedCost = isDiscount ? mixedCostDiscount : mixedCostNormal;
+            
+            // 当月总轮数 = MAU(万) * 人均轮数 -> (万轮)
+            const totalRoundsWan = mau * monthlyRounds;
+            
+            // 当月总成本(元) = MAU(万) * 10000 * 人均轮数 * 单轮成本(元)
+            // 换算成万元 -> / 10000
+            // 所以当月成本(万元) = MAU(万) * 人均轮数 * 综合单轮成本
+            const monthlyCostWan = mau * monthlyRounds * currentMixedCost;
+            cumulative += monthlyCostWan;
+
+            let badgeHtml = isDiscount ? '' : '<span class="badge">原价</span>';
+
+            html += `
+                <tr class="${!isDiscount ? 'pro-normal' : ''}">
+                    <td>第 ${i} 月 ${badgeHtml}</td>
+                    <td>${mau.toFixed(1)}</td>
+                    <td>${totalRoundsWan.toFixed(1)}</td>
+                    <td style="color:var(--primary); font-weight:500;">¥${monthlyCostWan.toFixed(2)}</td>
+                    <td>¥${cumulative.toFixed(2)}</td>
+                </tr>
+            `;
+        }
+
+        document.getElementById('detail_table').innerHTML = html;
+        document.getElementById('annual_cost').innerText = cumulative.toFixed(2);
+    }
+
+    // 启动
+    initMAUInputs();
+    calculate();
+</script>
+
+</body>
+</html>
