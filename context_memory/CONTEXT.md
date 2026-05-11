@@ -4,56 +4,52 @@
 - **项目名称**：初序 OPC · AI 健康一人公司
 - **参赛名称**：初序 · AI 健康节律智能体 (Chuxu AI Health Rhythm Agent)
 - **赛事**：第五届琶洲算法大赛 · AI创新应用赛 · "超级龙虾"OPC挑战赛
-- **主办**：海珠区人工智能发展局 + 琶洲街道 + 中科科创
-- **复审日期**：2026年5月7日（三方联审：琶洲街道办 + 琶洲商会 + 中科科创风投）
-- **参赛流程**：① 演示视频 → ② 可访问Demo → ③ 线下路演答辩
-
-## 入选奖励
-- 🏢 OPC社区入驻（最长12个月免租工位）
-- 💻 算力券最高20万元
-- 📊 数据券最高10万元
-- 💰 综合扶持最高500万元
-- 🎓 纳入AI高端人才库
-- 🤝 投融资对接 + 专项贷款
+- **复审结果**：✅ 2026-05-07 终审通过，已进入入驻执行阶段
 
 ## 身份信息
 - **用户名字**：Zoey（CEO，42岁，海珠区本地创业者）
-- **AI 名字**：子默（Zimo），COO/CTO，Claude Opus / Antigravity 平台
+- **AI 名字**：子默（Zimo），COO/CTO，**Claude Opus 4.6 / Antigravity 平台**
 - **AI 名字**：凯撒（Caesar），执行官，Gemini / Antigravity 平台
 - **AI 名字**：知远（Zhiyuan），CRO/首席研究官，Gemini
 - **AI 名字**：明哲（Mingzhe），CMO，ChatGPT
 - **关系**：Zoey是老板/CEO，子默定方向+审结果，凯撒执行落地，知远做调研，明哲写文案
 
-## 技术栈
-- 前端：纯 HTML/CSS/JS（零 Node 依赖），PWA 架构
-- AI 引擎：Coze/扣子平台（已接入微信）
-- 后端：凯撒 ECS（8.215.67.201:8000）
-- 通信：AgentBridge（GitHub 中转异步通信）
-- 部署：GitHub Pages（opc_demo + frontend）
+## 技术栈（v1.4 定稿 · 2026-05-10）
+- **消息通道**：企微·微信客服（kf_account）+ RPA 沉默用户激活（混合架构 v1.3）
+- **Agent 编排层**：**LangGraph**（状态机 + 图结构，管理对话流转、打断恢复、Human-in-the-loop）
+- **Agent 组件层**：**LangChain**（ChatModel / Retriever / Tool 定义 / Document Loader 等底层组件）
+- **LLM 模型**：DeepSeek V4 Flash（全国产、数据不出境）
+- **记忆系统**：Mem0（待 Spike 验证）
+- **知识库**：RAG + pgvector（MemFire Cloud PostgreSQL）
+- **消息网关**：自建 FastAPI（kf 回调 / 路由 / 推送调度）
+- **状态持久化**：LangGraph Checkpointer → MemFire PostgreSQL
+- **通信**：AgentBridge（GitHub 中转异步通信）
+- **前端**：纯 HTML/CSS/JS（零 Node 依赖），PWA 架构
+- **部署**：GitHub Pages（opc_demo + frontend + token_calculator）
+
+> **重要澄清**：LangGraph 与 LangChain 是**分层协作**关系——LangGraph 是编排层，LangChain 是组件层。不是"替代"，而是"升级编排方式"。废弃的是传统 AgentExecutor 线性调度。
 
 ## 关键决策（按时间倒序）
-- [HIGH] 2026-05-04: 确立"三级漏斗Agent矩阵"架构（管家→助教→导购），通过OPC OS共享数据中台实现千人千面自动化
-- [HIGH] 2026-05-04: 岐黄学社真实运营数据已采集完毕（500人客服/月成本200万/日引1万/30%转化/50%复购/客单价2880-10000）
-- [HIGH] 2026-05-04: 商业计划书终版已重写，以"500人→1人"的震撼叙事为核心
-- [HIGH] 2026-05-03: 复审策略定型：C端"初序健康管家"为主，B端"OPC OS"为辅（冰山模型）
-- [HIGH] 2026-05-03: 凯撒完成全部P0/P1前端代码（商城shop.html + 报告升级 + 后台数据换皮），已合并
-- [MED] 2026-05-03: 岐黄学社定位为"行业经验合作方"，路演中不主动暴露其品牌名
-- [HIGH] 2026-04-14: 全员按完整OPC公司操作系统蓝图实施，不只做比赛Demo
-- [HIGH] 2026-04-12: Spike通过，Hybrid链路 Web PWA → FastAPI → Coze Bot 全通
+- [HIGH] 2026-05-10: 引入 LangGraph 作为编排层，废弃传统 AgentExecutor，全面采用状态机架构（v1.4）
+- [HIGH] 2026-05-10: 完成框架选型调研报告 v2、四份核心文档全部通过审核（子默2号 6 轮审核 + 2 轮框架审核）
+- [HIGH] 2026-05-10: 消息架构 v1.3 混合架构定稿（kf_account + RPA），经历 7 次迭代、6 轮审核
+- [HIGH] 2026-05-09: 完成《全链路业务技术对照表》和《技术实现说明书》
+- [HIGH] 2026-05-08: 确定企微·微信客服（kf_account）为主通道，SCRM 方案已废弃
+- [HIGH] 2026-05-07: OPC 琶洲超级龙虾终审正式通过
+- [HIGH] 2026-05-04: 确立"三级漏斗Agent矩阵"架构（管家→助教→导购）
+- [MED] 2026-05-04: 岐黄学社真实运营数据已采集（500人/200万/日引1万/30%转化/50%复购）
 
 ## 编码规范（最多 8 条）
-- [HIGH] **Agent Bridge 铁律：所有跨 Agent 的文件传递必须 git add + commit + push 到 AgentBridge 仓库。绝对不能只做本地复制——各 Agent 在不同物理机器上，只有 Git 仓库是共享的。**
-- [HIGH] 纯前端，零Node依赖（HTML/CSS/JS + PWA）
+- [HIGH] **Agent Bridge 铁律：所有跨 Agent 的文件传递必须 git add + commit + push 到 AgentBridge 仓库。绝对不能只做本地复制——各 Agent 在不同物理机器上，只有 Git 仓库是共享的。消息中严禁发送本地绝对路径（C/D/E盘），必须使用 Git 相对路径。**
 - [HIGH] docs/ 被 .gitignore 忽略，需 git add -f 强制推送
 - [HIGH] 跨Agent通信走AgentBridge，文件放 shared/ 目录并 git push
-- [MED] 中文文件名在PowerShell中需用分号分隔命令，不能用 &&
+- [HIGH] PowerShell 中命令用分号(;)分隔，不能用 &&
 - [MED] Python 用类型提示 + Black 格式化
 
 ## 🔴 跨Agent通信频道
-- `opc-lobster` — **本项目专用频道**
-- 消息最新序号：064（凯撒完成后台换皮代码交付）
+- `agent-bridge-dev` — **当前活跃频道**
 - 通信铁律：所有跨Agent消息不超过5行
-- 文件共享：放 AgentBridge/shared/ 目录
+- 文件共享：放 AgentBridge/shared/ 目录，**必须 git push 后再通知对方**
 
 ## 🔴 合规红线
 1. **不冒充医生** — 所有健康建议附免责声明，不做诊断
@@ -64,24 +60,31 @@
 ## 项目结构
 - `frontend/` — C端初序健康管家（index.html + shop.html + report-preview.html）
 - `opc_demo/` — B端OPC运营后台（已换皮为"初序私域管理后台"）
-- `prototype/` — CEO操作手册等原型页面
 - `docs/` — 所有方案文档（被.gitignore忽略，需-f强制推）
 - `context_memory/` — 项目记忆系统
+- `token_calculator.html` — Token 成本计算器（已部署至 GitHub Pages）
 
-## 🔴 当前项目状态（2026-05-04 更新）
+## 核心文档索引（v1.4 定稿）
+| 文档 | 路径 | 状态 |
+|------|------|------|
+| 客服智能体落地方案 v2.0 | `docs/初序健康_客服智能体落地方案_20260508.md` | 🟢 审核通过 |
+| 全链路业务技术对照表 | `docs/初序健康_全链路业务技术对照表_20260509.md` | 🟢 审核通过 |
+| 技术实现说明书 | `docs/初序健康_技术实现说明书_20260509.md` | 🟢 审核通过 |
+| 消息架构决策演进全记录 | `docs/初序健康_消息架构决策演进全记录_20260510.md` | 🟢 审核通过 |
+| Agent框架选型调研报告 v2 | `docs/Agent底层框架选型调研报告_20260510.md` | 🟡 v2 已修订，待第三轮审核 |
 
-### 5/7复审准备进度
-- ✅ 岐黄学社真实运营数据已采集（500人/200万/日引1万/30%转化/50%复购）
-- ✅ 后台仪表盘数据已用真实数据更新（mock-data.js）
-- ✅ 个性化健康商城（shop.html）已完成
-- ✅ 健康报告升级（雷达图+饮食红绿灯）已完成
-- ✅ OPC后台数据换皮已完成
-- ✅ 商业计划书终版已重写（docs/初序健康_商业计划书_终版_20260504.md）
-- ⏳ 路演话术排练（待定）
-- ⏳ 财务细节待Zoey确认（AI Token月费/服务器月费/个人投入）
+## 🔴 当前项目阶段（2026-05-11 更新）
+- 比赛阶段：✅ 终审已通过，进入入驻执行阶段
+- 技术阶段：文档定稿完成，即将进入 **Phase 0 编码实战**
+- 下一步：
+  1. LangGraph 编码实战：基于状态图编写核心对话流
+  2. FastAPI 网关对接：将 Agent 逻辑与 kf 回调网关对接
+  3. Mem0 Spike 验证：Docker 部署 + 20 条对话测试
+  4. RPA 联调：监控 rpa_queue 执行成功率
 
-### 三级Agent矩阵架构
-1. **AI健康管家**（微信私聊）：承接直播粉丝→体质测评→打标签→分流入群
-2. **AI社群助教**（微信群）：早安打卡/节气食谱/健康科普/自动回答
-3. **AI商城导购**（H5商城）：基于体质推荐产品/解答疑虑/售后关怀
-- 三者共享OPC OS数据中台，实现千人千面自动化
+## 子默（Zimo）身份备忘
+- **底层模型**：Claude Opus 4.6（Thinking）
+- **平台**：Google Antigravity（Gemini IDE 中的第三方模型接入）
+- **角色定位**：COO/CTO，负责项目方向决策、文档审核、架构设计、跨 Agent 协调
+- **沟通风格**：中文为主，技术文档中英混用，简洁直接
+- **记忆机制**：依赖 context_memory/ 目录持久化项目记忆，每次新对话启动时自动读取
