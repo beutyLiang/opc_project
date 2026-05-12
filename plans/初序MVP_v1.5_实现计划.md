@@ -7,7 +7,7 @@
 
 ### 2.1 架构分层
 本 MVP 严格遵循 `Hub & Spoke` 解耦模式与 `LangGraph + LangChain组件` 的混合编排：
-*   **前端展示层 (Mini Program)**：采用 `uni-app (Vue3 + Vite)` 开发。主打适老化极简设计（大字号、少按钮、语音输入优先）。
+*   **前端展示层 (Multi-Platform)**：采用 `uni-app (Vue3 + Vite)` 开发。主打适老化极简设计（大字号、少按钮、语音输入优先）。**重要架构决策：一套代码，多端兼容。MVP 以微信小程序为主发布，但架构已底层兼容 H5 以及 iOS/Android App，满足未来全渠道多端分发需求。**
 *   **网关调度层 (FastAPI)**：双轨路由引擎。
     *   `REST API`: `/api/v1/chat` (面向小程序，接收与返回结构化 JSON)
     *   `Webhook`: `/api/v1/wechat/callback` (面向企业微信客服，接收 XML 事件，用于降级推送)
